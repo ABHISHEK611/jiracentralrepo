@@ -1,0 +1,25 @@
+modules:
+  jira:projectPage:
+    - key: my-issue-loader-hello-world-project-page
+      resource: main
+      resolver:
+        function: resolver
+      title: My Issue Loader
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/project-panel/build
+app:
+  id: ari:cloud:ecosystem::app/f6710924-7186-4a44-b0dd-19488b3dbb22
+permissions:
+  scopes:
+    - read:application-role:jira
+    - read:group:jira
+    - read:user:jira
+    - read:issue-details:jira
+    - read:audit-log:jira
+    - read:avatar:jira
+    - read:field-configuration:jira
+    - read:issue-meta:jira
