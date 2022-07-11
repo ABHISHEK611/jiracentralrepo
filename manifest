@@ -40,3 +40,18 @@ export const run = render(
     <App/>
   </GlobalPage>
 );
+
+
+
+
+  trigger:
+    - key: issue-creation-trigger
+      events:
+        - avi:jira:created:issue
+        - avi:jira:updated:issue
+      function: issue-trigger-func
+  function:
+    - key: main
+      handler: index.run
+    - key: issue-trigger-func
+      handler: jira.issueCreationTrigger
