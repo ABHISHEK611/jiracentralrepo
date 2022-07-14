@@ -1,0 +1,22 @@
+modules:
+  jira:globalPage:
+    - key: storage-app-test
+      function: main
+      title: Storage-app-test
+  trigger:
+    - key: issue-creation-trigger
+      events:
+        - avi:jira:created:issue
+        - avi:jira:updated:issue
+      function: issue-trigger-func
+  function:
+    - key: main
+      handler: index.run
+    - key: issue-trigger-func
+      handler: jira.issueCreationTrigger
+permissions:
+  scopes:
+    - 'read:jira-work'
+    - 'write:jira-work'
+app:
+  id: ari:cloud:ecosystem::app/19d67898-d88e-48eb-aff5-a0f601726c68
