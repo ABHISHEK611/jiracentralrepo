@@ -1,8 +1,8 @@
 import ForgeUI, { render, Text, Fragment, GlobalPage, useState,Table,Head,Cell,Row} from '@forge/ui';
-import { fetch } from '@forge/api';
+import api, { fetch, route } from '@forge/api';
 
 const fetchStoryPoint = async() =>{
-  const res = await api.asUser().requestJira(route`/rest/api/3/search?jql=assignee=currentuser()');
+  const res = await api.asUser().requestJira(route`/rest/api/3/search?jql=assignee=currentuser()`);
   const data = await res.json();
 	
 	var storyScores = [];

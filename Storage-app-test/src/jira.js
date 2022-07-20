@@ -8,25 +8,30 @@ export async function storyPointCreation(event, context) {
         return false;
     }
     let storyPoint = event.changelog.items.filter(e => e.field === 'Story Points')[0].toString;
-    console.log("event: " + JSON.stringify(event));
-    let body = {
+    console.log("event= " + JSON.stringify(event));
+    let body = `
+	{
+	"issues":[
+		{
 		"issueID": event.issue.id,
 		"properties": {
         "myProperty": {
 			"storyPoint": parseInt(storyPoint)
         }
       }
-    }
-    console.log(body);
-    const response = await api.asUser().requestJira(route`/rest/api/3/issue/properties/multi`, {
-        method: 'PUT',
+    }]}`;
+    console.log("Body created by the edit issue command is= " + JSON.stringify(body));
+    const response = await api.asApp().requestJira(route`/rest/api/3/issue/properties/multi`, {
+        method: 'POST',
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
+	//body: body
+       body: JSON.stringify(body)
     });
     const data = await response.json();
     console.log(data);
+    console.log(`Response: ${response.status} ${response.statusText}`);
+    console.log(await response.text());
     return true;
 }
