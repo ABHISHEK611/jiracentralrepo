@@ -12,6 +12,7 @@ export async function storyPointCreation(event, context) {
     let newbody = `
 	{
 	"issues":[
+<<<<<<< HEAD
 	{
 		"issueID": ${event.issue.id},
 		"properties": {
@@ -21,6 +22,20 @@ export async function storyPointCreation(event, context) {
      	}
     	}]}`;
     console.log("Body created by the edit issue command is= " + JSON.stringify(newbody));
+=======
+		{
+		"issueID": ${event.issue.id},
+		"properties": {
+			"myProperty": {
+				"storyPoint": ${parseInt(storyPoint)}
+        }
+      }
+    }
+	]
+	}`;
+	console.log("test")
+    console.log("Body created by the edit issue command is= " + JSON.stringify(body));
+>>>>>>> ddbdea51e37ef00ed0d58a81129331e1bd35db40
     const response = await api.asApp().requestJira(route`/rest/api/3/issue/properties/multi`, {
         method: 'POST',
         headers: {
