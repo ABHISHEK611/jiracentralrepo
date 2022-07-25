@@ -13,10 +13,10 @@ export async function storyPointCreation(event, context) {
 	{
 	"issues":[
 	{
-		"issueID": event.issue.id,
+		"issueID": ${event.issue.id},
 		"properties": {
        		   "myProperty": {
-			"storyPoint": storyPoint
+			"storyPoint": ${storyPoint}
        		 }
      	}
     	}]}`;
