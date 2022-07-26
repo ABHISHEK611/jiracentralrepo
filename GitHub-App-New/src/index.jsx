@@ -4,8 +4,7 @@ import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text } from 
 const App = () => {
   const {
     platformContext: { issueKey }
-  } = useProductContext()
-;
+  } = useProductContext();
 
 const App1 = () => {
   return (
@@ -19,4 +18,4 @@ export const run = render(
   <IssueGlance>
     <App />
   </IssueGlance>
-)
+);
