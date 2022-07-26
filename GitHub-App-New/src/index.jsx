@@ -4,16 +4,16 @@ import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text } from 
 const App = () => {
   const {
     platformContext: { issueKey }
-  } = useProductContext();
-console.log({issueKey});
+  } = useProductContext()
+};
 
 const App1 = () => {
   return (
     <Fragment>
-      <Text>Hello</Text>
+      <Text>Hello {issueKey}</Text>
     </Fragment>
   );
-}};
+};
 
 export const run = render(
   <IssueGlance>
