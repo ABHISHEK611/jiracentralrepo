@@ -5,7 +5,7 @@ const App = () => {
   const {
     platformContext: { issueKey }
   } = useProductContext()
-};
+;
 
 const App1 = () => {
   return (
@@ -13,7 +13,7 @@ const App1 = () => {
       <Text>Hello {issueKey}</Text>
     </Fragment>
   );
-};
+}};
 
 export const run = render(
   <IssueGlance>
