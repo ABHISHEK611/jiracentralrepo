@@ -12,7 +12,7 @@ const App1 = () => {
       <Text>Hello {issueKey}</Text>
     </Fragment>
   );
-};
+}
 
 export const run = render(
   <IssueGlance>
