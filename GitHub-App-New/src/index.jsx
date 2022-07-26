@@ -5,11 +5,12 @@ const App = () => {
   const {
     platformContext: { issueKey }
   } = useProductContext();
+console.log({issueKey});
 
 const App1 = () => {
   return (
     <Fragment>
-      <Text>Hello {issueKey}</Text>
+      <Text>Hello</Text>
     </Fragment>
   );
 }};
