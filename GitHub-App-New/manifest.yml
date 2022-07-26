@@ -4,7 +4,7 @@ modules:
       function: main
       title: GitHub-App-New
       description: A hello world issue glance.
-      label: Hello World!
+      label: Click here!!
   function:
     - key: main
       handler: index.run
