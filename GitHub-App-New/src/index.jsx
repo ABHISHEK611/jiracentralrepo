@@ -18,11 +18,11 @@ export const run = render(
 
 const gitIssueKey =() =>
 {
-  const {platformContext:{issueKey}} = useProductContext();
-  console.log("IssueKey: "+issueKey);
+  const {platformContext:{projectKey}} = useProductContext();
+  console.log("Project Key: "+projectKey);
   return (
     <Fragment>
-      <Text>Issue Key:{issueKey}</Text>
+      <Text>Issue Key:{projectKey}</Text>
     </Fragment>
   )
 }
