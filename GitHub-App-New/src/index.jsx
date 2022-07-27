@@ -1,20 +1,33 @@
-import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text } from '@forge/ui';
-
+import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text, ProjectPage } from '@forge/ui';
 
 const App = () => {
-  const {
-    platformContext: { issueKey }
-  } = useProductContext();
-const App1 = () => {
   return (
     <Fragment>
-      <Text>Hello ${issueKey}</Text>
+      <Text>Hello World!</Text>
     </Fragment>
   );
-}};
+};
 
 export const run = render(
   <IssueGlance>
     <App />
   </IssueGlance>
+);
+
+/*--------------------------------------------------------------------------*/
+
+const gitIssueKey =() =>
+{
+  const {platformContext:{issueKey}} = useProductContext();
+  console.log("IssueKey: "+issueKey);
+  return (
+    <Fragment>
+      <Text>Issue Key:{issueKey}</Text>
+    </Fragment>
+  )
+}
+export const gitProjectPage = render(
+  <ProjectPage>
+    <gitIssueKey/>
+  </ProjectPage>
 );
