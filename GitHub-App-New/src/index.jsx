@@ -1,9 +1,11 @@
 import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text, ProjectPage } from '@forge/ui';
 
 const App = () => {
+  const {platformContext: {issueKey}} = useProductContext();
+  console.log("Issue Key: "+issueKey);
   return (
     <Fragment>
-      <Text>Hello World!</Text>
+      <Text>Issue Key: {issueKey}</Text>
     </Fragment>
   );
 };
@@ -20,9 +22,9 @@ const App2 = () =>
   console.log("Project Key: "+projectKey);
   return (
     <Fragment>
-      <Text>Project Key:{projectKey}</Text>
+      <Text>Project Key: {projectKey}</Text>
     </Fragment>
-  )
+  );
 };
 
 export const run2 = render(
