@@ -14,7 +14,7 @@ export const run = render(
   </IssueGlance>
 );
 
-const run2 = () =>
+const App2 = () =>
 {
   const {platformContext: {projectKey}} = useProductContext();
   console.log("Project Key: "+projectKey);
@@ -25,8 +25,8 @@ const run2 = () =>
   )
 };
 
-export const gitProjectPage = render(
+export const run2 = render(
   <ProjectPage>
-    <run2 />
+    <App2 />
   </ProjectPage>
 );
