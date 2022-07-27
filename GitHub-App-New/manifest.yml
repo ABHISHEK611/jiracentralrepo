@@ -13,6 +13,6 @@ modules:
     - key: main
       handler: index.run
     - key: github-project-func
-      handler: index.gitProjectPage
+      handler: index.run2
 app:
   id: ari:cloud:ecosystem::app/cdd853ad-3d5f-4275-87fe-7daa25de18c5

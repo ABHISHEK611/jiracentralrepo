@@ -14,20 +14,19 @@ export const run = render(
   </IssueGlance>
 );
 
-/*--------------------------------------------------------------------------*/
-
-const gitIssueKey =() =>
+const run2 = () =>
 {
-  const {platformContext:{projectKey}} = useProductContext();
+  const {platformContext: {projectKey}} = useProductContext();
   console.log("Project Key: "+projectKey);
   return (
     <Fragment>
-      <Text>Issue Key:{projectKey}</Text>
+      <Text>Project Key:{projectKey}</Text>
     </Fragment>
   )
-}
+};
+
 export const gitProjectPage = render(
   <ProjectPage>
-    <gitIssueKey/>
+    <run2 />
   </ProjectPage>
 );
