@@ -16,3 +16,9 @@ modules:
       handler: index2.run2
 app:
   id: ari:cloud:ecosystem::app/cdd853ad-3d5f-4275-87fe-7daa25de18c5
+permissions:
+  scopes: []
+  external:
+    fetch:
+      backend:
+        - api.github.com
