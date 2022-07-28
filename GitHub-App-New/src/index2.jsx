@@ -18,7 +18,7 @@ const App2 = () =>
           return response.json()
         }
         
-        return {
+    return {
           status: response.status,
           statusText: response.statusText,
           text: await response.text(),
