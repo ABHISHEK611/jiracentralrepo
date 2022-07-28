@@ -1,4 +1,4 @@
-import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text, ProjectPage } from '@forge/ui';
+import ForgeUI, { render, IssueGlance, useProductContext, Fragment, Text } from '@forge/ui';
 
 const App = () => {
   const {platformContext: {issueKey}} = useProductContext();
