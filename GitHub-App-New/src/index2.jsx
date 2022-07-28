@@ -28,6 +28,7 @@ const App2 = () =>
     return (
         <Fragment>
           <Text>Welcome {data.login}</Text>
+          <RepoList user={data.login}></RepoList>
         </Fragment>
       );
 };
