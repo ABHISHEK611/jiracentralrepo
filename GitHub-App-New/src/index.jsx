@@ -15,20 +15,3 @@ export const run = render(
     <App />
   </IssueGlance>
 );
-
-const App2 = () =>
-{
-  const {platformContext: {projectKey}} = useProductContext();
-  console.log("Project Key: "+projectKey);
-  return (
-    <Fragment>
-      <Text>Project Key: {projectKey}</Text>
-    </Fragment>
-  );
-};
-
-export const run2 = render(
-  <ProjectPage>
-    <App2 />
-  </ProjectPage>
-);

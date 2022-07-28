@@ -5,7 +5,7 @@ modules:
       title: GitHub-App-New
       description: A hello world issue glance.
       label: Click here!!
-  jira:projectPage:
+  jira:adminPage:
     - key: github-app-new-proj-page
       title: GitHub Connection
       function: github-project-func
@@ -13,6 +13,6 @@ modules:
     - key: main
       handler: index.run
     - key: github-project-func
-      handler: index.run2
+      handler: index2.run2
 app:
   id: ari:cloud:ecosystem::app/cdd853ad-3d5f-4275-87fe-7daa25de18c5
