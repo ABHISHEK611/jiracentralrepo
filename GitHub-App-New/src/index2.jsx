@@ -1,20 +1,33 @@
-import ForgeUI, { render, Fragment, Text, AdminPage, Button, ModalDialog, useState, useEffect } from '@forge/ui';
+import ForgeUI, { render, Fragment, Text, AdminPage, Button, useState, Form, useEffect, Image } from '@forge/ui';
 
 const App2 = () =>
 {
-    const [isOpen, setOpen] = useState(false);
+
+    const [avatarUrl, setAvatarUrl] = useState(undefined);
+
+    useEffect(() => {
+        fetch("https://api.github.com/users/ABHISHEK611")
+        .then((res) => res.json())
+        .then(
+            (result) => {
+                console.log(result);
+                setAvatarUrl(result.avatar_url);
+            },
+            (error) => {
+                console.log(error);
+            }
+            );
+    },[]);
 
     return (
         <Fragment>
-        <Text>Welcome to Github Integration</Text>
-        <Button text="Connect GitHub Organization" onClick={() => setOpen(true)} />
-            {isOpen && (
-                <ModalDialog header="My modal dialog" onClose={() => setOpen(false)}>
-                <Text>Hello there!</Text>
-                </ModalDialog>
-            )}  
+          <TextField>Welcome to GitHub Integration</TextField>
+          <Image
+            src={avatarUrl}
+            alt="ImageOfGitHubAccount"
+          />
         </Fragment>
-    );
+      );
 };
 
 export const run2 = render(
