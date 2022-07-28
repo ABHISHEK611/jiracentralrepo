@@ -14,11 +14,46 @@ modules:
       handler: index.run
     - key: github-project-func
       handler: index2.run2
+      providers:
+       auth:
+        - github
 app:
   id: ari:cloud:ecosystem::app/cdd853ad-3d5f-4275-87fe-7daa25de18c5
+  providers:
+  auth:
+    - key: github
+      name: github
+      scopes:
+        - 'user'
+        - 'repo'
+      type: oauth2
+      clientId: 604927350313b146e2f9
+      bearerMethod: authorization-header
+      remotes:
+        - github-apis
+      actions:
+        authorization:
+          remote: github-auth
+          path: /login/oauth/authorize
+        exchange:
+          remote: github-auth
+          path: /login/oauth/access_token
+        retrieveProfile:
+          remote: github-apis
+          path: /user
+          resolvers:
+            id: id
+            displayName: login
+            avatarUrl: avatar_url
+remotes:
+  - key: github-auth
+    baseUrl: https://github.com
+  - key: github-apis
+    baseUrl: https://api.github.com/
 permissions:
   scopes: []
   external:
     fetch:
       backend:
-        - api.github.com
+        - 'https://github.com'
+        - 'https://api.github.com/'
