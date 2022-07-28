@@ -1,4 +1,4 @@
-import ForgeUI, { render, Fragment, Text, AdminPage, Button, useState, Form, useEffect, Image } from '@forge/ui';
+import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image } from '@forge/ui';
 
 const App2 = () =>
 {
@@ -21,7 +21,7 @@ const App2 = () =>
 
     return (
         <Fragment>
-          <TextField>Welcome to GitHub Integration</TextField>
+          <Text>Welcome to GitHub Integration</Text>
           <Image
             src={avatarUrl}
             alt="ImageOfGitHubAccount"
