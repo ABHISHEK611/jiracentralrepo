@@ -7,7 +7,7 @@ const App2 = () =>
     return (
         <Fragment>
         <Text>Welcome to Github Integration</Text>
-        <Button text="Show modal" onClick={() => setOpen(true)} />
+        <Button text="Connect GitHub Organization" onClick={() => setOpen(true)} />
             {isOpen && (
                 <ModalDialog header="My modal dialog" onClose={() => setOpen(false)}>
                 <Text>Hello there!</Text>
