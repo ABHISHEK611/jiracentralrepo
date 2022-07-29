@@ -1,6 +1,5 @@
 import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image } from '@forge/ui';
 import { fetch } from '@forge/api';
-import { RepoList } from './repo';
 
 const App2 = () =>
 {
@@ -29,7 +28,6 @@ const App2 = () =>
     return (
         <Fragment>
           <Text>Welcome {data.login}</Text>
-          <RepoList user={data.login}></RepoList>
         </Fragment>
       );
 };
