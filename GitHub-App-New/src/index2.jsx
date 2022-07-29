@@ -38,14 +38,10 @@ const App2 = () =>
             </Head>
             <Row>
               <Cell>
-                <Text>Welcome {data.login}</Text>
-                <Image
-                    src={data.avatar_url}
-                    alt="img not available"
-                  />
+                <Text>{data.login}</Text>
               </Cell>
               <Cell>
-                <Text>repo</Text>
+                <Text>Link Repo</Text>
               </Cell>
             </Row>
           </Table>
