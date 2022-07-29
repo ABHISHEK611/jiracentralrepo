@@ -27,7 +27,28 @@ const App2 = () =>
 
     return (
         <Fragment>
-          <Text>Welcome {data.login}</Text>
+          <Table>
+            <Head>
+              <Cell>
+                <Text>User</Text>
+              </Cell>
+              <Cell>
+                <Text>Repositories</Text>
+               </Cell>
+            </Head>
+            <Row>
+              <Cell>
+                <Text>Welcome {data.login}</Text>
+                <Image
+                    src={data.avatar_url}
+                    alt="img not available"
+                  />
+              </Cell>
+              <Cell>
+                <Text>repo</Text>
+              </Cell>
+            </Row>
+          </Table>
         </Fragment>
       );
 };
