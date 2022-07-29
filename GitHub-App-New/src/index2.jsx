@@ -1,4 +1,4 @@
-import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image } from '@forge/ui';
+import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image, Table, Row, Cell, Head } from '@forge/ui';
 import { fetch } from '@forge/api';
 
 const App2 = () =>
