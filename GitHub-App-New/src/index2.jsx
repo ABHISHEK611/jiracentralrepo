@@ -1,4 +1,4 @@
-import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image, Table, Row, Cell, Head } from '@forge/ui';
+import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image, Table, Row, Cell, Head, ModalDialog, Button } from '@forge/ui';
 import { fetch } from '@forge/api';
 
 const App2 = () =>
@@ -25,6 +25,8 @@ const App2 = () =>
       })
       console.log("run index");
 
+      const [isOpen, setOpen] = useState(false);
+      
     return (
         <Fragment>
           <Table>
@@ -41,7 +43,12 @@ const App2 = () =>
                 <Text>{data.login}</Text>
               </Cell>
               <Cell>
-                <Text>Link Repo</Text>
+              <Button text="Link Repo" onClick={() => setOpen(true)} />
+                {isOpen && (
+                  <ModalDialog header="Select Repository" onClose={() => setOpen(false)}>
+                    <Text>Hello there!</Text>
+                  </ModalDialog>
+                )}
               </Cell>
             </Row>
           </Table>
