@@ -50,12 +50,12 @@ const App2 = () =>
               <Button text="Link Repo" onClick={() => setOpen(true)} />
                 {isOpen && (
                   <ModalDialog header="Repository list" onClose={() => setOpen(false)}>
-                    <RepoList user={data.login}></RepoList>
+                    <RepoList selecteduser={data.login}></RepoList>
                   </ModalDialog>
                 )}
               </Cell>
               <Cell>
-                <Text>repository.value</Text>
+                <Details>{repository.value}</Details>
               </Cell>
             </Row>
           </Table>

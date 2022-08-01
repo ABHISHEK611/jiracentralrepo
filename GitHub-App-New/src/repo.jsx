@@ -8,7 +8,7 @@ console.log("inside repo");
 
     const [repositories] = useState(async () => {
         const github = api.asUser().withProvider('github', 'github-apis')
-        const response = await github.fetch(`/users/${profile.user}/repos`);
+        const response = await github.fetch(`/users/${profile.selecteduser}/repos`);
         if (response.ok) {
             return response.json()
         }
@@ -28,13 +28,13 @@ console.log("inside repo");
     return (<Fragment>
 
         <Form onSubmit={onSubmit}>
-            <Select isRequired label="Select a repository" name="repository">
+            <Select isRequired label="Select a repository" name="selectedreponame">
                 {repositories.map(repo =>
                     (<Option label={repo.name} value={repo.name} />)
                 )}
             </Select>
         </Form>
-        {isOpen && (<Details open={setOpen} repository={formState.repository}></Details>
+        {isOpen && (<Details open={setOpen} selectedreponame={formState.repository}></Details>
         )}
 
     </Fragment>)
