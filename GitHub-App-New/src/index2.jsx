@@ -38,9 +38,6 @@ const App2 = () =>
               <Cell>
                 <Text>Repositories</Text>
                </Cell>
-               <Cell>
-                <Text>Selected Repository</Text>
-               </Cell>
             </Head>
             <Row>
               <Cell>
@@ -50,7 +47,7 @@ const App2 = () =>
               <Button text="Link Repo" onClick={() => setOpen(true)} />
                 {isOpen && (
                   <ModalDialog header="Repository list" onClose={() => setOpen(false)}>
-                    <RepoList selecteduser={data.login}></RepoList>
+                    <RepoList user={data.login}></RepoList>
                   </ModalDialog>
                 )}
               </Cell>

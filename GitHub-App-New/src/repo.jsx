@@ -1,14 +1,14 @@
 import ForgeUI, { Code, Fragment, Text, Link, Heading, ModalDialog, Table, Row, Cell, Head, useState, Button, Select, Option, Form } from "@forge/ui";
 import api from '@forge/api';
 
-export const RepoList = (profile) => {
+export const RepoList = (props) => {
     const [isOpen, setOpen] = useState(false);
     const [formState, setFormState] = useState(undefined);
 console.log("inside repo");
 
     const [repositories] = useState(async () => {
         const github = api.asUser().withProvider('github', 'github-apis')
-        const response = await github.fetch(`/users/${profile.selecteduser}/repos`);
+        const response = await github.fetch(`/users/${props.user}/repos`);
         if (response.ok) {
             return response.json()
         }
@@ -34,8 +34,7 @@ console.log("inside repo");
                 )}
             </Select>
         </Form>
-        {isOpen && (<index2 open={setOpen} repo={formState.repository}></index2>
-        )}
-
+        {isOpen && <Text> {formState.repository} </Text>}
+        
     </Fragment>)
 };
