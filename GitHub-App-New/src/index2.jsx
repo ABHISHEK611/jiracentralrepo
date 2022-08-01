@@ -38,6 +38,9 @@ const App2 = () =>
               <Cell>
                 <Text>Repositories</Text>
                </Cell>
+               <Cell>
+                <Text>Selected Repository</Text>
+               </Cell>
             </Head>
             <Row>
               <Cell>
@@ -51,6 +54,9 @@ const App2 = () =>
                   </ModalDialog>
                 )}
               </Cell>
+              <Cell>
+                <Text>{this.setFormState}</Text>
+               </Cell>
             </Row>
           </Table>
         </Fragment>
