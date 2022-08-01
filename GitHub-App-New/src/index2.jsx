@@ -1,5 +1,6 @@
 import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image, Table, Row, Cell, Head, ModalDialog, Button } from '@forge/ui';
 import { fetch } from '@forge/api';
+import { RepoList } from './repo';
 
 const App2 = () =>
 {
