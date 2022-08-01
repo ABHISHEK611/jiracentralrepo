@@ -34,7 +34,7 @@ console.log("inside repo");
                 )}
             </Select>
         </Form>
-        {isOpen && <Text> {formState.repository} </Text>}
-        
+        {isOpen && <App2 selectedRepo={formState.repository}></App2>}
+
     </Fragment>)
 };
