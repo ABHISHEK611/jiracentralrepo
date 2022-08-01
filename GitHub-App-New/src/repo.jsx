@@ -28,13 +28,13 @@ console.log("inside repo");
     return (<Fragment>
 
         <Form onSubmit={onSubmit}>
-            <Select isRequired label="Select a repository" name="selectedreponame">
+            <Select isRequired label="Select a repository" name="repository">
                 {repositories.map(repo =>
                     (<Option label={repo.name} value={repo.name} />)
                 )}
             </Select>
         </Form>
-        {isOpen && (<Display open={setOpen} repo={formState.selectedreponame}></Display>
+        {isOpen && (<index2 open={setOpen} repo={formState.repository}></index2>
         )}
 
     </Fragment>)

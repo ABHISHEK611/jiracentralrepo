@@ -55,7 +55,7 @@ const App2 = () =>
                 )}
               </Cell>
               <Cell>
-                <Text>{selectedreponame.value}</Text>
+                <Text>{repository.value}</Text>
               </Cell>
             </Row>
           </Table>
