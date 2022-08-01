@@ -54,9 +54,6 @@ const App2 = () =>
                   </ModalDialog>
                 )}
               </Cell>
-              <Cell>
-                <Text>{repository.value}</Text>
-              </Cell>
             </Row>
           </Table>
         </Fragment>
