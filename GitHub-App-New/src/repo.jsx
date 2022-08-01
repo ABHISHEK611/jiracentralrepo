@@ -4,6 +4,7 @@ import api from '@forge/api';
 export const RepoList = (profile) => {
     const [isOpen, setOpen] = useState(false);
     const [formState, setFormState] = useState(undefined);
+console.log("inside repo");
 
     const [repositories] = useState(async () => {
         const github = api.asUser().withProvider('github', 'github-apis')
@@ -18,7 +19,7 @@ export const RepoList = (profile) => {
             text: await response.text(),
         }
     })
-
+    console.log("inside repo2");
     const onSubmit = async (formData) => {
         setFormState(formData);
         setOpen(true)
@@ -26,9 +27,6 @@ export const RepoList = (profile) => {
 
     return (<Fragment>
 
-        <Text>
-            Repository {props.user}
-        </Text>
         <Form onSubmit={onSubmit}>
             <Select isRequired label="Choose the repository" name="repository">
                 {repositories.map(repo =>

@@ -47,7 +47,7 @@ const App2 = () =>
               <Button text="Link Repo" onClick={() => setOpen(true)} />
                 {isOpen && (
                   <ModalDialog header="Select Repository" onClose={() => setOpen(false)}>
-                    <Text>Hello there!</Text>
+                    <RepoList user={data.login}></RepoList>
                   </ModalDialog>
                 )}
               </Cell>
