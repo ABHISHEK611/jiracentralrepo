@@ -2,7 +2,7 @@ import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image,
 import { fetch } from '@forge/api';
 import { RepoList } from './repo';
 
-const App2 = (props) =>
+export const App2 = (props) =>
 {
     console.log("inside app2");
     const [data] = useState(async () => {
@@ -55,7 +55,7 @@ const App2 = (props) =>
                 )}
               </Cell>
               <Cell>
-                <Text>${props.selectedRepo}</Text>
+                <Text>{props.selectedRepo}</Text>
                </Cell>
             </Row>
           </Table>
