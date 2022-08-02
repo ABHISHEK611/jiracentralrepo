@@ -1,5 +1,6 @@
 import ForgeUI, { Code, Fragment, Text, Link, Heading, ModalDialog, Table, Row, Cell, Head, useState, Button, Select, Option, Form } from "@forge/ui";
 import api from '@forge/api';
+import { App2 } from './index2';
 
 export const RepoList = (props) => {
     const [isOpen, setOpen] = useState(false);
@@ -34,7 +35,8 @@ console.log("inside repo");
                 )}
             </Select>
         </Form>
-        {isOpen && <App2 selectedRepo={formState.repository}></App2>}
+        {isOpen && (<App2 open={setOpen} selectedRepo={formState.repository}></App2>
+        )}
 
     </Fragment>)
 };

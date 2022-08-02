@@ -55,7 +55,7 @@ const App2 = (props) =>
                 )}
               </Cell>
               <Cell>
-                <Text>{props.selectedRepo}</Text>
+                <Text>${props.selectedRepo}</Text>
                </Cell>
             </Row>
           </Table>
