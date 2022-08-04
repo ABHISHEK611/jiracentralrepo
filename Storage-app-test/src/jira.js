@@ -16,7 +16,7 @@ export async function storyPointCreation(event, context) {
     console.log("typeofmyVar " + typeof(myVar));
     console.log("myVar2= " + myVar2);
 
-    let newbody = `
+    let newbody = ` 
 	{
 	"issues":[
 		{
@@ -24,15 +24,13 @@ export async function storyPointCreation(event, context) {
 		"properties": {
 			"myProperty":
 				{
-				 "storyPoint": ${parseInt(storyPoint)},
-               			 "github": ${myVar},
-               			 "jira": ${myVar2}
-        			}
+				 "storyPoint": ${parseInt(storyPoint)}
+               			}
       			      }
     		}
 		]
 	}`;
-	console.log("test")
+	console.log("test");
     console.log("Body created by the edit issue command is= " + JSON.stringify(newbody));
 
     const response = await api.asApp().requestJira(route`/rest/api/3/issue/properties/multi`, {
