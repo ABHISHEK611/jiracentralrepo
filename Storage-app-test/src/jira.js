@@ -10,7 +10,7 @@ export async function storyPointCreation(event, context) {
     let storyPoint = event.changelog.items.filter(e => e.field === 'Story Points')[0].toString;
     console.log("event= " + JSON.stringify(event));
 
-    let myVar = process.env.MY_GITHUB_EY;
+    let myVar = process.env.MY_GITHUB_KEY;
     let myVar2 = process.env.MY_JIRA_KEY;
     console.log("myVar= " + myVar);
     console.log("typeofmyVar " + typeof(myVar));
