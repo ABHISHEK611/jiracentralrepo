@@ -10,9 +10,10 @@ export async function storyPointCreation(event, context) {
     let storyPoint = event.changelog.items.filter(e => e.field === 'Story Points')[0].toString;
     console.log("event= " + JSON.stringify(event));
 
-    const myVar = process.env.MY_GITHUB_EY;
-    const myVar2 = process.env.MY_JIRA_KEY;
+    let myVar = process.env.MY_GITHUB_EY;
+    let myVar2 = process.env.MY_JIRA_KEY;
     console.log("myVar= " + myVar);
+    console.log("typeofmyVar " + typeof(myVar));
     console.log("myVar2= " + myVar2);
 
     let newbody = `
@@ -21,14 +22,15 @@ export async function storyPointCreation(event, context) {
 		{
 		"issueID": ${event.issue.id},
 		"properties": {
-			"myProperty": {
-				"storyPoint": ${parseInt(storyPoint)},
-                "github": ${myVar},
-                "jira": ${myVar2}
-        }
-      }
-    }
-	]
+			"myProperty":
+				{
+				 "storyPoint": ${parseInt(storyPoint)},
+               			 "github": ${myVar},
+               			 "jira": ${myVar2}
+        			}
+      			      }
+    		}
+		]
 	}`;
 	console.log("test")
     console.log("Body created by the edit issue command is= " + JSON.stringify(newbody));
