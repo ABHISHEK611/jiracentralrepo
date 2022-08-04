@@ -2,7 +2,7 @@ import ForgeUI, { render, Fragment, Text, AdminPage, useState, useEffect, Image,
 import { fetch } from '@forge/api';
 import { RepoList } from './repo';
 
-export const App2 = (props) =>
+const App2 = (props) =>
 {
     console.log("inside app2");
     const [data] = useState(async () => {

@@ -23,7 +23,7 @@ export async function storyPointCreation(event, context) {
 	]
 	}`;
 	console.log("test")
-    console.log("Body created by the edit issue command is= " + JSON.stringify(body));
+    console.log("Body created by the edit issue command is= " + JSON.stringify(newbody));
 
     const response = await api.asApp().requestJira(route`/rest/api/3/issue/properties/multi`, {
         method: 'POST',
