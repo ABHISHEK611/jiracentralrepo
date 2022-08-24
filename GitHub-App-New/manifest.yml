@@ -15,10 +15,10 @@ modules:
     - key: github-project-func
       handler: index2.run2
       providers:
-       auth:
-        - github
+        auth:
+          - github
 app:
-  id: ari:cloud:ecosystem::app/cdd853ad-3d5f-4275-87fe-7daa25de18c5
+  id: ari:cloud:ecosystem::app/d83b1ffd-2768-4b37-a845-cfe1b9e0995f
 providers:
   auth:
     - key: github
