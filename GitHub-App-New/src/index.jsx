@@ -5,7 +5,7 @@ const App = () => {
   console.log("Issue Key: "+issueKey);
   return (
     <Fragment>
-      <Text>Issue Key: {issueKey}</Text>
+      <Text>The Issue Key is: {issueKey}</Text>
     </Fragment>
   );
 };
