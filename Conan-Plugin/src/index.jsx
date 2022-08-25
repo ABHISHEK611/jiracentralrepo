@@ -14,6 +14,7 @@ const fetchProjectData = async() =>{
 		
 		if(projectPropKeys.key == "ConanLinks")
 		{
+      console.log("Inside if"+ projectPropKeys.key);
 			conanScores.push
 			({
 				"key": projectPropKeys.value.name,
@@ -59,7 +60,7 @@ const App = () => {
                     <Text>{data.key}</Text>
                   </Cell>
                   <Cell>
-                    <Text>{issue.value}</Text>
+                    <Text>{data.value}</Text>
                   </Cell>
                 </Row>
               ))}
