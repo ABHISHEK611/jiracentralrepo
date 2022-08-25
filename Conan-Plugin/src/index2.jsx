@@ -1,4 +1,4 @@
-import { render, Fragment, Text, AdminPage } from '@forge/ui';
+import ForgeUI, { render, Fragment, Text, AdminPage } from '@forge/ui';
 
 const App2 = () => {
     return (
