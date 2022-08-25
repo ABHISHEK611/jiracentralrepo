@@ -3,6 +3,9 @@ modules:
     - key: conan-plugin-hello-world
       function: main
       title: Conan-Plugin
+  jira:adminPage:
+    - key: conan-plugin-history
+      title: Conan-Plugin-History
   function:
     - key: main
       handler: index.run
