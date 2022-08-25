@@ -2,7 +2,7 @@ import ForgeUI, { render, Text, Fragment, GlobalPage } from '@forge/ui';
 
 const fetchProjectData = async() =>{
 
-  const res = await api.asUser().requestJira(route`/rest/api/3/project/OEM/properties`);
+  const res = await api.asApp().requestJira(route`/rest/api/3/project/OEM/properties`);
   const data = await res.json();
 	
 	var conanScores = [];
