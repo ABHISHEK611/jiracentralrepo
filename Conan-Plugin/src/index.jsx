@@ -14,14 +14,15 @@ const fetchProjectData = async() =>{
 		
 		if(projectPropKeys.key == "ConanLinks")
 		{
-      console.log("Inside if "+ projectPropKeys.key);
-      console.log("getting project values: "+ projectPropKeys.key.value);
-      console.log("getting project values: "+ projectPropKeys.key.value.name);
-      
+      const res1 = await api.asApp().requestJira(route`/rest/api/3/project/OEM/properties/{projectPropKeys.key}`);
+      const data1 = await res1.json();
+
+      console.log("data1: "+ data1);
+
 			conanScores.push
 			({
-				"key": projectPropKeys.value.name,
-				"value" : projectPropKeys.value.conanlink
+				"key": data1.value.name,
+				"value" : data1.value.conanlink
 			});
 		}
 	}
