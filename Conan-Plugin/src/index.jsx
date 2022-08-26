@@ -42,7 +42,7 @@ const App = () => {
 
       <Button text="Add Link" onClick={() => setOpen(true)} />
       {isOpen && (
-        <ModalDialog header="My modal dialog" onClose={() => setOpen(false)}>
+        <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
           <Text>Start adding links</Text>
         </ModalDialog>
       )}
