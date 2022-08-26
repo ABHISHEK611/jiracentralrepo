@@ -14,10 +14,9 @@ const fetchProjectData = async() =>{
 		
 		if(projectPropKeys.key == "ConanLinks")
 		{
-      const res1 = await api.asApp().requestJira(route`/rest/api/3/project/OEM/properties/{projectPropKeys.key}`);
-console.log("res1: "+res1);      
-const data1 = await stringify(res1.json());
-
+      const res1 = await api.asApp().requestJira(route`/rest/api/3/project/OEM/properties/ConanLinks`);
+      console.log("res1: "+res1);      
+      const data1 = await res1.json();
       console.log("data1: "+ data1);
       
 
