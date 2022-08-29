@@ -46,7 +46,7 @@ const App = () => {
           <Text>Start adding links</Text>
         </ModalDialog>
       )}
-      
+ 
       <Table>
             <Head>
               <Cell>

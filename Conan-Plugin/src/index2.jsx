@@ -4,7 +4,7 @@ import api, { fetch, route } from '@forge/api';
 const App2 = () => {
     return (
         <Fragment>
-            <Text>Hello from Admin Page</Text>
+            <Text>Hello from History Page.</Text>
         </Fragment>
 )}
 

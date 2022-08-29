@@ -1,12 +1,12 @@
 modules:
-  jira:globalPage:
+  jira:issuePanel:
     - key: conan-plugin-hello-world
       function: main
-      title: Conan-Plugin
+      title: Conan-Link
   jira:adminPage:
     - key: conan-plugin-history
       function: main2
-      title: Conan-Plugin-History
+      title: Conan-Link-History
   function:
     - key: main
       handler: index.run
