@@ -2,23 +2,24 @@ import ForgeUI, { render, Text, Fragment, IssuePanel, useState, Button, ModalDia
 import api, { fetch, route } from '@forge/api';
 
 const fetchProjectData = async() =>{
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
 
-  const res = await api.asApp().requestJira(route`/rest/api/3/project/OEM/properties`);
+  const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties`);
   const data = await res.json();
 	
 	var conanScores = [];
 	
-	for(var projectPropKeys of data.keys)
+	for(var issuePropKeys of data.keys)
 	{
-		console.log(projectPropKeys);
+		console.log("issuePropKeys :"+issuePropKeys);
 		
-		if(projectPropKeys.key == "ConanLinks")
+		if(issuePropKeys.key.includes("myProperty"))
 		{
-      const res1 = await api.asApp().requestJira(route`/rest/api/3/project/OEM/properties/ConanLinks`);
+      const res1 = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${issuePropKeys.key}`);
       console.log("res1: "+res1);      
       const data1 = await res1.json();
       console.log("data1: "+ data1);
-
 
 			conanScores.push
 			({
