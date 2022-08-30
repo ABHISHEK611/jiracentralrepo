@@ -18,7 +18,7 @@ const fetchProjectData = async() =>{
       console.log("res1: "+res1);      
       const data1 = await res1.json();
       console.log("data1: "+ data1);
-      
+
 
 			conanScores.push
 			({
@@ -75,7 +75,7 @@ const App = () => {
 };
 
 export const run = render(
-  <GlobalPage>
+  <IssuePanel>
     <App/>
-  </GlobalPage>
+  </IssuePanel>
 );
