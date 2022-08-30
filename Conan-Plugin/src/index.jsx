@@ -1,4 +1,4 @@
-import ForgeUI, { render, Text, Fragment, GlobalPage, useState, Button, ModalDialog, Table, Row, Cell, Head } from '@forge/ui';
+import ForgeUI, { render, Text, Fragment, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
 
 const fetchProjectData = async() =>{
