@@ -1,4 +1,4 @@
-import ForgeUI, { render, Text, Fragment, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext } from '@forge/ui';
+import ForgeUI, { render, Text, TextField, Fragment, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
 
 const fetchProjectData = async() =>{
@@ -41,12 +41,13 @@ const App = () => {
   return (
     <Fragment>
 
-      <Button text="Add Link" onClick={() => setOpen(true)} />
+      <Button text="Add New Link" onClick={() => setOpen(true)} />
       {isOpen && (
         <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
           <TextField label="Name" name="name" />
           <br></br>
           <TextField label="URL" name="url" />
+          <br></br>
         </ModalDialog>
       )}
  
