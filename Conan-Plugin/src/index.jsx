@@ -1,4 +1,4 @@
-import ForgeUI, { render, Text, TextField, Fragment, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext } from '@forge/ui';
+import ForgeUI, { render, Text, TextField, Fragment, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
 
 const fetchProjectData = async() =>{
@@ -32,6 +32,19 @@ const fetchProjectData = async() =>{
 	console.log(conanScores);
 	return conanScores;
 }
+
+const onSubmit = async (formData) => {
+
+  
+};
+let onEdit = (data) => {
+  console.log("Data to be edited:" + data);
+}
+
+let onDelete = async (data) => {
+  console.log("Data to be deleted:" + data);
+}
+
 const App = () => {
 
   const [conandata] = useState(async()=> await fetchProjectData());
@@ -44,10 +57,11 @@ const App = () => {
       <Button text="Add New Link" onClick={() => setOpen(true)} />
       {isOpen && (
         <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
-          <TextField label="Name" name="name" />
-          <br></br>
-          <TextField label="URL" name="url" />
-          <br></br>
+          <Form>
+            <TextField label="Name" name="name" />
+            <br></br>
+            <TextField label="URL" name="url" />
+          </Form>
         </ModalDialog>
       )}
  
@@ -70,6 +84,12 @@ const App = () => {
                   </Cell>
                   <Cell>
                     <Text>{data.value}</Text>
+                  </Cell>
+                  <Cell>
+                      <ButtonSet>
+                        <Button icon='edit filled' onClick={async () => {onEdit(data)}}></Button>
+                        <Button icon='trash' onClick={async()=> await onDelete(data)}></Button>
+                    </ButtonSet>
                   </Cell>
                 </Row>
               ))}
