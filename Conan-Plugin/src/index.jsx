@@ -97,7 +97,7 @@ const App = () => {
 };
 
 export const run = render(
-  <IssuePanel>
+  <IssueGlance>
     <App/>
-  </IssuePanel>
+  </IssueGlance>
 );
