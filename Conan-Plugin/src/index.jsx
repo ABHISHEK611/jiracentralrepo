@@ -1,4 +1,4 @@
-import ForgeUI, { render, Text, TextField, Fragment, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
+import ForgeUI, { render, Text, TextField, Fragment, ButtonSet, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
 
 const fetchProjectData = async() =>{
@@ -34,8 +34,7 @@ const fetchProjectData = async() =>{
 }
 
 const onSubmit = async (formData) => {
-
-  
+  console.log("Data to be edited:" + formData);
 };
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
@@ -59,8 +58,8 @@ const App = () => {
         <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
           <Form>
             <TextField label="Name" name="name" />
-            <br></br>
             <TextField label="URL" name="url" />
+            <Button text="Add" onClick={() => setOpen(true)} />
           </Form>
         </ModalDialog>
       )}
