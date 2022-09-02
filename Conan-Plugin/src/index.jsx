@@ -34,7 +34,7 @@ const fetchProjectData = async() =>{
 }
 
 const onSubmit = async (formData) => {
-  console.log("Data to be edited:" + formData);
+  console.log("Data from the Form:" + formData);
 };
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
@@ -59,7 +59,6 @@ const App = () => {
           <Form>
             <TextField label="Name" name="name" />
             <TextField label="URL" name="url" />
-            <Button text="Add" onClick={() => setOpen(true)} />
           </Form>
         </ModalDialog>
       )}
@@ -73,7 +72,7 @@ const App = () => {
                 <Text>Link</Text>
                </Cell>
                <Cell>
-                <Text>Edit/Delete</Text>
+                <Text>Action</Text>
                </Cell>
             </Head>
             {conandata.map(data => (
@@ -86,7 +85,7 @@ const App = () => {
                   </Cell>
                   <Cell>
                       <ButtonSet>
-                        <Button icon='edit filled' onClick={async () => {onEdit(data)}}></Button>
+                        <Button icon='edit' onClick={async () => {onEdit(data)}}></Button>
                         <Button icon='trash' onClick={async()=> await onDelete(data)}></Button>
                     </ButtonSet>
                   </Cell>
@@ -98,7 +97,7 @@ const App = () => {
 };
 
 export const run = render(
-  <IssuePanel>
+  <IssueGlance>
     <App/>
-  </IssuePanel>
+  </IssueGlance>
 );

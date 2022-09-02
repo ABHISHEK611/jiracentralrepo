@@ -1,9 +1,9 @@
 modules:
-  jira:issuePanel:
+  jira:issueGlance:
     - key: conan-plugin-hello-world
       function: main
       title: Conan-Link
-      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg      
+      label: Display Conan-Link
   jira:adminPage:
     - key: conan-plugin-history
       function: main2
