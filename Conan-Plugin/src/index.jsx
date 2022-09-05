@@ -44,7 +44,7 @@ const onSubmit = async (formData) => {
   console.log("Data from the Form:" + JSON.stringify(formData));
   console.log("Count is:"+ count);
   
-  var bodyData = `{
+  let bodyData = `{
     "name": ${formData.name},
     "conanlink": ${formData.url}
   }`;
@@ -54,10 +54,9 @@ const onSubmit = async (formData) => {
   const putres = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myProperty4`, {
   method: 'PUT',
   headers: {
-    
     'Content-Type': 'application/json'
   },
-  body: bodyData
+  body: JSON.stringify(bodyData)
 });
 console.log(`Response: ${putres.status} ${putres.statusText}`);
 
