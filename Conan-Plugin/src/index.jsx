@@ -49,18 +49,17 @@ const onSubmit = async (formData) => {
     "conanlink": ${formData.url}
   }`;
   console.log("bodyData: "+ bodyData);
-  console.log("bodyData: "+ JSON.stringify(bodyData));
+  console.log("bodyData2: "+ JSON.stringify(bodyData));
 
   const putres = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myProperty4`, {
   method: 'PUT',
   headers: {
-    'Accept': 'application/json',
+    
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify(bodyData)
+  body: bodyData
 });
 console.log(`Response: ${putres.status} ${putres.statusText}`);
-console.log(await putres.json());
 
 };
 let onEdit = (data) => {
