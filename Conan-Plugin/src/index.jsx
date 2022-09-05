@@ -32,12 +32,14 @@ const fetchProjectData = async() =>{
 	}
 	
 	console.log(conanScores);
+	console.log("Count is:" +count);
 	return conanScores;
 }
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
   console.log("Data from the Form:" + JSON.stringify(formData));
+  console.log("Count is:"+ count);
 };
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
