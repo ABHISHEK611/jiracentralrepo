@@ -47,7 +47,7 @@ const onSubmit = async (formData) => {
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}`);
   const res2 = await res.json();
   console.log("response 2: "+res2);
-  const issueId = res2.id;
+  const issueId = parseInt(res2.id);
   console.log("IssueID: "+issueId);
   
   let newbody = ` 
@@ -81,6 +81,7 @@ const onSubmit = async (formData) => {
     console.log(await response.text());
 
 };
+
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
 }
