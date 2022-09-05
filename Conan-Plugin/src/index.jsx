@@ -1,6 +1,7 @@
 import ForgeUI, { render, Text, TextField, Fragment, ButtonSet, IssueGlance, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
 
+let count = 0;
 const fetchProjectData = async() =>{
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
@@ -20,6 +21,7 @@ const fetchProjectData = async() =>{
       console.log("res1: "+res1);      
       const data1 = await res1.json();
       console.log("data1: "+ data1);
+      count++;
 
 			conanScores.push
 			({
@@ -35,6 +37,7 @@ const fetchProjectData = async() =>{
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
+  console.log("Data from the Form:" + formData.id);
 };
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
@@ -87,7 +90,7 @@ const App = () => {
                       <ButtonSet>
                         <Button icon='edit' onClick={async () => {onEdit(data)}}></Button>
                         <Button icon='trash' onClick={async()=> await onDelete(data)}></Button>
-                    </ButtonSet>
+                      </ButtonSet>
                   </Cell>
                 </Row>
               ))}
