@@ -38,27 +38,47 @@ const fetchProjectData = async() =>{
 }
 
 const onSubmit = async (formData) => {
-  const context = useProductContext();
-  const issueKey = context.platformContext.issueKey;
   console.log("Data from the Form:" + formData);
   console.log("Data from the Form:" + JSON.stringify(formData));
-  console.log("Count is:"+ count);
-  
-  let bodyData = `{
-    "name": ${formData.name},
-    "conanlink": ${formData.url}
-  }`;
-  console.log("bodyData: "+ bodyData);
-  console.log("bodyData2: "+ JSON.stringify(bodyData));
 
-  const putres = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myProperty4`, {
-  method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(bodyData)
-});
-console.log(`Response: ${putres.status} ${putres.statusText}`);
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
+
+  const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}`);
+  const res2 = await res.json();
+  console.log("response 2: "+res2);
+  const issueId = res2.id;
+  console.log("IssueID: "+issueId);
+  
+  let newbody = ` 
+	{
+	"issues":[
+		{
+		"issueID": ${issueId},
+		"properties": {
+			"myProperty4":
+				{
+				 "name": ${formData.name},
+         "conanlink": ${formData.url}
+               			}
+      			      }
+    		}
+		]
+	}`;
+
+  console.log("Body created by the issueid is= " + JSON.stringify(newbody));
+
+    const response = await api.asApp().requestJira(route`/rest/api/3/issue/properties/multi`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+	body: newbody
+    });
+    const data = await response.json();
+    console.log(data);
+    console.log(`Response: ${response.status} ${response.statusText}`);
+    console.log(await response.text());
 
 };
 let onEdit = (data) => {
