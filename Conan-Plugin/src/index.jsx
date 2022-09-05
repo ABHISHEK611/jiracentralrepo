@@ -37,7 +37,7 @@ const fetchProjectData = async() =>{
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
-  console.log("Data from the Form:" + formData.id);
+  console.log("Data from the Form:" + JSON.stringify(formData));
 };
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
