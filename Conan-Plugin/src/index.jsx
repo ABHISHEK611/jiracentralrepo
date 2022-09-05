@@ -82,8 +82,8 @@ const App = () => {
       {isOpen && (
         <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
           <Form onSubmit={onSubmit} submitButtonText="Add">
-            <TextField label="Name" name="name" />
-            <TextField label="URL" name="url" />
+            <TextField label="Name" name="name" isRequired=true/>
+            <TextField label="URL" name="url" isRequired=true />
           </Form>
         </ModalDialog>
       )}
