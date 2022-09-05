@@ -2,6 +2,7 @@ import ForgeUI, { render, Text, TextField, Fragment, ButtonSet, IssueGlance, Iss
 import api, { fetch, route } from '@forge/api';
 
 let count = 0;
+
 const fetchProjectData = async() =>{
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
@@ -37,9 +38,29 @@ const fetchProjectData = async() =>{
 }
 
 const onSubmit = async (formData) => {
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
   console.log("Data from the Form:" + formData);
   console.log("Data from the Form:" + JSON.stringify(formData));
   console.log("Count is:"+ count);
+  
+  var bodyData = `{
+    "name": ${formData.name},
+    "conanlink": ${formData.url},
+  }`;
+  console.log("bodyData: "+ bodyData);
+
+  const putres = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myProperty4`, {
+  method: 'PUT',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: bodyData
+});
+console.log(`Response: ${putres.status} ${putres.statusText}`);
+console.log(await putres.json());
+
 };
 let onEdit = (data) => {
   console.log("Data to be edited:" + data);
