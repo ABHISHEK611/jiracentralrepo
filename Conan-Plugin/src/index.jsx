@@ -50,7 +50,7 @@ const onSubmit = async (formData) => {
   const issueId = parseInt(res2.id);
   console.log("IssueID: "+issueId);
   
-  let newbody = ` 
+  /*let newbody = ` 
 	{
 	"issues":[
 		{
@@ -64,7 +64,21 @@ const onSubmit = async (formData) => {
       			      }
     		}
 		]
-	}`;
+	}`;*/
+  let newbody2 = 
+  {
+    issues: [
+  {
+    issueId: issueId,
+      properties: {
+        myproperty4: {
+          name: formData.name,
+          conanlink: formData.url
+        }
+      }
+    }
+  ]
+  };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody));
 
@@ -73,7 +87,7 @@ const onSubmit = async (formData) => {
         headers: {
             'Content-Type': 'application/json'
         },
-	body: newbody
+	body: newbody2
     });
     const data = await response.json();
     console.log(data);
