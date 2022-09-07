@@ -1,4 +1,4 @@
-import ForgeUI, { render, Text, TextField, Fragment, ButtonSet, IssueGlance, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
+import ForgeUI, { render, Text, TextField, Tabs, Tab, Fragment, ButtonSet, IssueGlance, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
 
 let count = 0;
@@ -112,7 +112,8 @@ const App = () => {
 
   return (
     <Fragment>
-
+      <Tabs>
+        <Tab label="Details">
       <Button text="Add New Link" onClick={() => setOpen(true)} />
       {isOpen && (
         <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
@@ -152,6 +153,11 @@ const App = () => {
                 </Row>
               ))}
       </Table>
+      </Tab>
+      <Tab label="History">
+          <Text>Hello from History Page</Text>
+      </Tab>
+      </Tabs>
     </Fragment>
   );
 };
