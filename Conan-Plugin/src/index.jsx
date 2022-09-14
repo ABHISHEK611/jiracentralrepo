@@ -1,8 +1,13 @@
 import ForgeUI, { render, Text, TextField, Tabs, Tab, Fragment, ButtonSet, IssueGlance, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
-import { view } from '@forge/bridge';
 
-let count = 0;
+const App = () => {
+
+const [isOpen, setOpen] = useState(false);
+
+let count=0;
+
+let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -50,29 +55,15 @@ const onSubmit = async (formData) => {
   console.log("response 2: "+res2);
   const issueId = parseInt(res2.id);
   console.log("IssueID: "+issueId);
-  
-  /*let newbody = ` 
-	{
-	"issues":[
-		{
-		"issueID": ${issueId},
-		"properties": {
-			"myProperty4":
-				{
-				 "name": ${formData.name},
-         "conanlink": ${formData.url}
-               			}
-      			      }
-    		}
-		]
-	}`;*/
+  console.log("Count inside onSubmit:" +count);
+
   let newbody2 = 
   {
     issues: [
   {
     issueID: issueId,
       properties: {
-        myProperty5: {
+        myProperty1: {
           name: formData.name,
           conanlink: formData.url
         }
@@ -94,7 +85,7 @@ const onSubmit = async (formData) => {
     console.log(data);
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.text());
-    view.refresh();
+    setconandata(conandata);
 
 };
 
@@ -106,11 +97,6 @@ let onDelete = async (data) => {
   console.log("Data to be deleted:" + JSON.stringify(data));
 }
 
-const App = () => {
-
-  const [conandata] = useState(async()=> await fetchProjectData());
-  console.log(conandata);
-  const [isOpen, setOpen] = useState(false);
 
   return (
     <Fragment>
@@ -148,7 +134,7 @@ const App = () => {
                   </Cell>
                   <Cell>
                       <ButtonSet>
-                        <Button icon='edit' onClick={async () => {onEdit(data)}}></Button>
+                        <Button icon='edit' onClick={async()=> onEdit(data)}></Button>
                         <Button icon='trash' onClick={async()=> await onDelete(data)}></Button>
                       </ButtonSet>
                   </Cell>
