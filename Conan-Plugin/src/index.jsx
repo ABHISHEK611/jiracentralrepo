@@ -1,5 +1,6 @@
 import ForgeUI, { render, Text, TextField, Tabs, Tab, Fragment, ButtonSet, IssueGlance, IssuePanel, useState, Button, ModalDialog, Table, Row, Cell, Head, useProductContext, Form } from '@forge/ui';
 import api, { fetch, route } from '@forge/api';
+import { view } from '@forge/bridge';
 
 let count = 0;
 
@@ -93,15 +94,16 @@ const onSubmit = async (formData) => {
     console.log(data);
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.text());
+    view.refresh();
 
 };
 
 let onEdit = (data) => {
-  console.log("Data to be edited:" + data);
+  console.log("Data to be edited:" + JSON.stringify(data));
 }
 
 let onDelete = async (data) => {
-  console.log("Data to be deleted:" + data);
+  console.log("Data to be deleted:" + JSON.stringify(data));
 }
 
 const App = () => {
