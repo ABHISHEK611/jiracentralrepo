@@ -4,10 +4,7 @@ import api, { fetch, route } from '@forge/api';
 const App = () => {
 
 const [isOpen, setOpen] = useState(false);
-
 let count=0;
-
-let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -42,6 +39,8 @@ const fetchProjectData = async() =>{
 	console.log("Count is:" +count);
 	return conanScores;
 }
+
+let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
