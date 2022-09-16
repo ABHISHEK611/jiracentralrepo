@@ -78,9 +78,14 @@ const onSubmit = async (formData) => {
   
   console.log("Count inside onSubmit:" +actualcount);
   
-  let propkey = actualcount++;
-  var key= "myProperty".concat(propkey.toString());
-  console.log("the key is= "+key);
+  let propkey = actualcount+1;
+  console.log("1 the key is= "+propkey);
+  
+  var propkey1 = propkey.toString()
+  console.log("2 the key is= "+propkey1);
+  
+  var key= "myProperty".concat(propkey1);
+  console.log("3 the key is= "+key);
 
   let newbody2 = 
   {
@@ -88,8 +93,8 @@ const onSubmit = async (formData) => {
   {
     issueID: issueId,
       properties: {
-        propkey: {
-          id: propkey,
+        key.: {
+          id: key,
           name: formData.name,
           conanlink: formData.url
         }
