@@ -89,9 +89,9 @@ const onSubmit = async (formData) => {
 
   let newbody2 = 
   {
-          id: key,
-          name: formData.name,
-          conanlink: formData.url
+    id: key,
+    name: formData.name,
+    conanlink: formData.url
   };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
