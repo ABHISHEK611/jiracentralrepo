@@ -4,7 +4,8 @@ import api, { fetch, route } from '@forge/api';
 const App = () => {
 
 const [isOpen, setOpen] = useState(false);
-let count=0;
+const [isOpen1, setOpen1] = useState(false);
+let actualcount=0;
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -25,7 +26,6 @@ const fetchProjectData = async() =>{
       console.log("res1: "+res1);      
       const data1 = await res1.json();
       console.log("data1: "+ data1);
-      count++;
 
 			conanScores.push
 			({
@@ -36,8 +36,27 @@ const fetchProjectData = async() =>{
 	}
 	
 	console.log(conanScores);
-	console.log("Count is:" +count);
 	return conanScores;
+}
+const keycounter = async() =>{
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
+  let count= 0;
+
+  const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties`);
+  const data = await res.json();
+	
+	for(var issuePropKeys of data.keys)
+	{
+		
+		if(issuePropKeys.key.includes("myProperty"))
+		{
+      count++;
+		}
+	}
+
+	console.log("Count is:" +count);
+	return count;
 }
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
@@ -54,7 +73,13 @@ const onSubmit = async (formData) => {
   console.log("response 2: "+res2);
   const issueId = parseInt(res2.id);
   console.log("IssueID: "+issueId);
-  console.log("Count inside onSubmit:" +count);
+  
+  actualcount = useState(async()=> await keycounter());
+  console.log("Count inside onSubmit:" +actualcount);
+  
+  let propkey = actualcount++;
+  var key= "myProperty".concat(propkey.toString());
+  console.log("the key is= "+key);
 
   let newbody2 = 
   {
@@ -62,7 +87,8 @@ const onSubmit = async (formData) => {
   {
     issueID: issueId,
       properties: {
-        myProperty1: {
+        propkey: {
+          id: propkey,
           name: formData.name,
           conanlink: formData.url
         }
