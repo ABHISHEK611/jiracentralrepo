@@ -60,6 +60,7 @@ const keycounter = async() =>{
 }
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
+actualcount = useState(async()=> await keycounter());
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
@@ -74,7 +75,7 @@ const onSubmit = async (formData) => {
   const issueId = parseInt(res2.id);
   console.log("IssueID: "+issueId);
   
-  actualcount = useState(async()=> await keycounter());
+  
   console.log("Count inside onSubmit:" +actualcount);
   
   let propkey = actualcount++;
