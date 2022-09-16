@@ -93,7 +93,7 @@ const onSubmit = async (formData) => {
   {
     issueID: issueId,
       properties: {
-        key.: {
+        '${key}': {
           id: key,
           name: formData.name,
           conanlink: formData.url
