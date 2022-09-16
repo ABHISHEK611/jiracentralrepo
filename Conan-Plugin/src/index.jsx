@@ -89,24 +89,15 @@ const onSubmit = async (formData) => {
 
   let newbody2 = 
   {
-    issues: [
-  {
-    issueID: issueId,
-      properties: {
-        myProperty: {
           id: key,
           name: formData.name,
           conanlink: formData.url
-        }
-      }
-    }
-  ]
   };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
 
-    const response = await api.asApp().requestJira(route`/rest/api/3/issue/properties/multi`, {
-        method: 'POST',
+    const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${key}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
