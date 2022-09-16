@@ -29,6 +29,7 @@ const fetchProjectData = async() =>{
 
 			conanScores.push
 			({
+        "id": data1.value.id,
 				"key": data1.value.name,
 				"value" : data1.value.conanlink
 			});
@@ -116,7 +117,7 @@ let onEdit = (data) => {
 }
 
 let onDelete = async (id) => {
-  console.log("Data to be deleted:" + JSON.stringify(id));
+  console.log("Key to be deleted:" + id);
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
   
