@@ -5,7 +5,7 @@ const App = () => {
 
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
-let actualcount=0;
+
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -60,7 +60,7 @@ const keycounter = async() =>{
 }
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
-actualcount = useState(async()=> await keycounter());
+let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
