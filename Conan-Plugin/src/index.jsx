@@ -78,7 +78,7 @@ const onSubmit = async (formData) => {
   
   console.log("Count inside onSubmit:" +actualcount);
   
-  let propkey = actualcount+1;
+  let propkey = ++actualcount;
   console.log("1 the key is= "+propkey);
   
   var propkey1 = propkey.toString()
@@ -93,7 +93,7 @@ const onSubmit = async (formData) => {
   {
     issueID: issueId,
       properties: {
-        '${key}': {
+        myProperty: {
           id: key,
           name: formData.name,
           conanlink: formData.url
