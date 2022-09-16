@@ -115,8 +115,16 @@ let onEdit = (data) => {
   console.log("Data to be edited:" + JSON.stringify(data));
 }
 
-let onDelete = async (data) => {
-  console.log("Data to be deleted:" + JSON.stringify(data));
+let onDelete = async (id) => {
+  console.log("Data to be deleted:" + JSON.stringify(id));
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
+  
+  const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${id}`, {
+    method: 'DELETE'
+  });
+  console.log(`Response: ${response.status} ${response.statusText}`);
+  console.log(await response.text());
 }
 
 
@@ -157,7 +165,7 @@ let onDelete = async (data) => {
                   <Cell>
                       <ButtonSet>
                         <Button icon='edit' onClick={async()=> onEdit(data)}></Button>
-                        <Button icon='trash' onClick={async()=> await onDelete(data)}></Button>
+                        <Button icon='trash' onClick={async()=> await onDelete(data.id)}></Button>
                       </ButtonSet>
                   </Cell>
                 </Row>
