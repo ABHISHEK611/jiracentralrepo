@@ -103,10 +103,10 @@ const onSubmit = async (formData) => {
         },
 	body: JSON.stringify(newbody2)
     });
-    const data = await response.json();
-    console.log(data);
-    console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());
+    //const data = await response.json();
+    //console.log(data);
+    //console.log(`Response: ${response.status} ${response.statusText}`);
+    //console.log(await response.text());
     setconandata(conandata);
 
 };
