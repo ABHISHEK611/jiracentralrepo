@@ -117,7 +117,7 @@ let onEdit = async (formData) => {
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
-  
+
 
 }
 
