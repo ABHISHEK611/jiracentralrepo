@@ -112,8 +112,9 @@ const onSubmit = async (formData) => {
 
 };
 
-let onEdit = async (formData) => {
+let onEdit = async (formData, key) => {
   console.log("Data to be edited:" + JSON.stringify(formData));
+  console.log("Data to be edited:" + key);
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
@@ -175,9 +176,9 @@ let onDelete = async (id) => {
                         <Button icon='edit' onClick={async()=> setOpen1(true)} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={onEdit} submitButtonText="Edit">
-                                <TextField label="Name" name="name" defaultValue={data.key} isRequired="true"/>
-                                <TextField label="Url" name="url" defaultValue={data.value} isRequired="true" />
+                              <Form onSubmit={onEdit(data.id)} submitButtonText="Edit">
+                                <TextField label="Name" name="name" isRequired="true"/>
+                                <TextField label="Url" name="url" isRequired="true" />
                               </Form>
                             </ModalDialog>
                          )}
