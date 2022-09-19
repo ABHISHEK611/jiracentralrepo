@@ -152,7 +152,10 @@ let onDelete = async (id) => {
                 <Text>Link</Text>
                </Cell>
                <Cell>
-                <Text>Action</Text>
+                <Text>Edit</Text>
+               </Cell>
+               <Cell>
+                <Text>Delete</Text>
                </Cell>
             </Head>
             {conandata.map(data => (
@@ -164,7 +167,6 @@ let onDelete = async (id) => {
                     <Text>{data.value}</Text>
                   </Cell>
                   <Cell>
-                      <ButtonSet>
                         <Button icon='edit' onClick={async()=> setOpen1(true)} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
@@ -174,8 +176,9 @@ let onDelete = async (id) => {
                               </Form>
                             </ModalDialog>
                          )}
-                        <Button icon='trash' onClick={async()=> await onDelete(data.id)}></Button>
-                      </ButtonSet>
+                  </Cell>
+                  <Cell>
+                      <Button icon='trash' onClick={async()=> await onDelete(data.id)}></Button>
                   </Cell>
                 </Row>
               ))}
