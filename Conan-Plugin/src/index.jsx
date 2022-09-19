@@ -112,8 +112,13 @@ const onSubmit = async (formData) => {
 
 };
 
-let onEdit = (data) => {
-  console.log("Data to be edited:" + JSON.stringify(data));
+let onEdit = async (formData) => {
+  console.log("Data to be edited:" + JSON.stringify(formData));
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
+
+  
+
 }
 
 let onDelete = async (id) => {
