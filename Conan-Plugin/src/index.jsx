@@ -170,9 +170,9 @@ let onDelete = async (id) => {
                         <Button icon='edit' onClick={async()=> setOpen1(true)} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={onEdit} submitButtonText="Add">
-                                <TextField label={data.key} name="name" isRequired="true"/>
-                                <TextField label={data.value} name="url" isRequired="true" />
+                              <Form onSubmit={onEdit} submitButtonText="Edit">
+                                <TextField label="Name" name={data.key} isRequired="true"/>
+                                <TextField label="Url" name={data.value} isRequired="true" />
                               </Form>
                             </ModalDialog>
                          )}
