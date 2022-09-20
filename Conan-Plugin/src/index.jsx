@@ -144,6 +144,9 @@ let beforeEdit = async (a,b,c) => {
   console.log("2 Inside beforeEdit func: "+ b);
   console.log("3 Inside beforeEdit func: "+ c);
   setSelectedConan({ name: a, url: b, id: c });
+  console.log("4 Inside beforeEdit func: "+ selectedConan.name);
+  console.log("5 Inside beforeEdit func: "+ selectedConan.url);
+  console.log("6 Inside beforeEdit func: "+ selectedConan.id);
 }
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
