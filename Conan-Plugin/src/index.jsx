@@ -114,11 +114,8 @@ const onSubmit = async (formData) => {
 
 };
 
-let onEdit = async (formData) => {
-  console.log("Data to be edited :" + JSON.stringify(formData));
-  console.log("1 Extra data :" + selectedConan.id);
-  console.log("2 Extra data :" + selectedConan.name);
-  console.log("3 Extra data :" + selectedConan.url);
+let afterEdit = async (formData) => {
+  console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
@@ -142,7 +139,10 @@ let onEdit = async (formData) => {
     console.log(await response.text());*/
 
 }
-
+let beforeEdit = async (data) => {
+  console.log("Inside beforeEdit func: "+ JSON.stringify(data));
+  setSelectedConan({ name: data.key, url: data.value, id: data.id });
+}
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
   const context = useProductContext();
@@ -161,6 +161,7 @@ let onDelete = async (id) => {
       <Tabs>
         <Tab label="Details">
       <Button text="Add New Link" onClick={() => setOpen(true)} />
+
       {isOpen && (
         <ModalDialog header="Add Conan Link" onClose={() => setOpen(false)}>
           <Form onSubmit={onSubmit} submitButtonText="Add">
@@ -200,12 +201,11 @@ let onDelete = async (id) => {
                   <Cell>
                         <Button icon='edit' onClick={async()=> setOpen1(true)} />
                         {isOpen1 && (
-                            <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={async (data) => {
-                            await onEdit();
-                            setSelectedConan({ name: data.key, url: data.value, id: data.id });
-                            setOpen(false);
-                        }} submitButtonText="Edit">
+                            <ModalDialog header="Edit Conan Link" onClose={async (data) => {
+                              beforeEdit(data);
+                              setOpen1(false)
+                            }}>
+                              <Form onSubmit={afterEdit} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
                               </Form>
