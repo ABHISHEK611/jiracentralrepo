@@ -62,12 +62,13 @@ const keycounter = async() =>{
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
+let [editKey, seteditKey] = useState("myProperty");
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
   console.log("Data from the Form:" + JSON.stringify(formData));
 
-  const context = useProductContext();
+  const context = useProductContext()
   const issueKey = context.platformContext.issueKey;
 
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}`);
@@ -112,13 +113,30 @@ const onSubmit = async (formData) => {
 
 };
 
-let onEdit = async (formData, key) => {
-  console.log("Data to be edited:" + JSON.stringify(formData));
-  console.log("Data to be edited:" + key);
+let onEdit = async (formData) => {
+  console.log("Data to be edited :" + JSON.stringify(formData));
+  console.log("Data to be edited2 :" + formData.id);
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
+  let newbody2 = 
+  {
+    id: editKey,
+    name: formData.name,
+    conanlink: formData.url
+  };
 
+  console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
+
+    const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${key}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+	body: JSON.stringify(newbody2)
+    });
+    console.log(`Response: ${response.status} ${response.statusText}`);
+    console.log(await response.text());
 
 }
 
@@ -170,13 +188,17 @@ let onDelete = async (id) => {
                     <Text>{data.key}</Text>
                   </Cell>
                   <Cell>
-                    <Text>{data.value}</Text>
+                    <Text>
+                      <Link appearance="link" href={data.value}>
+                        {data.value}
+                     </Link>
+                    </Text>
                   </Cell>
                   <Cell>
                         <Button icon='edit' onClick={async()=> setOpen1(true)} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={onEdit(data.id)} submitButtonText="Edit">
+                              <Form onSubmit={onEdit} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
                               </Form>

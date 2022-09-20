@@ -1,0 +1,27 @@
+modules:
+  jira:issueGlance:
+    - key: qa-demo-validator-glance
+      function: main
+      title: QA demo validator
+      description: QA demo validator
+      label: QA demo validator
+  jira:adminPage:
+    - key: qa-demo-validator-admin-page
+      function: admin
+      title: QA demo validator
+      description: QA demo validator
+      label: QA demo validator
+  function:
+    - key: main
+      handler: index.run
+    - key: admin
+      handler: admin.run
+app:
+  id: ari:cloud:ecosystem::app/2a58f91f-bbd7-4959-8de7-f967d383849b
+permissions:
+  scopes:
+    - write:jira-work
+    - read:jira-work
+    - manage:jira-project
+    - manage:jira-configuration
+    - storage:app
