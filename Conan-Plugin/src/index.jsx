@@ -60,7 +60,8 @@ const keycounter = async() =>{
 	return count;
 }
 
-let [conandata, setconandata] = useState(async()=> await fetchProjectData());
+//let [conandata, setconandata] = useState(async()=> await fetchProjectData());
+let [selectedConan, setSelectedConan] = useState({ id: "", name: "", url: "" });
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 let [editKey, seteditKey] = useState("myProperty");
 
@@ -115,15 +116,17 @@ const onSubmit = async (formData) => {
 
 let onEdit = async (formData) => {
   console.log("Data to be edited :" + JSON.stringify(formData));
-  console.log("Data to be edited2 :" + formData.id);
+  console.log("1 Extra data :" + selectedConan.id);
+  console.log("2 Extra data :" + selectedConan.name);
+  console.log("3 Extra data :" + selectedConan.url);
+
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
-  let newbody2 = 
+ /* let newbody2 = 
   {
     name: formData.name,
     conanlink: formData.url,
-    id: formData.id
   };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
@@ -136,7 +139,7 @@ let onEdit = async (formData) => {
 	body: JSON.stringify(newbody2)
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());
+    console.log(await response.text());*/
 
 }
 
@@ -198,10 +201,13 @@ let onDelete = async (id) => {
                         <Button icon='edit' onClick={async()=> setOpen1(true)} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={onEdit} submitButtonText="Edit">
+                              <Form onSubmit={async (data) => {
+                            await onEdit();
+                            setSelectedConan({ name: data.key, url: data.value, id: data.id });
+                            setOpen(false);
+                        }} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
-                                <TextField label="Id" name={data.id} isRequired="true" />
                               </Form>
                             </ModalDialog>
                          )}
