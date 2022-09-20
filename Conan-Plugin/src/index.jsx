@@ -139,9 +139,11 @@ let afterEdit = async (formData) => {
     console.log(await response.text());*/
 
 }
-let beforeEdit = async (data) => {
-  console.log("Inside beforeEdit func: "+ JSON.stringify(data));
-  setSelectedConan({ name: data.key, url: data.value, id: data.id });
+let beforeEdit = async (a,b,c) => {
+  console.log("1 Inside beforeEdit func: "+ a);
+  console.log("2 Inside beforeEdit func: "+ b);
+  console.log("3 Inside beforeEdit func: "+ c);
+  setSelectedConan({ name: a, url: b, id: c });
 }
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
@@ -199,12 +201,12 @@ let onDelete = async (id) => {
                     </Text>
                   </Cell>
                   <Cell>
-                        <Button icon='edit' onClick={async()=> setOpen1(true)} />
+                        <Button icon='edit' onClick={async () => {
+                          beforeEdit(data.key, data.value, data.id);
+                          setOpen1(true)
+                        }} />
                         {isOpen1 && (
-                            <ModalDialog header="Edit Conan Link" onClose={async (data) => {
-                              beforeEdit(data);
-                              setOpen1(false)
-                            }}>
+                            <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
                               <Form onSubmit={afterEdit} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
