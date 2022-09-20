@@ -61,9 +61,12 @@ const keycounter = async() =>{
 }
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
-let [selectedConan, setSelectedConan] = useState({ name: "", url: "" });
+
+let editId ="";
+let editKey ="";
+let editValue ="";
+
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
-let [editKey, seteditKey] = useState("myProperty");
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
@@ -116,12 +119,14 @@ const onSubmit = async (formData) => {
 
 let afterEdit = async (formData) => {
   console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
+  console.log("Inside afterEdit func: "+ editId);
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
- /* let newbody2 = 
+ let newbody2 = 
   {
+    id: editId,
     name: formData.name,
     conanlink: formData.url,
   };
@@ -136,15 +141,21 @@ let afterEdit = async (formData) => {
 	body: JSON.stringify(newbody2)
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());*/
+    console.log(await response.text());
 
 }
 let beforeEdit = async (a,b,c) => {
   console.log("1 Inside beforeEdit func: "+ a);
   console.log("2 Inside beforeEdit func: "+ b);
   console.log("3 Inside beforeEdit func: "+ c);
-  setSelectedConan({ name: a, url: b, id: c });
-  console.log("4 Inside beforeEdit func: "+ JSON.stringify(selectedConan));
+
+  editKey = a;
+  editValue = b;
+  editId = c;
+
+  console.log("4 Inside beforeEdit func: "+ editId);
+  console.log("5 Inside beforeEdit func: "+ editKey);
+  console.log("6 Inside beforeEdit func: "+ editValue);
 }
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
