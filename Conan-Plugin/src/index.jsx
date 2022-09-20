@@ -60,7 +60,7 @@ const keycounter = async() =>{
 	return count;
 }
 
-//let [conandata, setconandata] = useState(async()=> await fetchProjectData());
+let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 let [selectedConan, setSelectedConan] = useState({ id: "", name: "", url: "" });
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 let [editKey, seteditKey] = useState("myProperty");
@@ -110,7 +110,7 @@ const onSubmit = async (formData) => {
     //console.log(data);
     //console.log(`Response: ${response.status} ${response.statusText}`);
     //console.log(await response.text());
-    //setconandata(conandata);
+    setconandata(conandata);
 
 };
 
