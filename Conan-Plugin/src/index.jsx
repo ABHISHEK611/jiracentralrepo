@@ -6,6 +6,7 @@ const App = () => {
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 
+var conanScores = [];
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -13,8 +14,6 @@ const fetchProjectData = async() =>{
 
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties`);
   const data = await res.json();
-	
-	var conanScores = [];
 	
 	for(var issuePropKeys of data.keys)
 	{
@@ -121,9 +120,9 @@ let onEdit = async (formData) => {
 
   let newbody2 = 
   {
-    id: editKey,
     name: formData.name,
-    conanlink: formData.url
+    conanlink: formData.url,
+    id: formData.id
   };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
@@ -201,6 +200,7 @@ let onDelete = async (id) => {
                               <Form onSubmit={onEdit} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
+                                <TextField label="Id" name={data.id} isRequired="true" />
                               </Form>
                             </ModalDialog>
                          )}
