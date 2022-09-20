@@ -61,7 +61,7 @@ const keycounter = async() =>{
 }
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
-let [selectedConan, setSelectedConan] = useState({ id: "", name: "", url: "" });
+let [selectedConan, setSelectedConan] = useState({ name: "", url: "" });
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 let [editKey, seteditKey] = useState("myProperty");
 
