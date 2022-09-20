@@ -62,9 +62,8 @@ const keycounter = async() =>{
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
-let editId ="";
-let editKey ="";
-let editValue ="";
+var editDetails = [];
+
 
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
@@ -119,21 +118,21 @@ const onSubmit = async (formData) => {
 
 let afterEdit = async (formData) => {
   console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
-  console.log("Inside afterEdit func: "+ editId);
+  console.log("Inside afterEdit func: "+ editDetails.id);
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
  let newbody2 = 
   {
-    id: editId,
+    id: editDetails.id,
     name: formData.name,
     conanlink: formData.url,
   };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
 
-    const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${key}`, {
+    const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${editDetails.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -149,13 +148,16 @@ let beforeEdit = async (a,b,c) => {
   console.log("2 Inside beforeEdit func: "+ b);
   console.log("3 Inside beforeEdit func: "+ c);
 
-  editKey = a;
-  editValue = b;
-  editId = c;
+  editDetails.push
+			({
+        "id": c,
+				"key": a,
+				"value" : b
+			});
 
-  console.log("4 Inside beforeEdit func: "+ editId);
-  console.log("5 Inside beforeEdit func: "+ editKey);
-  console.log("6 Inside beforeEdit func: "+ editValue);
+  console.log("4 Inside beforeEdit func: "+ editDetails.id);
+  console.log("5 Inside beforeEdit func: "+ editDetails.key);
+  console.log("6 Inside beforeEdit func: "+ editDetails.value);
 }
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
