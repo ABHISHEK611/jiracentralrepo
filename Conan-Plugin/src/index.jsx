@@ -63,7 +63,7 @@ const keycounter = async() =>{
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
 var editDetails = [];
-
+var editKey = "";
 
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
@@ -147,7 +147,8 @@ let beforeEdit = async (a,b,c) => {
   console.log("1 Inside beforeEdit func: "+ a);
   console.log("2 Inside beforeEdit func: "+ b);
   console.log("3 Inside beforeEdit func: "+ c);
-
+  editKey = c;
+  console.log("7 Inside beforeEdit func: "+ editKey);
   editDetails.push
 			({
         "id": c,
@@ -158,6 +159,7 @@ let beforeEdit = async (a,b,c) => {
   console.log("4 Inside beforeEdit func: "+ editDetails.id);
   console.log("5 Inside beforeEdit func: "+ editDetails.key);
   console.log("6 Inside beforeEdit func: "+ editDetails.value);
+  
 }
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
