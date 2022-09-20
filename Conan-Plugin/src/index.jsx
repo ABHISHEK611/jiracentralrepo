@@ -119,6 +119,7 @@ const onSubmit = async (formData) => {
 let afterEdit = async (formData) => {
   console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
   console.log("Inside afterEdit func: "+ editDetails.id);
+  console.log("7 Inside beforeEdit func: "+ editKey);
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
