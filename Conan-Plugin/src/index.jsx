@@ -214,7 +214,7 @@ let onDelete = async (id) => {
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
                               <Form onSubmit={async () => {
                           beforeEdit(data.key, data.value, data.id);
-                          afterEdit(formData)
+                          afterEdit()
                         }} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
