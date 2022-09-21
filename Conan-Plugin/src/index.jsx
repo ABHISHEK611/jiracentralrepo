@@ -6,9 +6,7 @@ const App = () => {
 
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
-
 var conanScores = [];
-//var editKey = "";
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -63,7 +61,10 @@ const keycounter = async() =>{
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
+
+let [editId, setEditId] = useState("");
 let [editKey, setEditKey] = useState("");
+let [editValue, setEditValue] = useState("");
 
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
@@ -119,29 +120,31 @@ let beforeEdit = async (data) => {
   console.log("1 Inside beforeEdit func: "+ data.id);
   console.log("2 Inside beforeEdit func: "+ data.key);
   console.log("3 Inside beforeEdit func: "+ data.value);
-  setEditKey(data.id);
-  console.log("4 Inside beforeEdit func: "+ editKey);
+  setEditId(data.id);
+  setEditKey(data.key);
+  setEditValue(data.value);
 
 }
 
 let afterEdit = async (formData) => {
   console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
-  
-  console.log("1 Inside afteredit func: "+ editKey);
+  console.log("1 Inside afteredit func: "+ editId);
+  console.log("2 Inside afteredit func: "+ editKey);
+  console.log("3 Inside afteredit func: "+ editValue);
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
-/* let newbody2 = 
+ let newbody2 = 
   {
-    id: editDetails.id,
+    id: editId,
     name: formData.name,
     conanlink: formData.url,
   };
 
   console.log("Body created by the issueid is= " + JSON.stringify(newbody2));
 
-    const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${editDetails.id}`, {
+    const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${editId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -149,7 +152,7 @@ let afterEdit = async (formData) => {
 	body: JSON.stringify(newbody2)
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());*/
+    console.log(await response.text());
 
 }
 
