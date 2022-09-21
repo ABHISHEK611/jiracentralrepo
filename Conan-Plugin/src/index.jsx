@@ -8,6 +8,7 @@ const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 
 var conanScores = [];
+var editKey = "";
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -63,7 +64,7 @@ const keycounter = async() =>{
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
 var editDetails = [];
-var editKey = "";
+
 
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
@@ -116,10 +117,29 @@ const onSubmit = async (formData) => {
 
 };
 
+let beforeEdit = async (a,b,c) => {
+  console.log("1 Inside beforeEdit func: "+ a);
+  console.log("2 Inside beforeEdit func: "+ b);
+  console.log("3 Inside beforeEdit func: "+ c);
+  editKey = c;
+  console.log("7 Inside beforeEdit func: "+ editKey);
+  editDetails.push
+			({
+        "id": c,
+				"key": a,
+				"value" : b
+			});
+
+  console.log("4 Inside beforeEdit func: "+ editDetails.id);
+  console.log("5 Inside beforeEdit func: "+ editDetails.key);
+  console.log("6 Inside beforeEdit func: "+ editDetails.value);
+  
+}
+
 let afterEdit = async (formData) => {
   console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
   console.log("Inside afterEdit func: "+ editDetails.id);
-  console.log("7 Inside beforeEdit func: "+ editKey);
+  console.log("7 Inside afteredit func: "+ editKey);
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
@@ -144,24 +164,7 @@ let afterEdit = async (formData) => {
     console.log(await response.text());
 
 }
-let beforeEdit = async (a,b,c) => {
-  console.log("1 Inside beforeEdit func: "+ a);
-  console.log("2 Inside beforeEdit func: "+ b);
-  console.log("3 Inside beforeEdit func: "+ c);
-  editKey = c;
-  console.log("7 Inside beforeEdit func: "+ editKey);
-  editDetails.push
-			({
-        "id": c,
-				"key": a,
-				"value" : b
-			});
 
-  console.log("4 Inside beforeEdit func: "+ editDetails.id);
-  console.log("5 Inside beforeEdit func: "+ editDetails.key);
-  console.log("6 Inside beforeEdit func: "+ editDetails.value);
-  
-}
 let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
   const context = useProductContext();
