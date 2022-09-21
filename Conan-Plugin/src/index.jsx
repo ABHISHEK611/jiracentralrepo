@@ -63,8 +63,6 @@ const keycounter = async() =>{
 
 let [conandata, setconandata] = useState(async()=> await fetchProjectData());
 
-var editDetails = [];
-
 
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
@@ -122,18 +120,8 @@ let beforeEdit = async (a,b,c) => {
   console.log("2 Inside beforeEdit func: "+ b);
   console.log("3 Inside beforeEdit func: "+ c);
   editKey = c;
-  console.log("7 Inside beforeEdit func: "+ editKey);
-  editDetails.push
-			({
-        "id": c,
-				"key": a,
-				"value" : b
-			});
+  console.log("4 Inside beforeEdit func: "+ editKey);
 
-  console.log("4 Inside beforeEdit func: "+ editDetails.id);
-  console.log("5 Inside beforeEdit func: "+ editDetails.key);
-  console.log("6 Inside beforeEdit func: "+ editDetails.value);
-  
 }
 
 let afterEdit = async (formData) => {
@@ -215,19 +203,19 @@ let onDelete = async (id) => {
                   </Cell>
                   <Cell>
                     <Text>
-                      <Link appearance="link" href={data.value}>
+                      <Link appearance="link" href={data.value} openNewTab="true">
                         {data.value}
                      </Link>
                     </Text>
                   </Cell>
                   <Cell>
-                        <Button icon='edit' onClick={async () => {
-                          beforeEdit(data.key, data.value, data.id);
-                          setOpen1(true)
-                        }} />
+                        <Button icon='edit' onClick={() => setOpen1(true)} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={afterEdit} submitButtonText="Edit">
+                              <Form onSubmit={async () => {
+                          beforeEdit(data.key, data.value, data.id);
+                          afterEdit
+                        }} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
                               </Form>
