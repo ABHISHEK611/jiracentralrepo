@@ -8,7 +8,7 @@ const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 
 var conanScores = [];
-var editKey = "";
+//var editKey = "";
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
