@@ -115,11 +115,12 @@ const onSubmit = async (formData) => {
 
 };
 
-let beforeEdit = async (a,b,c) => {
-  console.log("1 Inside beforeEdit func: "+ a);
-  console.log("2 Inside beforeEdit func: "+ b);
-  console.log("3 Inside beforeEdit func: "+ c);
-  editKey = c;
+let beforeEdit = async (data) => {
+  console.log("0 Inside beforeEdit func: "+ JSON.stringify(data));
+  console.log("1 Inside beforeEdit func: "+ data.id);
+  console.log("2 Inside beforeEdit func: "+ data.key);
+  console.log("3 Inside beforeEdit func: "+ data.value);
+  editKey = data.id;
   console.log("4 Inside beforeEdit func: "+ editKey);
 
 }
@@ -170,6 +171,7 @@ let onDelete = async (id) => {
     <Fragment>
       <Tabs>
         <Tab label="Details">
+          
       <Button text="Add New Link" onClick={() => setOpen(true)} />
 
       {isOpen && (
@@ -209,13 +211,13 @@ let onDelete = async (id) => {
                     </Text>
                   </Cell>
                   <Cell>
-                        <Button icon='edit' onClick={() => setOpen1(true)} />
+                        <Button icon='edit' onClick={() => {
+                          setOpen1(true)
+                          beforeEdit(data)
+                          }} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={async () => {
-                          beforeEdit(data.key, data.value, data.id);
-                          afterEdit()
-                        }} submitButtonText="Edit">
+                              <Form onSubmit={afterEdit} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
                               </Form>
