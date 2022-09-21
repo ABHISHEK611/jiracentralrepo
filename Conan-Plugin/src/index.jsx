@@ -126,13 +126,13 @@ let beforeEdit = async (a,b,c) => {
 
 let afterEdit = async (formData) => {
   console.log("Inside afterEdit Data to be edited :" + JSON.stringify(formData));
-  console.log("Inside afterEdit func: "+ editDetails.id);
+  
   console.log("7 Inside afteredit func: "+ editKey);
 
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
 
- let newbody2 = 
+/* let newbody2 = 
   {
     id: editDetails.id,
     name: formData.name,
@@ -149,7 +149,7 @@ let afterEdit = async (formData) => {
 	body: JSON.stringify(newbody2)
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());
+    console.log(await response.text());*/
 
 }
 
@@ -214,7 +214,7 @@ let onDelete = async (id) => {
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
                               <Form onSubmit={async () => {
                           beforeEdit(data.key, data.value, data.id);
-                          afterEdit
+                          afterEdit(formData)
                         }} submitButtonText="Edit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
