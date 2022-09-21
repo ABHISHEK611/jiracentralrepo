@@ -112,6 +112,7 @@ const onSubmit = async (formData) => {
     //console.log(`Response: ${response.status} ${response.statusText}`);
     //console.log(await response.text());
     setconandata(conandata);
+    setOpen(false);
 
 };
 
@@ -153,7 +154,7 @@ let afterEdit = async (formData) => {
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.text());
-
+    setOpen1(false);
 }
 
 let onDelete = async (id) => {
