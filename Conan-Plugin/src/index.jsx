@@ -26,12 +26,13 @@ const fetchProjectData = async() =>{
       const data1 = await res1.json();
       console.log("data1: "+ data1);
 
-			conanScores.push
+      setConanscores(data1.value.id, data1.value.name, data1.value.conanlink);
+			/*conanScores.push
 			({
         "id": data1.value.id,
 				"key": data1.value.name,
 				"value" : data1.value.conanlink
-			});
+			});*/
 		}
 	}
 	
@@ -111,7 +112,7 @@ const onSubmit = async (formData) => {
     //console.log(data);
     //console.log(`Response: ${response.status} ${response.statusText}`);
     //console.log(await response.text());
-    setConanscores(conandata);
+    await setConanscores(conandata);
     setOpen(false);
 
 };
