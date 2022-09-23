@@ -6,7 +6,7 @@ const App = () => {
 
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
-var conanScores = [];
+let[conanScores, setConanscores] = useState();;
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -111,7 +111,7 @@ const onSubmit = async (formData) => {
     //console.log(data);
     //console.log(`Response: ${response.status} ${response.statusText}`);
     //console.log(await response.text());
-    setconandata(conandata);
+    setConanscores(conandata);
     setOpen(false);
 
 };
