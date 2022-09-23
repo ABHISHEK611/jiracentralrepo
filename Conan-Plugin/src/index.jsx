@@ -6,7 +6,7 @@ const App = () => {
 
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
-let[conanScores, setConanscores] = useState();;
+let[conanScores, setConanscores] = useState({ id: "", key: "", value: "" });
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -26,7 +26,7 @@ const fetchProjectData = async() =>{
       const data1 = await res1.json();
       console.log("data1: "+ data1);
 
-      setConanscores(data1.value.id, data1.value.name, data1.value.conanlink);
+      setConanscores( "id"= data1.value.id, "key"= data1.value.name, "value": data1.value.conanlink);
 			/*conanScores.push
 			({
         "id": data1.value.id,
