@@ -167,7 +167,7 @@ let afterEdit = async (formData) => {
     console.log(itemEdit);
     conanScores[itemEdit] = {...conanScores[itemEdit], "key": formData.name, "value" : formData.url};
     console.log(conanScores);
-    
+
     setConanScores(conanScores);
     setOpen1(false);
 }
@@ -242,8 +242,8 @@ let onDelete = async (id) => {
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
                               <Form onSubmit={afterEdit} submitButtonText="Submit">
-                                <TextField label="Name" name="name" isRequired="true"/>
-                                <TextField label="Url" name="url" isRequired="true" />
+                                <TextField label="Name" name="name" defaultValue={data.key} isRequired="true"/>
+                                <TextField label="Url" name="url" defaultValue={data.value} isRequired="true" />
                               </Form>
                             </ModalDialog>
                          )}
