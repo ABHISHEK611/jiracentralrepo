@@ -163,12 +163,11 @@ let afterEdit = async (formData) => {
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.text());
     
-    conanScores.push
-			({
-        "id": editId,
-				"key": formData.name,
-				"value" : formData.url
-			});
+    let itemEdit = conanScores.findIndex(data => data.id == editId);
+    console.log(itemEdit);
+    conanScores[itemEdit] = {...conanScores[itemEdit], "key": formData.name, "value" : formData.url};
+    console.log(conanScores);
+    
     setConanScores(conanScores);
     setOpen1(false);
 }
@@ -185,7 +184,7 @@ let onDelete = async (id) => {
   console.log(await response.text());
 
   let afterDeleteConanScores = conanScores.filter(data => data.id != id);
-  console.log(afterDeleteConanScores);
+  //console.log(afterDeleteConanScores);
   conanScores = afterDeleteConanScores;
   setConanScores(conanScores);
 
