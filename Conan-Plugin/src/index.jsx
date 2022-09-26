@@ -6,7 +6,11 @@ const App = () => {
 
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
-let[conanScores, setConanscores] = useState({ id: "", key: "", value: "" });
+let[conanScores, setConanScores] = useState([]);
+//conanScores.push({id: })
+//setConanScores(conanScores)
+//[{id=1,name= conan10, link: https:''google"},{id=2, name=, link=}]
+//var conanScores = [];
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -26,13 +30,13 @@ const fetchProjectData = async() =>{
       const data1 = await res1.json();
       console.log("data1: "+ data1);
 
-      setConanscores( "id"= data1.value.id, "key"= data1.value.name, "value"= data1.value.conanlink);
-			/*conanScores.push
+      //setConanScores( "id"= data1.value.id, "key"= data1.value.name, "value"= data1.value.conanlink);
+			conanScores.push
 			({
         "id": data1.value.id,
 				"key": data1.value.name,
 				"value" : data1.value.conanlink
-			});*/
+			});
 		}
 	}
 	
@@ -60,7 +64,7 @@ const keycounter = async() =>{
 	return count;
 }
 
-let [conandata, setconandata] = useState(async()=> await fetchProjectData());
+let [conanData, setConanData] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
 let [editId, setEditId] = useState("");
@@ -112,7 +116,13 @@ const onSubmit = async (formData) => {
     //console.log(data);
     //console.log(`Response: ${response.status} ${response.statusText}`);
     //console.log(await response.text());
-    await setConanscores(conandata);
+    conanScores.push
+			({
+        "id": key,
+				"key": formData.name,
+				"value" : formData.url
+			});
+    setConanScores(conanScores);
     setOpen(false);
 
 };
@@ -155,6 +165,14 @@ let afterEdit = async (formData) => {
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.text());
+    
+    conanScores.push
+			({
+        "id": key,
+				"key": formData.name,
+				"value" : formData.url
+			});
+    setConanScores(conanScores);
     setOpen1(false);
 }
 
@@ -168,6 +186,13 @@ let onDelete = async (id) => {
   });
   console.log(`Response: ${response.status} ${response.statusText}`);
   console.log(await response.text());
+  conanScores.push
+			({
+        "id": key,
+				"key": formData.name,
+				"value" : formData.url
+			});
+    setConanScores(conanScores);
 }
 
 
@@ -202,7 +227,7 @@ let onDelete = async (id) => {
                 <Text>Delete</Text>
                </Cell>
             </Head>
-            {conandata.map(data => (
+            {conanScores.map(data => (
                 <Row>
                   <Cell>
                     <Text>{data.key}</Text>
