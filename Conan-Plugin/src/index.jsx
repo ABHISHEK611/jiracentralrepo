@@ -26,7 +26,7 @@ const fetchProjectData = async() =>{
       const data1 = await res1.json();
       console.log("data1: "+ data1);
 
-      setConanscores( "id"= data1.value.id, "key"= data1.value.name, "value": data1.value.conanlink);
+      setConanscores( "id"= data1.value.id, "key"= data1.value.name, "value"= data1.value.conanlink);
 			/*conanScores.push
 			({
         "id": data1.value.id,
@@ -221,7 +221,7 @@ let onDelete = async (id) => {
                           }} />
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
-                              <Form onSubmit={afterEdit} submitButtonText="Edit">
+                              <Form onSubmit={afterEdit} submitButtonText="Submit">
                                 <TextField label="Name" name="name" isRequired="true"/>
                                 <TextField label="Url" name="url" isRequired="true" />
                               </Form>
