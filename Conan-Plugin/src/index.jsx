@@ -6,7 +6,7 @@ const App = () => {
 
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
-let[conanScores, setConanScores] = useState([]);
+//let[conanScores, setConanScores] = useState([]);
 
 
 const fetchProjectData = async() =>{
@@ -61,7 +61,7 @@ const keycounter = async() =>{
 	return count;
 }
 
-async() => await fetchProjectData();
+let[conanScores, setConanScores] = useState(async()=> await fetchProjectData());
 //let [conanData, setConanData] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
