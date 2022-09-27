@@ -61,7 +61,7 @@ const keycounter = async() =>{
 	return count;
 }
 
-setConanScores = async() => await fetchProjectData();
+setConanScores = useState(async()=> await fetchProjectData());
 //let [conanData, setConanData] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
