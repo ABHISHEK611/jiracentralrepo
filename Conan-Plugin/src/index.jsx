@@ -61,6 +61,7 @@ const keycounter = async() =>{
 	return count;
 }
 
+setConanScores = async() => await fetchProjectData();
 //let [conanData, setConanData] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
@@ -242,8 +243,8 @@ let onDelete = async (id) => {
                         {isOpen1 && (
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
                               <Form onSubmit={afterEdit} submitButtonText="Submit">
-                                <TextField label="Name" name="name" value={data.key} isRequired="true"/>
-                                <TextField label="Url" name="url" value={data.value} isRequired="true" />
+                                <TextField label="Name" name="name" defaultValue={data.key} isRequired="true"/>
+                                <TextField label="Url" name="url" defaultValue={data.value} isRequired="true" />
                               </Form>
                             </ModalDialog>
                          )}
