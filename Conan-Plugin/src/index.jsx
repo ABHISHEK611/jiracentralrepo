@@ -194,21 +194,22 @@ let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
+  
+  let deletedConanScores = conanScores.filter(data => data.id = id);
+  console.log("To be deleted:  "+ deletedConanScores);
 
   const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${id}`, {
     method: 'DELETE'
   });
   console.log(`Response: ${response.status} ${response.statusText}`);
   console.log(await response.text());
-
-  let deletedConanScores = conanScores.filter(data => data.id = id);
-  console.log(deletedConanScores);
   
   let afterDeleteConanScores = conanScores.filter(data => data.id != id);
-  console.log(afterDeleteConanScores);
+  console.log("After deletion array: " +afterDeleteConanScores);
   
   conanScores = afterDeleteConanScores;
   setConanScores(conanScores);
+  console.log("Actual Array: " +conanScores);
   
   let history = {
     action: 'Delete',
@@ -230,6 +231,7 @@ let createHistory = async (history) => {
   else{
     console.log("Delete inside history: "+JSON.stringify(history));
   }
+
 }
 
   return (
