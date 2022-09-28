@@ -7,7 +7,7 @@ const App = () => {
 const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 let[conanScores, setConanScores] = useState([]);
-
+let [conanHistory, setConanHistory] = useState([]);
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -121,6 +121,13 @@ const onSubmit = async (formData) => {
 			});
     setConanScores(conanScores);
     setOpen(false);
+    let history = {
+      action: 'Add',
+      user: context.accountId,
+      object: formData,
+      time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+    }
+    await createHistory(history);
 
 };
 
@@ -170,6 +177,14 @@ let afterEdit = async (formData) => {
 
     setConanScores(conanScores);
     setOpen1(false);
+    let history = {
+      action: 'Edit',
+      user: context.accountId,
+      object: formData,
+      oldObject: {editKey,editValue},
+      time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+    }
+    await createHistory(history);
 }
 
 let onDelete = async (id) => {
@@ -183,13 +198,36 @@ let onDelete = async (id) => {
   console.log(`Response: ${response.status} ${response.statusText}`);
   console.log(await response.text());
 
+  let deletedConanScores = conanScores.filter(data => data.id = id);
+  console.log(deletedConanScores);
+  
   let afterDeleteConanScores = conanScores.filter(data => data.id != id);
-  //console.log(afterDeleteConanScores);
+  console.log(afterDeleteConanScores);
+  
   conanScores = afterDeleteConanScores;
   setConanScores(conanScores);
+  
+  let history = {
+    action: 'Delete',
+    user: context.accountId,
+    object: deletedConanScores,
+    time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+  }
+  await createHistory(history);
 
 }
-
+let createHistory = async (history) => {
+  
+  if (history.action == "Add") {
+    console.log("Add inside history: "+JSON.stringify(history));
+  }
+  else if (history.action == "Edit") {
+    console.log("Edit inside history: "+JSON.stringify(history));
+  }
+  else{
+    console.log("Delete inside history: "+JSON.stringify(history));
+  }
+}
 
   return (
     <Fragment>
@@ -243,7 +281,7 @@ let onDelete = async (id) => {
                             <ModalDialog header="Edit Conan Link" onClose={() => setOpen1(false)}>
                               <Form onSubmit={afterEdit} submitButtonText="Submit">
                                 <TextField label="Name" name="name" defaultValue={data.key} isRequired="true"/>
-                                <TextField label="Url" name="url" defaultValue={data.value} isRequired="true" />
+                                <TextField label="Url" name="url" defaultValue={data.value} isRequired="true"/>
                               </Form>
                             </ModalDialog>
                          )}
