@@ -343,7 +343,7 @@ let createHistory = async (history) =>
                         <Text>historydata.linkname</Text>
                         <Text>historydata.url</Text>
                     </Text>}
-                {history.action == 'Delete' &&
+                {historydata.action == 'Delete' &&
                     <Text>
                         <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> at <Badge text={historydata.time} />
                         <Text>historydata.oldlinkname</Text>
@@ -351,7 +351,7 @@ let createHistory = async (history) =>
                         <Text>historydata.linkname</Text>
                         <Text>historydata.url</Text>
                     </Text>}
-                {history.action == 'Edit' &&
+                {historydata.action == 'Edit' &&
                     <Text>
                         <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> at <Badge text={historydata.time} />
                         <Text>historydata.linkname</Text>
