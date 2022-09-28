@@ -124,8 +124,8 @@ const onSubmit = async (formData) => {
 			});
     setConanScores(conanScores);
     setactualcount(propkey);
-
     setOpen(false);
+    
     let history = {
       action: 'Add',
       user: context.accountId,
@@ -182,6 +182,7 @@ let afterEdit = async (formData) => {
 
     setConanScores(conanScores);
     setOpen1(false);
+
     let history = {
       action: 'Edit',
       user: context.accountId,
@@ -212,7 +213,7 @@ let onDelete = async (deleteId) => {
   conanScores = afterDeleteConanScores;
   setConanScores(conanScores);
   console.log("Actual Array: " +JSON.stringify(conanScores));
-  
+
   let history = {
     action: 'Delete',
     user: context.accountId,
@@ -222,16 +223,48 @@ let onDelete = async (deleteId) => {
   await createHistory(history);
 
 }
-let createHistory = async (history) => {
-  
-  if (history.action == "Add") {
+let createHistory = async (history) => 
+{
+  if (history.action == "Add") 
+  {
     console.log("Add inside history: "+JSON.stringify(history));
-  }
-  else if (history.action == "Edit") {
+    conanHistory.push
+			({
+        "action": history.action,
+        "user": history.user,
+        "linkname": history.object.name,
+        "url": history.object.url,
+        "time": history.time
+			});
+      console.log("Edit inside history: "+JSON.stringify(conanHistory));
+    }
+  else if (history.action == "Edit")
+  {
     console.log("Edit inside history: "+JSON.stringify(history));
+    conanHistory.push
+			({
+        "action": history.action,
+        "user": history.user,
+        "oldlinkname": history.oldobject.editKey,
+        "oldurl": history.oldobject.editValue,
+        "linkname": history.object.name,
+        "url": history.object.url,
+        "time": history.time
+			});
+      console.log("Edit inside history: "+JSON.stringify(conanHistory));
   }
-  else{
+  else
+  {
     console.log("Delete inside history: "+JSON.stringify(history));
+    conanHistory.push
+			({
+        "action": history.action,
+        "user": history.user,
+        "linkname": history.object.key,
+        "url": history.object.value,
+        "time": history.time
+			});
+      console.log("Edit inside history: "+JSON.stringify(conanHistory));
   }
 
 }
@@ -301,7 +334,30 @@ let createHistory = async (history) => {
       </Table>
       </Tab>
       <Tab label="History">
-          <Text>Hello from History Page</Text>
+      {conanHistory.reverse().map(historydata =>
+            <Fragment>
+                {historydata.action == 'Add' &&
+                    <Text>
+                        <User accountId={historydata.user} /> <Badge appearance="added" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <Text>historydata.linkname</Text>
+                        <Text>historydata.url</Text>
+                    </Text>}
+                {history.action == 'Delete' &&
+                    <Text>
+                        <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <Text>historydata.oldlinkname</Text>
+                        <Text>historydata.oldurl</Text>
+                        <Text>historydata.linkname</Text>
+                        <Text>historydata.url</Text>
+                    </Text>}
+                {history.action == 'Edit' &&
+                    <Text>
+                        <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <Text>historydata.linkname</Text>
+                        <Text>historydata.url</Text>
+                    </Text>}
+            </Fragment>
+        )}
       </Tab>
       </Tabs>
     </Fragment>
