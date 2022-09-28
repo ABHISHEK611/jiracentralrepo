@@ -11,6 +11,9 @@ let [conanHistory, setConanHistory] = useState([]);
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
+  console.log("1 inside fetchProjectData: " +context);
+  console.log("2 inside fetchProjectData: " +JSON.stringify(context));
+
   const issueKey = context.platformContext.issueKey;
 
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties`);
@@ -191,7 +194,7 @@ let onDelete = async (id) => {
   console.log("Key to be deleted:" + id);
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
-  
+
   const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${id}`, {
     method: 'DELETE'
   });
