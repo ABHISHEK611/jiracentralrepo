@@ -190,21 +190,21 @@ let afterEdit = async (formData) => {
     await createHistory(history);
 }
 
-let onDelete = async (id) => {
-  console.log("Key to be deleted:" + id);
+let onDelete = async (deleteId) => {
+  console.log("Key to be deleted:" + deleteId);
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
   
-  let deletedConanScores = conanScores.filter(data => data.id = id);
+  let deletedConanScores = conanScores.filter(x => x.id == deleteId);
   console.log("To be deleted:  "+ deletedConanScores);
 
-  const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${id}`, {
+  const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${deleteId}`, {
     method: 'DELETE'
   });
   console.log(`Response: ${response.status} ${response.statusText}`);
   console.log(await response.text());
   
-  let afterDeleteConanScores = conanScores.filter(data => data.id != id);
+  let afterDeleteConanScores = conanScores.filter(y => y.id != deleteId);
   console.log("After deletion array: " +afterDeleteConanScores);
   
   conanScores = afterDeleteConanScores;
