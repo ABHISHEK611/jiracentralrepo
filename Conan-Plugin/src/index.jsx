@@ -123,6 +123,8 @@ const onSubmit = async (formData) => {
 				"value" : formData.url
 			});
     setConanScores(conanScores);
+    setactualcount(propkey);
+
     setOpen(false);
     let history = {
       action: 'Add',
@@ -196,7 +198,7 @@ let onDelete = async (deleteId) => {
   const issueKey = context.platformContext.issueKey;
   
   let deletedConanScores = conanScores.filter(x => x.id == deleteId);
-  console.log("To be deleted:  "+ deletedConanScores);
+  console.log("To be deleted:  "+ JSON.stringify(deletedConanScores));
 
   const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${deleteId}`, {
     method: 'DELETE'
@@ -205,11 +207,11 @@ let onDelete = async (deleteId) => {
   console.log(await response.text());
   
   let afterDeleteConanScores = conanScores.filter(y => y.id != deleteId);
-  console.log("After deletion array: " +afterDeleteConanScores);
+  console.log("After deletion array: " +JSON.stringify(afterDeleteConanScores));
   
   conanScores = afterDeleteConanScores;
   setConanScores(conanScores);
-  console.log("Actual Array: " +conanScores);
+  console.log("Actual Array: " +JSON.stringify(conanScores));
   
   let history = {
     action: 'Delete',
