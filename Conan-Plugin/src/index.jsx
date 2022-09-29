@@ -295,9 +295,10 @@ let createHistory = async (history) =>
     headers: {
         'Content-Type': 'application/json'
     },
-body: JSON.stringify(conanHistory)
-});
-
+    body: JSON.stringify(conanHistory)
+    });
+    
+    setConanHistory(conanHistory);
 }
 
   return (
