@@ -219,7 +219,8 @@ let onDelete = async (deleteId) => {
   let history = {
     action: 'Deleted',
     user: context.accountId,
-    object: deletedConanScores,
+    objectKey: deletedConanScores.key,
+    objectValue: deletedConanScores.value,
     time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
   }
   await createHistory(history);
@@ -257,17 +258,26 @@ let createHistory = async (history) =>
   }
   else
   {
-    console.log("Delete inside historyed: "+JSON.stringify(history));
+    console.log("Delete inside history: "+JSON.stringify(history));
     conanHistory.push
 			({
         "action": history.action,
         "user": history.user,
-        "linkname": history.object.key,
-        "url": history.object.value,
+        "linkname": history.objectKey,
+        "url": history.objectValue,
         "time": history.time
 			});
       console.log("Delete2 inside history: "+JSON.stringify(conanHistory));
   }
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
+  const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myHistory`, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+body: JSON.stringify(conanHistory)
+});
 
 }
 
@@ -346,7 +356,7 @@ let createHistory = async (history) =>
                     </Text>}
                 {historydata.action == 'Edited' &&
                     <Text>
-                        <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> at <Badge text={historydata.time} />
                         Old Value:
                         {historydata.oldlinkname}
                         {historydata.oldurl}
@@ -356,7 +366,7 @@ let createHistory = async (history) =>
                     </Text>}
                 {historydata.action == 'Deleted' &&
                     <Text>
-                        <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> at <Badge text={historydata.time} />
                         {historydata.linkname}
                         {historydata.url}
                     </Text>}
