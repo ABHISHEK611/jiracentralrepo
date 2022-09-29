@@ -76,7 +76,7 @@ const fetchProjectHistory = async() =>{
   
 	console.log("fetching history1: " +JSON.stringify(data.value));
   setConanHistory(data.value);
-	console.log("fetching history2: " +conanHistory);
+	//console.log("fetching history2: " +conanHistory);
 	return conanHistory;
 }
 
@@ -247,7 +247,7 @@ let onDelete = async (deleteId) => {
 let createHistory = async (history) => 
 {
 
-  setConanHistory([""]);
+  setConanHistory = useState([]);
   if (history.action == "Added") 
   {
     console.log("Add inside history: "+JSON.stringify(history));
