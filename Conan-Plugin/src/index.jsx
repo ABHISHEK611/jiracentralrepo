@@ -9,7 +9,6 @@ const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 let [conanScores, setConanScores] = useState([]);
 let [conanHistory, setConanHistory] = useState([]);
-let [statusConanHistory, setStatusConanHistory] = useState([]);
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -74,16 +73,8 @@ const fetchProjectHistory = async() =>{
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myHistory`);
   const data = await res.json();
 
-  if(res == '404')
-  {
-    setStatusConanHistory(data.value);
-  }
-  else
-  {
-    setConanHistory(data.value);
-  }
 	console.log("fetching history1: " +JSON.stringify(data.value));
-  
+  setConanHistory(data.value);
 	//console.log("fetching history2: " +conanHistory);
 	return conanHistory;
 }
@@ -255,6 +246,7 @@ let onDelete = async (deleteId) => {
 let createHistory = async (history) => 
 {
 
+  conanHistory = [];
   if (history.action == "Added") 
   {
     console.log("Add inside history: "+JSON.stringify(history));
@@ -373,7 +365,7 @@ body: JSON.stringify(conanHistory)
       </Table>
       </Tab>
       <Tab label="History">
-      {statusConanHistory !== undefined && conanHistory.reverse().map(historydata =>
+      {conanHistory !== undefined && conanHistory.reverse().map(historydata =>
             <Fragment>
                 {historydata.action == 'Added' &&
                     <Text>
