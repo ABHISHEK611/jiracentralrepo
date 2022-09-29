@@ -246,7 +246,11 @@ let onDelete = async (deleteId) => {
 let createHistory = async (history) => 
 {
 
-  conanHistory = [];
+  if(conanHistory == undefined)
+  {
+    conanHistory = [];
+  }
+  
   if (history.action == "Added") 
   {
     console.log("Add inside history: "+JSON.stringify(history));
@@ -297,7 +301,7 @@ let createHistory = async (history) =>
     },
     body: JSON.stringify(conanHistory)
     });
-    
+
     setConanHistory(conanHistory);
 }
 
@@ -370,13 +374,13 @@ let createHistory = async (history) =>
             <Fragment>
                 {historydata.action == 'Added' &&
                     <Text>
-                        <User accountId={historydata.user} /> <Badge appearance="added" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <User accountId={historydata.user} /> <Badge appearance="added" text={historydata.action} /> below data at <Badge text={historydata.time} />
                         {historydata.linkname}
                         {historydata.url}
                     </Text>}
                 {historydata.action == 'Edited' &&
                     <Text>
-                        <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> below data at <Badge text={historydata.time} />
                         Old Value:
                         {historydata.oldlinkname}
                         {historydata.oldurl}
@@ -386,7 +390,7 @@ let createHistory = async (history) =>
                     </Text>}
                 {historydata.action == 'Deleted' &&
                     <Text>
-                        <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> at <Badge text={historydata.time} />
+                        <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> below data at <Badge text={historydata.time} />
                         {historydata.linkname}
                         {historydata.url}
                     </Text>}
