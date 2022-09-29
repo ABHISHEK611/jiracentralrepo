@@ -375,7 +375,7 @@ body: JSON.stringify(conanHistory)
       </Table>
       </Tab>
       <Tab label="History">
-      {conanHistory !== undefined && conanHistory.reverse().map(historydata =>
+      {conanHistory != undefined && conanHistory.reverse().map(historydata =>
             <Fragment>
                 {historydata.action == 'Added' &&
                     <Text>
