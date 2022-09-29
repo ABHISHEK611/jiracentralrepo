@@ -128,7 +128,7 @@ const onSubmit = async (formData) => {
     setOpen(false);
     
     let history = {
-      action: 'Add',
+      action: 'Added',
       user: context.accountId,
       object: formData,
       time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
@@ -185,10 +185,11 @@ let afterEdit = async (formData) => {
     setOpen1(false);
 
     let history = {
-      action: 'Edit',
+      action: 'Edited',
       user: context.accountId,
       object: formData,
-      oldObject: {editKey,editValue},
+      oldObjectKey: editKey,
+      oldObjectValue: editValue,
       time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
     }
     await createHistory(history);
@@ -216,7 +217,7 @@ let onDelete = async (deleteId) => {
   console.log("Actual Array: " +JSON.stringify(conanScores));
 
   let history = {
-    action: 'Delete',
+    action: 'Deleted',
     user: context.accountId,
     object: deletedConanScores,
     time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
@@ -226,7 +227,7 @@ let onDelete = async (deleteId) => {
 }
 let createHistory = async (history) => 
 {
-  if (history.action == "Add") 
+  if (history.action == "Added") 
   {
     console.log("Add inside history: "+JSON.stringify(history));
     conanHistory.push
@@ -237,26 +238,26 @@ let createHistory = async (history) =>
         "url": history.object.url,
         "time": history.time
 			});
-      console.log("Edit inside history: "+JSON.stringify(conanHistory));
+      console.log("Add2 inside history: "+JSON.stringify(conanHistory));
     }
-  else if (history.action == "Edit")
+  else if (history.action == "Edited")
   {
     console.log("Edit inside history: "+JSON.stringify(history));
     conanHistory.push
 			({
         "action": history.action,
         "user": history.user,
-        "oldlinkname": history.oldobject.editKey,
-        "oldurl": history.oldobject.editValue,
         "linkname": history.object.name,
         "url": history.object.url,
+        "oldlinkname": history.oldObjectKey,
+        "oldurl": history.oldObjectValue,
         "time": history.time
 			});
-      console.log("Edit inside history: "+JSON.stringify(conanHistory));
+      console.log("Edit2 inside history: "+JSON.stringify(conanHistory));
   }
   else
   {
-    console.log("Delete inside history: "+JSON.stringify(history));
+    console.log("Delete inside historyed: "+JSON.stringify(history));
     conanHistory.push
 			({
         "action": history.action,
@@ -265,7 +266,7 @@ let createHistory = async (history) =>
         "url": history.object.value,
         "time": history.time
 			});
-      console.log("Edit inside history: "+JSON.stringify(conanHistory));
+      console.log("Delete2 inside history: "+JSON.stringify(conanHistory));
   }
 
 }
@@ -337,25 +338,25 @@ let createHistory = async (history) =>
       <Tab label="History">
       {conanHistory.reverse().map(historydata =>
             <Fragment>
-                {historydata.action == 'Add' &&
+                {historydata.action == 'Added' &&
                     <Text>
                         <User accountId={historydata.user} /> <Badge appearance="added" text={historydata.action} /> at <Badge text={historydata.time} />
-                        <Text>historydata.linkname</Text>
-                        <Text>historydata.url</Text>
+                        historydata.linkname
+                        historydata.url
                     </Text>}
-                {historydata.action == 'Delete' &&
+                {historydata.action == 'Edited' &&
                     <Text>
                         <User accountId={historydata.user} /> <Badge appearance="removed" text={historydata.action} /> at <Badge text={historydata.time} />
-                        <Text>historydata.oldlinkname</Text>
-                        <Text>historydata.oldurl</Text>
-                        <Text>historydata.linkname</Text>
-                        <Text>historydata.url</Text>
+                        historydata.oldlinkname
+                        historydata.oldurl
+                        historydata.linkname
+                        historydata.url
                     </Text>}
-                {historydata.action == 'Edit' &&
+                {historydata.action == 'Deleted' &&
                     <Text>
                         <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> at <Badge text={historydata.time} />
-                        <Text>historydata.linkname</Text>
-                        <Text>historydata.url</Text>
+                        historydata.linkname
+                        historydata.url
                     </Text>}
             </Fragment>
         )}
