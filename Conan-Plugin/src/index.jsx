@@ -76,12 +76,15 @@ const fetchProjectHistory = async() =>{
   console.log("fetching history1: "+ JSON.stringify(data));
   if(res.status == '404')
   {
+    console.log("Inside if");
     setConanHistory({});
   }
   else
   {
+    console.log("Inside else");
     setConanHistory(data.value);
   }
+
 	console.log("fetching history2: " +JSON.stringify(data.value));
   setConanHistory(data.value);
 	console.log("fetching history3: " +conanHistory);
@@ -372,7 +375,7 @@ body: JSON.stringify(conanHistory)
       </Table>
       </Tab>
       <Tab label="History">
-      {conanHistory.reverse().map(historydata =>
+      {conanHistory !== undefined && conanHistory.reverse().map(historydata =>
             <Fragment>
                 {historydata.action == 'Added' &&
                     <Text>
