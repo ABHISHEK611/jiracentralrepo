@@ -44,6 +44,7 @@ const fetchProjectData = async() =>{
 	console.log(conanScores);
 	return conanScores;
 }
+
 const keycounter = async() =>{
   const context = useProductContext();
   const issueKey = context.platformContext.issueKey;
@@ -65,6 +66,19 @@ const keycounter = async() =>{
 	return count;
 }
 
+const fetchProjectHistory = async() =>{
+  const context = useProductContext();
+  const issueKey = context.platformContext.issueKey;
+
+  const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myHistory`);
+  const data = await res.json();
+
+	console.log("fetching history1: " +data);
+	console.log("fetching history2: " +conanHistory);
+	return conanHistory;
+}
+
+let [myHistory, setMyHistory] = useState(async()=> await fetchProjectHistory());
 let [conanData, setConanData] = useState(async()=> await fetchProjectData());
 let [actualcount, setactualcount] = useState(async()=> await keycounter());
 
@@ -201,7 +215,9 @@ let onDelete = async (deleteId) => {
   const issueKey = context.platformContext.issueKey;
   
   let deletedConanScores = conanScores.filter(x => x.id == deleteId);
-  console.log("To be deleted:  "+ JSON.stringify(deletedConanScores));
+  console.log("1 To be deleted:  "+ JSON.stringify(deletedConanScores));
+  console.log("2 To be deleted:  "+ deletedConanScores.key);
+  console.log("3 To be deleted:  "+ deletedConanScores.value);
 
   const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${deleteId}`, {
     method: 'DELETE'
