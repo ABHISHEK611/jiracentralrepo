@@ -22,14 +22,14 @@ const fetchProjectData = async() =>{
 	
 	for(var issuePropKeys of data.keys)
 	{
-		console.log("issuePropKeys :"+issuePropKeys);
+		//console.log("issuePropKeys :"+issuePropKeys);
 		
 		if(issuePropKeys.key.includes("myProperty"))
 		{
       const res1 = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${issuePropKeys.key}`);
-      console.log("res1: "+res1);      
+      //console.log("res1: "+res1);      
       const data1 = await res1.json();
-      console.log("data1: "+ data1);
+      //console.log("data1: "+ data1);
 
       //setConanScores( "id"= data1.value.id, "key"= data1.value.name, "value"= data1.value.conanlink);
 			conanScores.push
@@ -73,8 +73,10 @@ const fetchProjectHistory = async() =>{
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myHistory`);
   const data = await res.json();
 
-	console.log("fetching history1: " +JSON.stringify(data));
-	console.log("fetching history2: " +conanHistory);
+  console.log("fetching history1: " +JSON.stringify(data.key));
+	console.log("fetching history2: " +JSON.stringify(data.value));
+  setConanHistory(data.value);
+	console.log("fetching history3: " +conanHistory);
 	return conanHistory;
 }
 
