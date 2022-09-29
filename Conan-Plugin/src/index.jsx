@@ -73,7 +73,7 @@ const fetchProjectHistory = async() =>{
   const res = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/myHistory`);
   const data = await res.json();
 
-  console.log("fetching history1: "+json.stringify(data));
+  console.log("fetching history1: "+ JSON.stringify(data));
   if(res.status == '404')
   {
     setConanHistory({});
