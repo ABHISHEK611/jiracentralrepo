@@ -246,6 +246,8 @@ let onDelete = async (deleteId) => {
 }
 let createHistory = async (history) => 
 {
+
+  setConanHistory("");
   if (history.action == "Added") 
   {
     console.log("Add inside history: "+JSON.stringify(history));
