@@ -87,6 +87,9 @@ let [editId, setEditId] = useState("");
 let [editKey, setEditKey] = useState("");
 let [editValue, setEditValue] = useState("");
 
+let [deletedKey, setDeletedKey] = useState("");
+let [deletedValue, setDeleteValue] = useState("");
+
 const onSubmit = async (formData) => {
   console.log("Data from the Form:" + formData);
   console.log("Data from the Form:" + JSON.stringify(formData));
@@ -216,9 +219,15 @@ let onDelete = async (deleteId) => {
   const issueKey = context.platformContext.issueKey;
   
   let deletedConanScores = conanScores.filter(x => x.id == deleteId);
+  deletedConanScores.forEach(o => {
+    if (o.id ===  deleteId) {
+      deletedKey = o.key;
+      deletedValue = o.value;
+    }
+  });
   console.log("1 To be deleted:  "+ JSON.stringify(deletedConanScores));
-  console.log("2 To be deleted:  "+ deletedConanScores.key);
-  console.log("3 To be deleted:  "+ deletedConanScores.value);
+  console.log("2 To be deleted:  "+ deletedKey);
+  console.log("3 To be deleted:  "+ deletedValue);
 
   const response = await api.asApp().requestJira(route`/rest/api/3/issue/${issueKey}/properties/${deleteId}`, {
     method: 'DELETE'
@@ -236,8 +245,8 @@ let onDelete = async (deleteId) => {
   let history = {
     action: 'Deleted',
     user: context.accountId,
-    objectKey: deletedConanScores.key,
-    objectValue: deletedConanScores.value,
+    objectKey: deletedKey,
+    objectValue: deletedValue,
     time: new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
   }
   await createHistory(history);
@@ -250,7 +259,7 @@ let createHistory = async (history) =>
   {
     conanHistory = [];
   }
-  
+
   if (history.action == "Added") 
   {
     console.log("Add inside history: "+JSON.stringify(history));
@@ -381,12 +390,12 @@ let createHistory = async (history) =>
                 {historydata.action == 'Edited' &&
                     <Text>
                         <User accountId={historydata.user} /> <Badge appearance="primary" text={historydata.action} /> below data at <Badge text={historydata.time} />
-                        Old Value:
-                        {historydata.oldlinkname}
-                        {historydata.oldurl}
-                        New Value:
-                        {historydata.linkname}
-                        {historydata.url}
+                        '\n'Old Value:'\n'
+                        '\n'{historydata.oldlinkname}'\n'
+                        '\n'{historydata.oldurl}'\n'
+                        '\n'New Value:'\n'
+                        '\n'{historydata.linkname}'\n'
+                        '\n'{historydata.url}'\n'
                     </Text>}
                 {historydata.action == 'Deleted' &&
                     <Text>
