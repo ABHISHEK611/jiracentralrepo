@@ -76,7 +76,7 @@ const fetchProjectHistory = async() =>{
 
 	console.log("fetching history1: " +JSON.stringify(data.value));
   setConanHistory(data.value);
-  propertyValueLength = Buffer.byteLength(JSON.stringify(data.value), "utf8");
+  propertyValueLength = await Buffer.byteLength(JSON.stringify(data.value), "utf8");
 	console.log("fetching history2 propertyValueLength: " +propertyValueLength);
 	return conanHistory;
 }
