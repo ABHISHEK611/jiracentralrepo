@@ -407,7 +407,9 @@ let createHistory = async (history) =>
                     </Text>}
             </Fragment>
         )}
-        <Fragment>Data size of the History: {propertyKeyLength}</Fragment>
+        <Fragment>
+          <Text>Data size of the History: {propertyKeyLength}</Text>
+        </Fragment>
       </Tab>
       </Tabs>
     </Fragment>
