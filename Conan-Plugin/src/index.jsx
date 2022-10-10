@@ -9,7 +9,7 @@ const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 let [conanScores, setConanScores] = useState([]);
 let [conanHistory, setConanHistory] = useState([]);
-let propertyKeyLength = 0;
+let propertyValueLength = 0;
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
@@ -76,8 +76,8 @@ const fetchProjectHistory = async() =>{
 
 	console.log("fetching history1: " +JSON.stringify(data.value));
   setConanHistory(data.value);
-  propertyKeyLength = Buffer.byteLength(data.value, "utf-8");
-	//console.log("fetching history2: " +conanHistory);
+  propertyValueLength = Buffer.byteLength(data.value, "utf-8");
+	console.log("fetching history2 propertyValueLength: " +propertyValueLength);
 	return conanHistory;
 }
 
@@ -408,7 +408,7 @@ let createHistory = async (history) =>
             </Fragment>
         )}
         <Fragment>
-          <Text>Data size of the History: {propertyKeyLength}</Text>
+          <Text>Data size of the History: {propertyValueLength}</Text>
         </Fragment>
       </Tab>
       </Tabs>
