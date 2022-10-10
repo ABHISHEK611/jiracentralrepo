@@ -9,7 +9,7 @@ const [isOpen, setOpen] = useState(false);
 const [isOpen1, setOpen1] = useState(false);
 let [conanScores, setConanScores] = useState([]);
 let [conanHistory, setConanHistory] = useState([]);
-let propertyValueLength = 0;
+let propertyValueLength;
 
 const fetchProjectData = async() =>{
   const context = useProductContext();
