@@ -1,0 +1,22 @@
+modules:
+  confluence:contentBylineItem:
+    - key: dynamic-properties-byline
+      function: main
+      title: Original Dynamic Properties Forge App Title
+      tooltip: Original Dynamic Properties Forge App Tooltip
+      description: A forge app to showcase dynamic properties within the Confluence byline
+      dynamicProperties:
+        function: getDP
+  function:
+    - key: main
+      handler: index.run
+    - key: getDP
+      handler: index.getDP
+app:
+  id: ari:cloud:ecosystem::app/bf3513c3-64d2-4ecd-9b04-d85e04756c54
+  name: page-approver-forge-app
+permissions:
+  scopes:
+    - read:confluence-props
+    - write:confluence-props
+    - read:confluence-content.summary

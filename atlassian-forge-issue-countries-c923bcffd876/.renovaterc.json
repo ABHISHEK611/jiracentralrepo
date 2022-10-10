@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "branchPrefix": "issue/renovate/",
+  "rangeStrategy": "bump",
+  "rebaseWhen": "behind-base-branch",
+  "prConcurrentLimit": 40,
+  "prHourlyLimit": 0,
+  "timezone": "Australia/Sydney",
+  "schedule": [
+    "after 10am on Wednesday"
+  ],
+  "packageRules": [
+    {
+      "enabled": false,
+      "matchPackagePatterns": [
+        "^.*$"
+      ]
+    },
+    {
+      "matchPackagePatterns": [
+        "@forge/",
+        "@atlaskit/"
+      ],
+      "enabled": true
+    }
+  ]
+}
