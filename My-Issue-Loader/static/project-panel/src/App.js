@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { invoke } from '@forge/bridge';
+import { invoke, router } from '@forge/bridge';
 
 function App() {
     const [data, setData] = useState(null);

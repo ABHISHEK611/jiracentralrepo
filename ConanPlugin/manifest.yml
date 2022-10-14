@@ -1,0 +1,11 @@
+modules:
+  jira:issuePanel:
+    - key: conanplugin-hello-world-panel
+      function: main
+      title: Conan Plugin
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/aa9cde0b-03fa-4f85-b705-59640c3344c9

@@ -1,0 +1,20 @@
+modules:
+  jira:globalPage:
+    - key: Issue-app-hello-world
+      function: main
+      title: Issue-app
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/18526450-d109-439e-b70a-f0c1e7c4075d
+permissions:
+  scopes:
+    - read:issue-details:jira
+    - read:audit-log:jira
+    - read:field-configuration:jira
+    - read:issue-meta:jira
+    - read:application-role:jira
+    - read:group:jira
+    - read:user:jira
+    - read:avatar:jira

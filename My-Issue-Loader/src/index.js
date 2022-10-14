@@ -1,5 +1,6 @@
 import Resolver from '@forge/resolver';
 import api, { route } from '@forge/api';
+import { router } from '@forge/bridge';
 
 const resolver = new Resolver();
 const resolver1 = new Resolver();
@@ -7,27 +8,32 @@ const resolver1 = new Resolver();
 resolver.define('getProjectOverview', async (req) => {
     console.log(req);
 	console.log("Hello");
-	//var jql= `project in (${req.context.extension.project.key})`;
+	
 	const response = await api.asUser().requestJira(route`/rest/api/3/search?jql=assignee=currentuser()`);
-	//const response = await api.asUser().requestJira(route`/rest/api/3/myself`);
-	//console.log(response);
+	
 	
     const data = await response.json();
-	//console.log(data);
-	 
+	
+	
 	var issueScores = [];
 	issueScores.push({
 	"totalissues": data.total
-	});
+	});   
+	
 	for(var issue of data.issues)
 	{
 		console.log(issue);
-		//console.log(issue.fields.summary);
-		//console.log(issue.fields.project.name);
-		//console.log(issue.key);
-		var linkcreate= "https://abhilibrian.atlassian.net/browse/";
-		linkcreate = linkcreate.concat(issue.key);
-		//console.log(linkcreate);
+				
+		var linkcreate =issue.fields.priority.iconUrl;
+		const myArray = linkcreate.split("/");
+		console.log(myArray);
+		
+		var linkcreate2= "https://";
+		linkcreate2 = linkcreate2.concat(myArray[2]);
+		linkcreate2 = linkcreate2.concat("/browse/");
+		linkcreate2 = linkcreate2.concat(issue.key);
+		
+		console.log(linkcreate2);
 		
 		issueScores.push
 		({
@@ -35,7 +41,7 @@ resolver.define('getProjectOverview', async (req) => {
 			"id": issue.id,
 			"projectname": issue.fields.project.name, 
 			"summary":issue.fields.summary,
-			"issuelink": linkcreate
+			"issuelink": linkcreate2
 		});
 	}
 	

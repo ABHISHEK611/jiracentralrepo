@@ -1,0 +1,17 @@
+modules:
+  jira-projectPage:
+	- key: project-page
+	   title: IssueLoader
+       resource: project-page-resource
+	   resolver:
+          function: resolver
+       handler: index.handler
+resources:
+  - key: project-page-resource
+    path: static/project-panel/build
+permissions:
+ content:
+  styles:
+    - 'unsafe-inline'
+app:
+  id: ari:cloud:ecosystem::app/f9be4975-910e-401c-81f9-75f742cddfe7

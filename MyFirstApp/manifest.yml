@@ -1,0 +1,20 @@
+modules:
+  jira:projectPage:
+    - key: myfirstapp-hello-world-project-page
+      function: main
+      title: MyFirstApp
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/08f8d084-f45c-47f2-8652-40709146e243
+permissions:
+  scopes:
+    - read:issue-details:jira
+    - read:audit-log:jira
+    - read:field-configuration:jira
+    - read:issue-meta:jira
+    - read:application-role:jira
+    - read:group:jira
+    - read:user:jira
+    - read:avatar:jira
