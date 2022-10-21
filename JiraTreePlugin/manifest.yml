@@ -1,0 +1,15 @@
+modules:
+  jira:globalPage:
+    - key: jiratreeplugin-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: JiraTreePlugin
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/4c5103de-0df8-49d5-bf7d-76eb76f99814
