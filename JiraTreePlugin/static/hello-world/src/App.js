@@ -1,18 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { invoke } from '@forge/bridge';
+import TableTree from '@atlaskit/table-tree';
 
-function App() {
-    const [data, setData] = useState(null);
+type Content = { title: string; description: string };
 
-    useEffect(() => {
-        invoke('getText', { example: 'my-invoke-variable' }).then(setData);
-    }, []);
+type Item = {
+  id: string;
+  content: Content;
+  hasChildren: boolean;
+  children?: Item[];
+};
 
-    return (
-        <div>
-            {data ? data : 'Loading...'}
-        </div>
-    );
-}
+const items: Item[] = [
+  {
+    id: 'item1',
+    content: {
+      title: 'Item 1',
+      description: 'First top-level item',
+    },
+    hasChildren: false,
+    children: [],
+  },
+  {
+    id: 'item2',
+    content: {
+      title: 'Item 2',
+      description: 'Second top-level item',
+    },
+    hasChildren: true,
+    children: [
+      {
+        id: 'child2.1',
+        content: {
+          title: 'Child item',
+          description: 'A child item',
+        },
+        hasChildren: false,
+      },
+    ],
+  },
+];
+
+const Title = (props: Content) => <span>{props.title}</span>;
+const Description = (props: Content) => <span>{props.description}</span>;
+
+export default () => (
+  <TableTree
+    columns={[Title, Description]}
+    headers={['Title', 'Description']}
+    columnWidths={['120px', '300px']}
+    items={items}
+  />
+);
 
 export default App;

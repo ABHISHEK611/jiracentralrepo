@@ -9,4 +9,3 @@ resolver.define('getText', (req) => {
 });
 
 export const handler = resolver.getDefinitions();
-
