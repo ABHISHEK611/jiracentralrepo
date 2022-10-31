@@ -6,7 +6,11 @@
   "dependencies": {
     "@atlaskit/css-reset": "^6.0.1",
     "@atlaskit/table-tree": "^9.2.1",
+    "@devexpress/dx-react-grid": "^3.0.6",
+    "@devexpress/dx-react-grid-material-ui": "^3.0.6",
+    "@emotion/styled": "^11.10.5",
     "@forge/bridge": "^2.4.0",
+    "@mui/material": "^5.10.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
