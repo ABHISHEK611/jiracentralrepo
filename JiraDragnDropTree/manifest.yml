@@ -22,3 +22,8 @@ permissions:
       - unsafe-inline
       - unsafe-hashes
       - unsafe-eval
+    permissions:
+  external:
+    styles:
+      - 'https://cdn.syncfusion.com/ej2/20.3.47/bootstrap5.css'
+      - 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
