@@ -15,7 +15,6 @@ const columnChooserModes = [{
 const expandedRowKeys = [1];
  
 class App extends React.Component {
-  console.log("Inside App");
   constructor(props) {
     super(props);
 

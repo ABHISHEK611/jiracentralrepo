@@ -13,3 +13,12 @@ resources:
     path: static/hello-world/build
 app:
   id: ari:cloud:ecosystem::app/b3838ec2-c118-4081-b14f-36e038cd2759
+permissions:
+  scopes: [read:jira-work,write:jira-work]
+  content:
+    styles:
+      - unsafe-inline
+    scripts:
+      - unsafe-inline
+      - unsafe-hashes
+      - unsafe-eval
