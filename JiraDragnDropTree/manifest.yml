@@ -1,0 +1,15 @@
+modules:
+  jira:globalPage:
+    - key: jiradragndroptree-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: JiraDragnDropTree
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/b3838ec2-c118-4081-b14f-36e038cd2759
