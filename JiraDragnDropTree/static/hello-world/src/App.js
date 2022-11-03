@@ -50,6 +50,7 @@ class App extends React.Component {
           <Column visible={false} dataField="Email" />
           <Column dataField="Hire_Date" dataType="date" />
           <Column visible={false} dataField="Skype" />
+          <Column dataField="Birth_Date" dataType="date" />
           <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
         <div className="options">
