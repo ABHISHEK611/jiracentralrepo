@@ -42,15 +42,13 @@ class App extends React.Component {
           keyExpr="ID"
           parentIdExpr="Head_ID"
         >
-          <Column dataField="Title" caption="Position" />
-          <Column allowHiding={false} dataField="Full_Name" />
-          <Column dataField="City" />
-          <Column dataField="State" />
-          <Column dataField="Mobile_Phone" />
-          <Column visible={false} dataField="Email" />
-          <Column dataField="Hire_Date" dataType="date" />
-          <Column visible={false} dataField="Skype" />
-          <Column dataField="Birth_Date" dataType="date" />
+          
+          <Column allowHiding={false} dataField="Issue_Key" />
+          <Column dataField="Issue_Type" />
+          <Column dataField="Summary" />
+          <Column dataField="Reporter" />
+          <Column visible={false} dataField="Assignee" />
+          <Column dataField="Sprint" />
           <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
         <div className="options">
