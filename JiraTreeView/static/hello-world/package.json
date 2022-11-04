@@ -7,11 +7,13 @@
     "@atlaskit/css-reset": "^6.0.1",
     "@forge/api": "^2.8.0",
     "@forge/bridge": "^2.4.0",
+    "@forge/ui": "^1.4.0",
     "devextreme-react": "^22.1.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
     "react-scripts": "^5.0.1"
   },
   "scripts": {

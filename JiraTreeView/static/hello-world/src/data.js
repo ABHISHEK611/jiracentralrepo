@@ -1,6 +1,8 @@
 import api, { fetch, route } from '@forge/api';
+import ForgeUI, { useProductContext } from '@forge/ui';
+import { requestJira } from '@forge/bridge';
 
-const projectKey = `project=OEM`;
+const projectKey = `OEM`;
 let idCount = 1;
 let headCount = -1;
 
@@ -10,8 +12,11 @@ const fetchIssueList = async() =>{
     console.log("1 inside fetchIssueList: " +context);
     console.log("2 inside fetchIssueList: " +JSON.stringify(context));
     
-    const res = await api.asApp().requestJira(route`/rest/api/3/search?jql=${projectKey}`);
+    const params = `project = "${projectKey}"`;
+    const res = await requestJira(`/rest/api/2/search?jql=${params}`);
+    console.log("3 inside fetchIssueList: " +res);
     const data = await res.json();
+    console.log("4 inside fetchIssueList: " +data);
 
     return data;
 }
@@ -19,7 +24,7 @@ const fetchIssueList = async() =>{
 export const issues = fetchIssueList().then(result => {
     let issues1 = [];
     result.issues1.forEach((element) => {
-        let item = {
+      let item = {
             ID: idCount,
             Head_ID: headCount,
             Issue_Key: element.key,
@@ -29,10 +34,10 @@ export const issues = fetchIssueList().then(result => {
             Reporter: element.fields.reporter.displayName,
             Priority: element.fields.priority.name,
         }
-        issues1.push(item);
+      issues1.push(item);
+      idCount = idCount +1;
+      headCount = headCount +1;
     });
-    idCount = idCount +1;
-    headCount = headCount +1;
     return issues1;
 });
 
