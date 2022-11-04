@@ -1,0 +1,28 @@
+modules:
+  jira:globalPage:
+    - key: jiratreeview-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: JiraTreeView
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/4da0c6dc-dedb-4971-a2ae-92dbe3759c0d
+permissions:
+  scopes: [read:jira-work,write:jira-work]
+  content:
+    styles:
+      - unsafe-inline
+    scripts:
+      - unsafe-inline
+      - unsafe-hashes
+      - unsafe-eval
+  external:
+    styles:
+      - 'https://cdn3.devexpress.com/jslib/22.1.6/css/dx.common.css'
+      - 'https://cdn3.devexpress.com/jslib/22.1.6/css/dx.light.css'
