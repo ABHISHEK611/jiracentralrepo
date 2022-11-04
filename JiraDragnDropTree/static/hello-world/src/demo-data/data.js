@@ -269,5 +269,3 @@ export const employees = [{
     Sprint: 'kents_DX_Sprint',
     Priority: '(562) 555-9282'
   }];
-  
-  

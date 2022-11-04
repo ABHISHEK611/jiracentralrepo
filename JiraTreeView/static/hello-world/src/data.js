@@ -16,7 +16,7 @@ const fetchIssueList = async() =>{
     return data;
 }
 
-const issues = fetchIssueList().then(result => {
+export const issues = fetchIssueList().then(result => {
     let issues1 = [];
     result.issues1.forEach((element) => {
         let item = {
@@ -35,7 +35,7 @@ const issues = fetchIssueList().then(result => {
     headCount = headCount +1;
     return issues1;
 });
-export default issues;
+
 /*const issues = [{
     ID: 1,
     Head_ID: -1,
