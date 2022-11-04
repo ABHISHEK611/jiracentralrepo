@@ -15,8 +15,9 @@ const fetchIssueList = async() =>{
     const params = `project = "${projectKey}"`;
     const res = await requestJira(`/rest/api/2/search?jql=${params}`);
     console.log("3 inside fetchIssueList: " +res);
+    console.log("3.5 inside fetchIssueList: " +JSON.stringify(res));
     const data = await res.json();
-    console.log("4 inside fetchIssueList: " +data);
+    console.log("4 inside fetchIssueList: " +JSON.stringify(data));
 
     return data;
 }
