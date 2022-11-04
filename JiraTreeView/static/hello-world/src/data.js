@@ -36,9 +36,9 @@ export const issues = fetchIssueList().then(result => {
             Reporter: element.fields.reporter.displayName,
             Priority: element.fields.priority.name,
         }
-      console.log("6: "+item);
+      console.log("6: "+JSON.stringify(item));
       issues1.push(item);
-      console.log("7: "+issue1);
+      console.log("7: "+JSON.stringify(issues1));
       idCount = idCount +1;
       headCount = headCount +1;
       console.log("8: "+ idCount);
