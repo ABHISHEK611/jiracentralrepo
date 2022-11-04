@@ -36,9 +36,13 @@ export const issues = fetchIssueList().then(result => {
             Reporter: element.fields.reporter.displayName,
             Priority: element.fields.priority.name,
         }
+      console.log("6: "+item);
       issues1.push(item);
+      console.log("7: "+issue1);
       idCount = idCount +1;
       headCount = headCount +1;
+      console.log("8: "+ idCount);
+      console.log("9: "+ headCount);
     });
     return issues1;
 });
