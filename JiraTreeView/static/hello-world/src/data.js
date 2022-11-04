@@ -24,7 +24,8 @@ const fetchIssueList = async() =>{
 
 export const issues = fetchIssueList().then(result => {
     let issues1 = [];
-    result.issues1.forEach((element) => {
+    console.log("5 inside issues.");
+    result.issues.forEach((element) => {
       let item = {
             ID: idCount,
             Head_ID: headCount,
