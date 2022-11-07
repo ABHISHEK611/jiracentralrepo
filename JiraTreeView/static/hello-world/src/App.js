@@ -14,7 +14,7 @@ class App extends React.Component {
     this.onAllowReorderingChanged = this.onAllowReorderingChanged.bind(this);
     this.onShowDragIconsChanged = this.onShowDragIconsChanged.bind(this);
 
-    console.log("1 inside app "+issues);
+    console.log("1 inside app.js "+issues);
     this.state = {
       issues,
       allowDropInsideItem: true,

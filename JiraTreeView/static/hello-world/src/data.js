@@ -6,7 +6,7 @@ const projectKey = `OEM`;
 let idCount = 1;
 let headCount = -1;
 
-const fetchIssueList = async() =>{
+/*const fetchIssueList = async() =>{
     
     const context = useProductContext();
     console.log("1 inside fetchIssueList: " +context);
@@ -18,14 +18,24 @@ const fetchIssueList = async() =>{
     console.log("3.5 inside fetchIssueList: " +JSON.stringify(res));
     const data = await res.json();
     console.log("4 inside fetchIssueList: " +JSON.stringify(data));
+    if(data.length > 0){
+      issues(data)
+    }
+    // return data;
+}*/
 
-    return data;
-}
+export const issues = async() => {
 
-export const issues = fetchIssueList().then(result => {
+    const params = `project = "${projectKey}"`;
+    const res = await requestJira(`/rest/api/2/search?jql=${params}`);
+    console.log("1 inside issues: " +res);
+    console.log("2 inside issues: " +JSON.stringify(res));
+    const data = await res.json();
+    console.log("3 inside issues: " +JSON.stringify(data));
+
     let issues1 = [];
-    console.log("5 inside issues.");
-    result.issues.forEach((element) => {
+    console.log("4 inside issues.");
+    data.issues.forEach((element) => {
       let item = {
             ID: idCount,
             Head_ID: headCount,
@@ -45,8 +55,9 @@ export const issues = fetchIssueList().then(result => {
       console.log("9: "+ headCount);
     });
     return issues1;
-});
+};
 
+//export issues;
 /*const issues = [{
     ID: 1,
     Head_ID: -1,
