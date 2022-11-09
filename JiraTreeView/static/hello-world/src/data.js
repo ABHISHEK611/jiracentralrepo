@@ -6,7 +6,7 @@ const projectKey = `OEM`;
 let idCount = 1;
 let headCount = -1;
 
-/*const fetchIssueList = async() =>{
+const fetchIssueList = async() =>{
     
     const context = useProductContext();
     console.log("1 inside fetchIssueList: " +context);
@@ -18,24 +18,18 @@ let headCount = -1;
     console.log("3.5 inside fetchIssueList: " +JSON.stringify(res));
     const data = await res.json();
     console.log("4 inside fetchIssueList: " +JSON.stringify(data));
-    if(data.length > 0){
-      issues(data)
-    }
-    // return data;
-}*/
+    return data;
+    /*if(data.length > 0)
+    {
+      return await res.json();
+    }*/
+}
 
-export const issues = async() => {
-
-    const params = `project = "${projectKey}"`;
-    const res = await requestJira(`/rest/api/2/search?jql=${params}`);
-    console.log("1 inside issues: " +res);
-    console.log("2 inside issues: " +JSON.stringify(res));
-    const data = await res.json();
-    console.log("3 inside issues: " +JSON.stringify(data));
-
+export const issues = fetchIssueList().then(result => 
+  {
     let issues1 = [];
-    console.log("4 inside issues.");
-    data.issues.forEach((element) => {
+    console.log("5 inside issues.");
+    result.issues.forEach((element) => {
       let item = {
             ID: idCount,
             Head_ID: headCount,
@@ -46,18 +40,17 @@ export const issues = async() => {
             Reporter: element.fields.reporter.displayName,
             Priority: element.fields.priority.name,
         }
-      console.log("6: "+JSON.stringify(item));
+      console.log("6 inside issues: "+JSON.stringify(item));
       issues1.push(item);
-      console.log("7: "+JSON.stringify(issues1));
       idCount = idCount +1;
       headCount = headCount +1;
-      console.log("8: "+ idCount);
-      console.log("9: "+ headCount);
     });
+    console.log("7 inside issues: "+JSON.stringify(issues1));
     return issues1;
-};
+});
 
-//export issues;
+
+
 /*const issues = [{
     ID: 1,
     Head_ID: -1,

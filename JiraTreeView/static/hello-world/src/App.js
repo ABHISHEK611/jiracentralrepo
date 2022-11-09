@@ -1,7 +1,7 @@
 import React from 'react';
 import TreeList, { Column, RowDragging } from 'devextreme-react/tree-list';
 import CheckBox from 'devextreme-react/check-box';
-import { issues } from './data.js';
+import { issues as issueList } from './data.js';
 
 const expandedRowKeys = [1];
 
@@ -14,9 +14,8 @@ class App extends React.Component {
     this.onAllowReorderingChanged = this.onAllowReorderingChanged.bind(this);
     this.onShowDragIconsChanged = this.onShowDragIconsChanged.bind(this);
 
-    console.log("1 inside app.js "+issues);
     this.state = {
-      issues,
+      issues: issueList,
       allowDropInsideItem: true,
       allowReordering: true,
       showDragIcons: true,
