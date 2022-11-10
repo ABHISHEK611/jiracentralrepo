@@ -1,0 +1,20 @@
+modules:
+  jira:globalPage:
+    - key: atlassiantreeview-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: AtlassianTreeView
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/ee9663ad-fbff-4b40-804a-1e69cb86915c
+permissions:
+  scopes: [read:jira-work,write:jira-work]
+  content:
+    styles:
+      - 'unsafe-inline'
