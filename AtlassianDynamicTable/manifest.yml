@@ -1,0 +1,15 @@
+modules:
+  jira:globalPage:
+    - key: atlassiandynamictable-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: AtlassianDynamicTable
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/3616b4a4-0a5c-4081-8fca-5f997ede97cc

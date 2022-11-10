@@ -6,6 +6,7 @@ import Button from '@atlaskit/button';
 import AddIcon from '@atlaskit/icon/glyph/add'
 import EditIcon from '@atlaskit/icon/glyph/edit'
 import staticData from './data/data.json';
+import DynamicTable from '@atlaskit/dynamic-table';
 
 
 function App() {
@@ -17,7 +18,7 @@ function handleAdd() {
 }
 
 function handleEdit() {
-    isNotFlagged(true);
+    isNotFlagged(  );
     console.log("edit");
 }
 
@@ -87,12 +88,14 @@ const Actions = (content) =>
     };
     return (
         <div>
+            <DynamicTable>
             <TableTree
                 headers={getDisplayItems(dataMaster).map(i => i.header)}
                 columnWidths={getDisplayItems(dataMaster).map(i => i.width)}
                 columns={getDisplayItems(dataMaster).map(i => i.cell)}
                 items={staticData.children}
             />
+            </DynamicTable>
             <p></p>
             <DropdownMenu trigger="Select display columns">
                 <DropdownItemCheckboxGroup title="Column" id="actions">
