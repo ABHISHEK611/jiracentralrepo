@@ -1,7 +1,8 @@
 import React from 'react';
 import TreeList, { Column, RowDragging } from 'devextreme-react/tree-list';
 import CheckBox from 'devextreme-react/check-box';
-import { issues as issueList } from './data.js';
+//import { issues as issueList } from './data.js';
+import { fetchIssueList } from './data.js';
 
 const expandedRowKeys = [1];
 
@@ -15,13 +16,46 @@ class App extends React.Component {
     this.onShowDragIconsChanged = this.onShowDragIconsChanged.bind(this);
 
     this.state = {
-      issues: issueList,
+      issues:[],
       allowDropInsideItem: true,
       allowReordering: true,
       showDragIcons: true,
     };
   }
 
+  async componentDidMount(){
+
+    let issues1 = [];
+    let idCount = 1;
+    let headCount = -1;
+    let x = await fetchIssueList();
+    console.log("1 inside componentDidMount: ",x);
+    let y = x.issues.map((element) => {
+          let item = {
+                ID: idCount,
+                Head_ID: headCount,
+                Issue_Key: element.key,
+                Issue_Type: element.fields.issuetype.name,
+                Summary: element.fields.summary,
+                Assignee: element.fields.assignee,
+                Reporter: element.fields.reporter.displayName,
+                Priority: element.fields.priority.name,
+            }
+          console.log("2 inside componentDidMount: ",JSON.stringify(item));
+          //issues1.push(item);
+          idCount = idCount +1;
+          if(headCount === -1)
+          {
+            headCount = headCount +2;
+          }
+        console.log("3 inside componentDidMount: ",JSON.stringify(issues1));
+        return item;
+      });
+      console.log("4 inside componentDidMount: ",y);
+        this.setState({
+          issues:y,
+        })
+  }
   render() {
     return (
       <div>
@@ -81,6 +115,7 @@ class App extends React.Component {
   }
 
   onDragChange(e) {
+    console.log("1 onDragChange: ",e);
     const visibleRows = e.component.getVisibleRows();
     const sourceNode = e.component.getNodeByKey(e.itemData.ID);
     let targetNode = visibleRows[e.toIndex].node;
@@ -95,6 +130,7 @@ class App extends React.Component {
   }
 
   onReorder(e) {
+    console.log("1 onReorder: ",e);
     const visibleRows = e.component.getVisibleRows();
     let sourceData = e.itemData;
     let { issues } = this.state;

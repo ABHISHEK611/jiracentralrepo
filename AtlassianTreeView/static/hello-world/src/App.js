@@ -6,37 +6,38 @@ import Button from '@atlaskit/button';
 import AddIcon from '@atlaskit/icon/glyph/add'
 import EditIcon from '@atlaskit/icon/glyph/edit'
 import staticData from './data/data.json';
-import DynamicTable from '@atlaskit/dynamic-table';
-
-
-function App() {
-const [isFlagged, isNotFlagged] = useState(true);
-    
-function handleAdd() {
-    isNotFlagged(false);
-    console.log("add");
-}
-
-function handleEdit() {
-    isNotFlagged(  );
-    console.log("edit");
-}
-
-function saveConfig() {
-    console.log("save");
-}
 
 const IssueKey = (content) => <span>{content.issuekey}</span>;
 const Type = (content) => <span>{content.type}</span>;
 const Summary = (content) => <span>{content.summary}</span>;
 const Status = (content) => <span>{content.status}</span>;
-const Actions = (content) =>
-    <div>
-        <Button iconBefore={<AddIcon label="" />} appearance="subtle" onClick={handleAdd}></Button>
-        <Button iconBefore={<EditIcon label="" />} appearance="subtle" onClick={handleEdit}></Button>
-    </div>;
+const [isFlagged, isNotFlagged] = useState(true);
+const Actions = (content) => 
+    {
+        const addHandler = () => {
+            isNotFlagged(false);
+            console.log("add"+JSON.stringify(content));
+        }
+        
+        const editHandler = () => {
+            isNotFlagged(false);
+            console.log("edit"+JSON.stringify(content));
+        }
 
-    let [dataMaster, setChecked] = useState({
+        return (
+            <div>
+                <Button iconBefore={<AddIcon label="" />} appearance="subtle" onClick={addHandler}></Button>
+                <Button iconBefore={<EditIcon label="" />} appearance="subtle" onClick={editHandler}></Button>
+            </div>
+        );
+    }
+const saveConfig = () => {
+    isNotFlagged(false);
+    console.log("save");
+}
+
+function App() {
+    const [dataMaster, setChecked] = useState({
         issuekey: {
             header: 'Issue Key',
             cell: IssueKey,
@@ -88,14 +89,12 @@ const Actions = (content) =>
     };
     return (
         <div>
-            <DynamicTable>
             <TableTree
                 headers={getDisplayItems(dataMaster).map(i => i.header)}
                 columnWidths={getDisplayItems(dataMaster).map(i => i.width)}
                 columns={getDisplayItems(dataMaster).map(i => i.cell)}
                 items={staticData.children}
             />
-            </DynamicTable>
             <p></p>
             <DropdownMenu trigger="Select display columns">
                 <DropdownItemCheckboxGroup title="Column" id="actions">

@@ -6,18 +6,18 @@ const projectKey = `OEM`;
 let idCount = 1;
 let headCount = -1;
 
-const fetchIssueList = async() =>{
+export const fetchIssueList = async() =>{
     
     const context = useProductContext();
-    console.log("1 inside fetchIssueList: " +context);
-    console.log("2 inside fetchIssueList: " +JSON.stringify(context));
+    console.log("1 inside fetchIssueList: ",context);
+    console.log("2 inside fetchIssueList: ",JSON.stringify(context));
     
     const params = `project = "${projectKey}"`;
     const res = await requestJira(`/rest/api/2/search?jql=${params}`);
-    console.log("3 inside fetchIssueList: " +res);
-    console.log("3.5 inside fetchIssueList: " +JSON.stringify(res));
+    console.log("3 inside fetchIssueList: ",res);
+    console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
     const data = await res.json();
-    console.log("4 inside fetchIssueList: " +JSON.stringify(data));
+    console.log("4 inside fetchIssueList: ",JSON.stringify(data));
     return data;
     /*if(data.length > 0)
     {
@@ -25,10 +25,10 @@ const fetchIssueList = async() =>{
     }*/
 }
 
-export const issues = fetchIssueList().then(result => 
+/*export const issues = fetchIssueList().then(result => 
   {
     let issues1 = [];
-    console.log("5 inside issues.");
+    console.log("5 inside issues.",result);
     result.issues.forEach((element) => {
       let item = {
             ID: idCount,
@@ -40,16 +40,17 @@ export const issues = fetchIssueList().then(result =>
             Reporter: element.fields.reporter.displayName,
             Priority: element.fields.priority.name,
         }
-      console.log("6 inside issues: "+JSON.stringify(item));
+      console.log("6 inside issues: ",JSON.stringify(item));
       issues1.push(item);
       idCount = idCount +1;
-      headCount = headCount +1;
+      if(headCount === -1)
+      {
+        headCount = headCount +2;
+      }
     });
-    console.log("7 inside issues: "+JSON.stringify(issues1));
+    console.log("7 inside issues: ",JSON.stringify(issues1));
     return issues1;
-});
-
-
+}); */
 
 /*const issues = [{
     ID: 1,
@@ -62,7 +63,7 @@ export const issues = fetchIssueList().then(result =>
     Priority: '(213) 555-9392'
   }, {
     ID: 2,
-    Head_ID: 1,
+    Head_ID: 0,
     Issue_Key: 'OEM-2',
     Issue_Type: 'Story',
     Summary: 'California',
