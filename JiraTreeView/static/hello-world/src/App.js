@@ -1,6 +1,10 @@
 import React from 'react';
-import TreeList, { Column, RowDragging } from 'devextreme-react/tree-list';
+import TreeList, { Column, RowDragging, ColumnChooser } from 'devextreme-react/tree-list';
 import CheckBox from 'devextreme-react/check-box';
+import { SelectBox } from 'devextreme-react/select-box';
+import Button from '@atlaskit/button';
+import AddIcon from '@atlaskit/icon/glyph/add'
+import EditIcon from '@atlaskit/icon/glyph/edit'
 //import { issues as issueList } from './data.js';
 import { fetchIssueList } from './data.js';
 
@@ -20,6 +24,8 @@ class App extends React.Component {
       allowDropInsideItem: true,
       allowReordering: true,
       showDragIcons: true,
+      mode: 'select',
+      allowSearch: true,
     };
   }
 
@@ -37,7 +43,7 @@ class App extends React.Component {
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
-                Assignee: element.fields.assignee,
+                Assignee: (element.fields.assignee === null? "Unassigned":element.fields.assignee.displayName),
                 Reporter: element.fields.reporter.displayName,
                 Priority: element.fields.priority.name,
             }
@@ -56,7 +62,12 @@ class App extends React.Component {
           issues:y,
         })
   }
+  const saveConfig = () => {
+    console.log("save");
+}
   render() {
+    const { mode, allowSearch } = this.state;
+    
     return (
       <div>
         <TreeList
@@ -77,11 +88,12 @@ class App extends React.Component {
             allowReordering={this.state.allowReordering}
             showDragIcons={this.state.showDragIcons}
           />
-          <Column dataField="Issue_Key" />
-          <Column dataField="Issue_Type" />
+          <Column allowHiding={false} dataField="Issue_Key" />
+          <Column allowHiding={false} dataField="Issue_Type" />
           <Column dataField="Summary" />
           <Column dataField="Assignee" />
           <Column dataField="Priority" />
+          <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
         <div className="options">
@@ -109,6 +121,15 @@ class App extends React.Component {
               />
             </div>
           </div>
+        </div>
+        <div>
+          <Button 
+                id="saveconfig"
+                appearance="primary"
+                isDisabled="true"
+                onClick={saveConfig()}>
+            Save Changes
+          </Button>
         </div>
       </div>
     );
