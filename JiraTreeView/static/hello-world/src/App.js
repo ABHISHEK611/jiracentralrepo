@@ -3,8 +3,8 @@ import TreeList, { Column, RowDragging, ColumnChooser } from 'devextreme-react/t
 import CheckBox from 'devextreme-react/check-box';
 import { SelectBox } from 'devextreme-react/select-box';
 import Button from '@atlaskit/button';
-import AddIcon from '@atlaskit/icon/glyph/add'
-import EditIcon from '@atlaskit/icon/glyph/edit'
+import AddIcon from '@atlaskit/icon/glyph/add';
+import EditIcon from '@atlaskit/icon/glyph/edit';
 //import { issues as issueList } from './data.js';
 import { fetchIssueList } from './data.js';
 
@@ -96,6 +96,15 @@ class App extends React.Component {
           <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
+        <div>
+          <Button 
+                id="saveconfig"
+                appearance="primary"
+                isDisabled="true"
+                onClick={saveConfig()}>
+            Save Changes
+          </Button>
+        </div>
         <div className="options">
           <div className="caption">Options</div>
           <div className="options-container">
@@ -121,15 +130,6 @@ class App extends React.Component {
               />
             </div>
           </div>
-        </div>
-        <div>
-          <Button 
-                id="saveconfig"
-                appearance="primary"
-                isDisabled="true"
-                onClick={saveConfig()}>
-            Save Changes
-          </Button>
         </div>
       </div>
     );
