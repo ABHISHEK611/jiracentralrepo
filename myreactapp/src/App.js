@@ -70,7 +70,7 @@ const treeData = [
 function App() {
   return (
     <div className="App">
-      <h1>Tree View Demo</h1>
+      <h1>Tree View</h1>
       <Tree treeData={treeData} />
     </div>
   );
@@ -78,11 +78,18 @@ function App() {
 
 function Tree({ treeData }) {
   return (
-    <ul>
+    <table id="tableNew">
+      <tr>
+        <th>IssueKey</th>
+        <th>Summary</th>
+        <th>Assignee</th>
+    </tr>
+      <tr>
       {treeData.map((node) => (
         <TreeNode node={node} key={node.id} />
       ))}
-    </ul>
+      </tr>
+    </table>
   );
 }
 function TreeNode({ node }) {
