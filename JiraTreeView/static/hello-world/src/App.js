@@ -1,11 +1,8 @@
 import React from 'react';
-import TreeList, { Column, RowDragging, ColumnChooser } from 'devextreme-react/tree-list';
+import { TreeList, Column, RowDragging, ColumnChooser, Editing, RequiredRule, Lookup, Button, } 
+from 'devextreme-react/tree-list';
 import CheckBox from 'devextreme-react/check-box';
 import { SelectBox } from 'devextreme-react/select-box';
-import Button from '@atlaskit/button';
-import AddIcon from '@atlaskit/icon/glyph/add';
-import EditIcon from '@atlaskit/icon/glyph/edit';
-//import { issues as issueList } from './data.js';
 import { fetchIssueList } from './data.js';
 
 const expandedRowKeys = [1];
@@ -62,24 +59,28 @@ class App extends React.Component {
           issues:y,
         })
   }
-  const saveConfig = () => {
-    console.log("save");
-}
+  
   render() {
     const { mode, allowSearch } = this.state;
     
+    const saveConfig = (e) => {
+      console.log("save",e);
+    }
+
     return (
       <div>
         <TreeList
           id="issues"
           dataSource={this.state.issues}
           rootValue={-1}
-          keyExpr="ID"
           showRowLines={true}
           showBorders={true}
-          parentIdExpr="Head_ID"
           defaultExpandedRowKeys={expandedRowKeys}
           columnAutoWidth={true}
+          keyExpr="ID"
+          parentIdExpr="Head_ID"
+          onEditorPreparing={this.onEditorPreparing}
+          onInitNewRow={this.onInitNewRow}
         >
           <RowDragging
             onDragChange={this.onDragChange}
@@ -88,23 +89,25 @@ class App extends React.Component {
             allowReordering={this.state.allowReordering}
             showDragIcons={this.state.showDragIcons}
           />
-          <Column allowHiding={false} dataField="Issue_Key" />
-          <Column allowHiding={false} dataField="Issue_Type" />
-          <Column dataField="Summary" />
-          <Column dataField="Assignee" />
-          <Column dataField="Priority" />
+
+          <Editing
+            allowUpdating={true}
+            allowDeleting={true}
+            allowAdding={true}
+            mode="row" />
+
+          <Column allowHiding={false} dataField="Issue_Key"> <RequiredRule /> </Column>
+          <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> </Column>
+          <Column dataField="Summary"> <RequiredRule />  </Column>
+          <Column dataField="Assignee"> <RequiredRule />  </Column>
+          <Column dataField="Priority"> <RequiredRule /> </Column>
+          <Column type="buttons" caption="Actions">
+            <Button name="edit" />
+            <Button name="delete" />
+          </Column>
           <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
-        <div>
-          <Button 
-                id="saveconfig"
-                appearance="primary"
-                isDisabled="true"
-                onClick={saveConfig()}>
-            Save Changes
-          </Button>
-        </div>
         <div className="options">
           <div className="caption">Options</div>
           <div className="options-container">
@@ -135,6 +138,15 @@ class App extends React.Component {
     );
   }
 
+  onEditorPreparing(e) {
+    if (e.dataField === 'Head_ID' && e.row.data.ID === 1) {
+      e.cancel = true;
+    }
+  }
+
+  onInitNewRow(e) {
+    e.data.Head_ID = 1;
+  }
   onDragChange(e) {
     console.log("1 onDragChange: ",e);
     const visibleRows = e.component.getVisibleRows();
