@@ -1,0 +1,24 @@
+modules:
+  jira:projectPage:
+    - key: terarik-ui-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: terarik-ui
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/da7d96ec-743a-4c5c-94f6-a9723c954802
+permissions:
+  scopes: [read:jira-work,write:jira-work,read:jira-user]
+  content:
+    styles:
+      - unsafe-inline
+    scripts:
+      - unsafe-inline
+      - unsafe-hashes
+      - unsafe-eval

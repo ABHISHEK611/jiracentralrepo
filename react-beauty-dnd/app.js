@@ -12,24 +12,18 @@ import { data } from "./data/data.js";
 import { searchTree, removeDraggingItem } from "./utility/utility.js";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { components } from "./components/CustomTableWrapper.js";
+import { render } from "react-dom";
 
-interface DataType {
-  key: string;
-  parent: string;
-  type: string;
-  summary: string;
-  storypoint: number;
-  assignee: string;
-  status: string;
-}
+let flag = false;
+
 const App = () => {
   const [tableData, setTableData] = useState(data);
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
 
-  const isEditing = (record: DataType) => record.key === editingKey;
+  const isEditing = (record) => record.key === editingKey;
 
-  const edit = (record: Partial<DataType> & { key: React.Key }) => {
+  const edit = (record) => {
     console.log("record inside edit:", JSON.stringify(record));
     form.setFieldsValue({
       key: "",
@@ -44,39 +38,94 @@ const App = () => {
   };
 
   const cancel = () => {
-    setEditingKey("");
+    console.log("Inside cancel");
+    if (flag) {
+      console.log("Inside cancel if");
+      const found = tableData.find((obj) => {
+        return obj.key === "";
+      });
+      deleteRow(found.key);
+    } else {
+      console.log("Inside cancel else");
+      setEditingKey("");
+    }
   };
 
-  const save = async (key: React.Key) => {
+  const save = async (key) => {
     console.log("inside save", key);
-    try {
-      const row = (await form.validateFields()) as DataType;
 
-      const newData = [...tableData];
+    // if (flag) {
+    //   console.log("inside true");
+    //   try {
+    //     const row = form.validateFields();
+    //     console.log("row:", row);
+
+    //     const newData = [...data];
+    //     const index = newData.findIndex((item) => key === item.key);
+    //     if (index > -1) {
+    //       const item = newData[index];
+    //       newData.splice(index, 1, {
+    //         ...item,
+    //         ...row
+    //       });
+    //       setTableData(newData);
+    //       setEditingKey("");
+    //       // const newState = data.map((obj) => {
+    //       //   if (obj.key === "") {
+    //       //     return {
+    //       //       ...obj,
+    //       //       key: row.,
+    //       //       name: row.name,
+    //       //       age: row.age,
+    //       //       address: row.address
+    //       //     };
+    //       //   }
+    //       //   return obj;
+    //       // });
+    //       flag = false;
+    //       // setTableData(newState);
+    //     } else {
+    //       newData.push(row);
+    //       setTableData(newData);
+    //       setEditingKey("");
+    //     }
+    //   } catch (errInfo) {
+    //     console.log("Validate Failed:", errInfo);
+    //   }
+    // } else {
+    console.log("inside else");
+    try {
+      const row = await form.validateFields();
+      console.log("row", row);
+      const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
       if (index > -1) {
+        console.log("inside if");
         const item = newData[index];
         newData.splice(index, 1, {
           ...item,
           ...row
         });
-        console.log("newData inside if:", JSON.stringify(newData));
         setTableData(newData);
+        flag = false;
         setEditingKey("");
       } else {
+        console.log("inside else");
         newData.push(row);
-        console.log("newData inside else:", JSON.stringify(newData));
         setTableData(newData);
         setEditingKey("");
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
+    //}
   };
-  const addRow = (record: Partial<DataType>) => {
-    console.log("add new row data", record.key);
 
-    const newData: DataType = {
+  const addRow = (record) => {
+    console.log("add new row data", record.key);
+    flag = true;
+
+    const newData = {
       key: "",
       parent: record.key,
       type: "",
@@ -90,7 +139,7 @@ const App = () => {
     setTableData([newData, ...tableData]);
   };
 
-  const deleteRow = async (key: React.Key) => {
+  const deleteRow = async (key) => {
     console.log("deleting a row key1:", key);
 
     const newData = [...tableData];
@@ -139,7 +188,7 @@ const App = () => {
     {
       title: "operation",
       dataIndex: "operation",
-      render: (_: any, record: DataType) => {
+      render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -182,7 +231,6 @@ const App = () => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId, combine } = result;
     if (!combine) {
-      // not implement drop in between rows
       console.log("not implement drop in between rows");
       return;
     }
@@ -216,31 +264,13 @@ const App = () => {
     setTableData(newTableData);
   };
 
-  /*const onFinish = (values: any) => {
-    console.log("Success:", values);
-
-    const newData: DataType = {
-      key: values.key,
-      parent: "root",
-      type: values.type,
-      summary: values.summary,
-      storypoint: values.storypoint,
-      assignee: values.assignee,
-      status: values.status
-    };
-    setTableData([...tableData, newData]);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };*/
   const mergedColumns = tableColumns.map((col) => {
     if (!col.editable) {
       return col;
     }
     return {
       ...col,
-      onCell: (record: DataType) => ({
+      onCell: (record) => ({
         record,
         inputType: col.dataIndex === "storypoint" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -257,28 +287,15 @@ const App = () => {
         <Table
           dataSource={tableData}
           columns={mergedColumns}
-          /*components={{
-            body: {
-              cell: EditableCell
-            }
-          }}*/
           components={components}
           onRow={(record, index) => ({
             index,
             record
           })}
           rowClassName="editable-row"
-          pagination={false}
-          // pagination={{
-          //  onChange: cancel
-          //}}
-          /*components={components}
-        onRow={(record, index) => ({
-          index,
-          record
-        })}
-        rowClassName="editable-row"
-        pagination={false}*/
+          pagination={{
+            onChange: cancel
+          }}
         />
       </Form>
     </DragDropContext>
