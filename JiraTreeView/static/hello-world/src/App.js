@@ -59,14 +59,14 @@ class App extends React.Component {
       console.log("4 inside componentDidMount new test: ",y);
         this.setState({
           issues:y,
-        })
+        });
   }
   
   const getHeadId = async (element) => {
     if(element.fields.issuelinks)
       {
         console.log("inside getId:",element.fields.issuelinks.0.outwardIssue.id);
-        return element.fields.issuelinks.0.outwardIssue.id;
+        return (element.fields.issuelinks.0.outwardIssue.id);
       }
     else
       {
