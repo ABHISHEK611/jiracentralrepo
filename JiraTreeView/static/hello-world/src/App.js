@@ -57,7 +57,7 @@ class App extends React.Component {
         console.log("3 inside componentDidMount: ",JSON.stringify(issues1));
         return item;
       });
-      console.log("4 inside componentDidMount: ",y);
+      console.log("4 inside componentDidMount new test: ",y);
         this.setState({
           issues:y,
         })
