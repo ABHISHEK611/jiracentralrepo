@@ -20,7 +20,7 @@ class App extends React.Component {
       issues:[],
       allowDropInsideItem: true,
       allowReordering: true,
-      showDragIcons: true,
+      showDragIcons: false,
       mode: 'select',
       allowSearch: true,
     };
@@ -108,7 +108,7 @@ class App extends React.Component {
           <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
-        <div className="options">
+        {/* <div className="options">
           <div className="caption">Options</div>
           <div className="options-container">
             <div className="option">
@@ -133,7 +133,7 @@ class App extends React.Component {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
