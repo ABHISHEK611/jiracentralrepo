@@ -24,7 +24,8 @@ export const fetchIssueList = async() =>{
       return await res.json();
     }*/
 }
-
+async componentDidMount()
+{
 export const issues = fetchIssueList().then(result => 
   {
     let issues1 = [];
@@ -51,7 +52,7 @@ export const issues = fetchIssueList().then(result =>
     console.log("7 inside issues: ",JSON.stringify(issues1));
     return issues1;
 });
-
+}
 /*const issues = [{
     ID: 1,
     Head_ID: -1,
