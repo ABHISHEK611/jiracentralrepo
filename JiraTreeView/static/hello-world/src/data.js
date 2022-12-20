@@ -6,7 +6,7 @@ const projectKey = `OEM`;
 let idCount = 1;
 let headCount = -1;
 
-const fetchIssueList = async() =>{
+export const fetchIssueList = async() =>{
     
     const context = useProductContext();
     console.log("1 inside fetchIssueList: ",context);
@@ -25,32 +25,32 @@ const fetchIssueList = async() =>{
     }*/
 }
 
-export const issues = fetchIssueList().then(result => 
-  {
-    let issues1 = [];
-    console.log("5 inside issues.",result);
-    result.issues.forEach((element) => {
-      let item = {
-            ID: idCount,
-            Head_ID: headCount,
-            Issue_Key: element.key,
-            Issue_Type: element.fields.issuetype.name,
-            Summary: element.fields.summary,
-            Assignee: element.fields.assignee,
-            Reporter: element.fields.reporter.displayName,
-            Priority: element.fields.priority.name,
-        }
-      console.log("6 inside issues: ",JSON.stringify(item));
-      issues1.push(item);
-      idCount = idCount +1;
-      if(headCount === -1)
-      {
-        headCount = headCount +2;
-      }
-    });
-    console.log("7 inside issues: ",JSON.stringify(issues1));
-    return await issues1;
-});
+// export const issues = fetchIssueList().then(result => 
+//   {
+//     let issues1 = [];
+//     console.log("5 inside issues.",result);
+//     result.issues.forEach((element) => {
+//       let item = {
+//             ID: idCount,
+//             Head_ID: headCount,
+//             Issue_Key: element.key,
+//             Issue_Type: element.fields.issuetype.name,
+//             Summary: element.fields.summary,
+//             Assignee: element.fields.assignee,
+//             Reporter: element.fields.reporter.displayName,
+//             Priority: element.fields.priority.name,
+//         }
+//       console.log("6 inside issues: ",JSON.stringify(item));
+//       issues1.push(item);
+//       idCount = idCount +1;
+//       if(headCount === -1)
+//       {
+//         headCount = headCount +2;
+//       }
+//     });
+//     console.log("7 inside issues: ",JSON.stringify(issues1));
+//     return issues1;
+// });
 
 /*const issues = [{
     ID: 1,
