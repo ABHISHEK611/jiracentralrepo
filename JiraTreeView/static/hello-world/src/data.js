@@ -6,7 +6,7 @@ const projectKey = `OEM`;
 let idCount = 1;
 let headCount = -1;
 
-export const fetchIssueList = async() =>{
+const fetchIssueList = async() =>{
     
     const context = useProductContext();
     console.log("1 inside fetchIssueList: ",context);
@@ -24,8 +24,7 @@ export const fetchIssueList = async() =>{
       return await res.json();
     }*/
 }
-async componentDidMount()
-{
+
 export const issues = fetchIssueList().then(result => 
   {
     let issues1 = [];
@@ -50,9 +49,9 @@ export const issues = fetchIssueList().then(result =>
       }
     });
     console.log("7 inside issues: ",JSON.stringify(issues1));
-    return issues1;
+    return await issues1;
 });
-}
+
 /*const issues = [{
     ID: 1,
     Head_ID: -1,
