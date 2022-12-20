@@ -20,7 +20,7 @@ modules:
     - key: config
       handler: config.run
 app:
-  id: ari:cloud:ecosystem::app/2578b3d0-f830-47cb-a952-54b498a8dc4c
+  id: ari:cloud:ecosystem::app/100b7f22-02a7-4f4f-97c3-994410ef5d97
 permissions:
   scopes:
     - storage:app
@@ -45,4 +45,3 @@ permissions:
     - read:status:jira
     - read:field-configuration:jira
     - read:field:jira
-

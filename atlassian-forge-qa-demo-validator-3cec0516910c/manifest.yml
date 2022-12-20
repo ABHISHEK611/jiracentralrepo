@@ -17,7 +17,7 @@ modules:
     - key: admin
       handler: admin.run
 app:
-  id: ari:cloud:ecosystem::app/2a58f91f-bbd7-4959-8de7-f967d383849b
+  id: ari:cloud:ecosystem::app/e632c912-ba7e-42f2-b232-10c0fa640777
 permissions:
   scopes:
     - write:jira-work
