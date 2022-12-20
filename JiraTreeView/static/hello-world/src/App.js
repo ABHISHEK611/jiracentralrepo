@@ -60,7 +60,7 @@ class App extends React.Component {
         this.setState({
           issues:y,
         });
-  }
+  };
   
   const getHeadId = async (element) => {
     if(element.fields.issuelinks)
