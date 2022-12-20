@@ -25,7 +25,7 @@ export const fetchIssueList = async() =>{
     }*/
 }
 
-export const issues = await fetchIssueList().then(result => 
+export const issues = fetchIssueList().then(result => 
   {
     let issues1 = [];
     console.log("5 inside issues.",result);
