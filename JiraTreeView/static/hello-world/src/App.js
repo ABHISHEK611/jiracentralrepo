@@ -37,8 +37,8 @@ class App extends React.Component {
     console.log("1 inside componentDidMount: ",x);
     let y = x.issues.map((element) => {
           let item = {
-                ID: idCount,
-                Head_ID: headCount,
+                ID: element.id,
+                Head_ID: getHeadId(element),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
@@ -62,6 +62,17 @@ class App extends React.Component {
         })
   }
   
+  const getHeadId = (element) => {
+    if(element.fields.issuelinks)
+      {
+        console.log("inside getId:",element.fields.issuelinks.0.outwardIssue.id);
+        return element.fields.issuelinks.0.outwardIssue.id;
+      }
+    else
+      {
+        return -1;
+      }
+  }
   render() {
     const { mode, allowSearch } = this.state;
     
