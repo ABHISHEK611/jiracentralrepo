@@ -12,7 +12,7 @@ export const fetchIssueList = async() =>{
     console.log("1 inside fetchIssueList: ",context);
     console.log("2 inside fetchIssueList: ",JSON.stringify(context));
     
-    const params = `project = "${projectKey}"`;
+    const params = `project = ${projectKey}`;
     const res = await requestJira(`/rest/api/2/search?jql=${params}`);
     console.log("3 inside fetchIssueList: ",res);
     console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
@@ -25,7 +25,7 @@ export const fetchIssueList = async() =>{
     }*/
 }
 
-/*export const issues = fetchIssueList().then(result => 
+export const issues = await fetchIssueList().then(result => 
   {
     let issues1 = [];
     console.log("5 inside issues.",result);
@@ -50,7 +50,7 @@ export const fetchIssueList = async() =>{
     });
     console.log("7 inside issues: ",JSON.stringify(issues1));
     return issues1;
-}); */
+});
 
 /*const issues = [{
     ID: 1,
