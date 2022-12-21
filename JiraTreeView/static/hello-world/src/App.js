@@ -60,19 +60,23 @@ class App extends React.Component {
         this.setState({
           issues:y,
         });
-  };
-  
-  const getHeadId = async (element) => {
-    if(element.fields.issuelinks)
-      {
-        console.log("inside getId:",element.fields.issuelinks.0.outwardIssue.id);
-        return (element.fields.issuelinks.0.outwardIssue.id);
-      }
-    else
-      {
-        return -1;
-      }
+
+        
+        const getHeadId = async (element) => {
+          if(element.fields.issuelinks)
+            {
+              console.log("inside getId:",element.fields.issuelinks.0.outwardIssue.id);
+              return (element.fields.issuelinks.0.outwardIssue.id);
+            }
+          else
+            {
+              return -1;
+            }
+        }
   }
+  
+  
+
   render() {
     const { mode, allowSearch } = this.state;
     
