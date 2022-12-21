@@ -33,6 +33,7 @@ class App extends React.Component {
     let issues1 = [];
     let idCount = 1;
     let headCount = -1;
+    debugger;
     let x = await fetchIssueList();
     console.log("1 inside componentDidMount: ",x);
     let y = x.issues.map((element) => {
@@ -62,17 +63,17 @@ class App extends React.Component {
         });
 
 
-        const getHeadId = async (element) => {
-          if(element.fields.issuelinks)
-            {
-              console.log("inside getId:",element.fields.issuelinks.outwardIssue.id);
-              return (element.fields.issuelinks.outwardIssue.id);
-            }
-          else
-            {
-              return -1;
-            }
-        }
+        // const getHeadId = async (element) => {
+        //   if(element.fields.issuelinks)
+        //     {
+        //       console.log("inside getId:",element.fields.issuelinks.outwardIssue.id);
+        //       return (element.fields.issuelinks.outwardIssue.id);
+        //     }
+        //   else
+        //     {
+        //       return -1;
+        //     }
+        // }
   }
   
   
