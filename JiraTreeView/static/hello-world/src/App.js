@@ -30,7 +30,7 @@ class App extends React.Component {
 
   async componentDidMount(){
 
-    let x=0;
+    let a=0;
     let issues1 = [];
     let idCount = 1;
     let headCount = -1;
@@ -39,7 +39,7 @@ class App extends React.Component {
     let y = x.issues.map((element) => {
           let item = {
                 ID: element.id,
-                Head_ID: (element.fields.issuelinks != null? element.fields.issuelinks.x.outwardIssue.id:-1),
+                Head_ID: (element.fields.issuelinks != null? element.fields.issuelinks.a.outwardIssue.id:-1),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
