@@ -61,12 +61,12 @@ class App extends React.Component {
           issues:y,
         });
 
-        
+
         const getHeadId = async (element) => {
           if(element.fields.issuelinks)
             {
-              console.log("inside getId:",element.fields.issuelinks.0.outwardIssue.id);
-              return (element.fields.issuelinks.0.outwardIssue.id);
+              console.log("inside getId:",element.fields.issuelinks.outwardIssue.id);
+              return (element.fields.issuelinks.outwardIssue.id);
             }
           else
             {
