@@ -59,7 +59,7 @@ class App extends React.Component {
       console.log("4 inside componentDidMount new test: ",y);
         this.setState({
           issues:y,
-        });
+        })
 
   }
   
