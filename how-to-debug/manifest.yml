@@ -1,0 +1,20 @@
+modules:
+  jira:adminPage:
+    - key: how-to-debug-hello-world-admin-page
+      resource: main
+      resolver:
+        function: resolver
+      title: how-to-debug
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+permissions:
+  scopes: [read:jira-work,write:jira-work]
+  content:
+    styles:
+      - 'unsafe-inline'
+app:
+  id: ari:cloud:ecosystem::app/63f21c5a-5a7d-400c-af5f-e7c75b6a55ed
