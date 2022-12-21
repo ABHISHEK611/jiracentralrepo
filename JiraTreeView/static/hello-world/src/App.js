@@ -38,7 +38,7 @@ class App extends React.Component {
     let y = x.issues.map((element) => {
           let item = {
                 ID: element.id,
-                Head_ID: (element.fields.issuelinks === null? -1:element.fields.issuelinks.outwardIssue.id),
+                Head_ID: (element.fields.issuelinks === null? -1:element.id),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
