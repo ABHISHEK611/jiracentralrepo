@@ -1,0 +1,15 @@
+modules:
+  jira:globalPage:
+    - key: jirareactdnd-hello-world-page
+      resource: main
+      resolver:
+        function: resolver
+      title: JiraReactDnd
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  id: ari:cloud:ecosystem::app/0396cb86-921c-47e7-ba6d-607c0f4c3ed9
