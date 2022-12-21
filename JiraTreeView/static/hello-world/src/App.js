@@ -37,8 +37,8 @@ class App extends React.Component {
     console.log("1 inside componentDidMount: ",x);
     let y = x.issues.map((element) => {
           let item = {
-                ID: element.id,
-                Head_ID: -1,
+                ID: idCount,
+                Head_ID: headCount,
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
