@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import { StrictMode } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
+//import { createRoot } from "react-dom/client";
 
-import '@atlaskit/css-reset';
+import App from "./app";
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById('root')
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById("root")
 );
