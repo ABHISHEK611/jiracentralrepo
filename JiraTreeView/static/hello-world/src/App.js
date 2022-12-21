@@ -33,13 +33,12 @@ class App extends React.Component {
     let issues1 = [];
     let idCount = 1;
     let headCount = -1;
-    debugger;
     let x = await fetchIssueList();
     console.log("1 inside componentDidMount: ",x);
     let y = x.issues.map((element) => {
           let item = {
                 ID: element.id,
-                Head_ID: getHeadId(element),
+                Head_ID: -1,
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
