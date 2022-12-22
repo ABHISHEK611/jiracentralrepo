@@ -41,7 +41,7 @@ class App extends React.Component {
       debugger;
           let item = {
                 ID: element.id,
-                Head_ID: (element.has("issuelinks") ? element.fields.issuelinks.a.outwardIssue.id :-1),
+                Head_ID: (element.fields.issuelinks.length === 0 ? -1: element.fields.issuelinks.a.outwardIssue.id),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
