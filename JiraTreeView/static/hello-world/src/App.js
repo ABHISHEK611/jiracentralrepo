@@ -37,9 +37,11 @@ class App extends React.Component {
     let x = await fetchIssueList();
     console.log("1 inside componentDidMount: ",x);
     let y = x.issues.map((element) => {
+      console.log("1.5 inside componentDidMount: ",element);
+      debugger;
           let item = {
                 ID: element.id,
-                Head_ID: (element.has("issuelinks") ? element.fields.issuelinks.a.outwardIssue.id:-1),
+                Head_ID: (element.has("issuelinks") ? element.fields.issuelinks.a.outwardIssue.id :-1),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
