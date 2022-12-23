@@ -41,7 +41,7 @@ class App extends React.Component {
       debugger;
           let item = {
                 ID: element.id,
-                Head_ID: await getHeadId(element),
+                Head_ID: getHeadId(element),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
