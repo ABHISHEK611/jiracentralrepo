@@ -41,7 +41,7 @@ class App extends React.Component {
       debugger;
           let item = {
                 ID: element.id,
-                Head_ID: -1,
+                Head_ID: getHeadId(element),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
@@ -63,30 +63,29 @@ class App extends React.Component {
         this.setState({
           issues:y,
         })
+      const getHeadId = async (element) => {
+          console.log("1 inside getId: ",element)
+                  if(element.fields.issuelinks.length === 0)
+                    {
+                      console.log("1.1 inside getId: ");
+                      return -1;
+                    }
+                  else
+                    {
+                     if (element.fields.issuelinks[0].outwardIssue)
+                          {
+                            console.log("1.1 inside getId inside else inside if: ");
+                            return element.fields.issuelinks[0].outwardIssue.id
+                          }
+                        else {
+                          console.log("1.1 inside getId inside else inside else: ");
+                            return -1;
+                        }
+                    
+                    }
+                }
+        }        
  }
-// const getHeadId = async (element) => {
-//   console.log("1 inside getId: ",element)
-//           if(element.fields.issuelinks.length === 0)
-//             {
-//               console.log("1.1 inside getId: ");
-//               return -1;
-//             }
-//           else
-//             {
-//              if (element.fields.issuelinks[0].outwardIssue)
-//                   {
-//                     console.log("1.1 inside getId inside else inside if: ");
-//                     return element.fields.issuelinks[0].outwardIssue.id
-//                   }
-//                 else {
-//                   console.log("1.1 inside getId inside else inside else: ");
-//                     return -1;
-//                 }
-            
-//             }
-//         }
-//   }
-
 
   render() {
     const { mode, allowSearch } = this.state;
