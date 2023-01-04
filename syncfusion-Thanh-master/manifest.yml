@@ -1,0 +1,20 @@
+modules:
+  jira:adminPage:
+    - key: syncfusion-thanh-hello-world-admin-page
+      resource: main
+      resolver:
+        function: resolver
+      title: syncfusion-Thanh
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+permissions:
+  scopes: [read:jira-work,write:jira-work]
+  content:
+    styles:
+      - 'unsafe-inline'
+app:
+  id: ari:cloud:ecosystem::app/ffda5c46-b418-4182-a282-57fc3cc5844e

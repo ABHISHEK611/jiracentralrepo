@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef, useState }  from 'react';
 import { TreeList, Column, RowDragging, ColumnChooser, Editing, RequiredRule, Lookup, Button, } 
 from 'devextreme-react/tree-list';
 import CheckBox from 'devextreme-react/check-box';
 import { SelectBox } from 'devextreme-react/select-box';
-import { fetchIssueList } from './data.js';
-//import {issues as issueList} from './data.js';
+import api, { fetch, route } from '@forge/api';
+import ForgeUI, { useProductContext } from '@forge/ui';
+import { requestJira } from '@forge/bridge';
+//import {issues as issueList} from './data';
 
 const expandedRowKeys = [1];
 
@@ -18,7 +20,7 @@ class App extends React.Component {
     this.onShowDragIconsChanged = this.onShowDragIconsChanged.bind(this);
 
     this.state = {
-      issues:[],
+      //issues:[],
       //issues: issueList,
       allowDropInsideItem: true,
       allowReordering: true,
@@ -26,19 +28,26 @@ class App extends React.Component {
       mode: 'select',
       allowSearch: true,
     };
-  }
+    const projectKey = `OEM`;
 
-  async componentDidMount(){
+    const fetchIssueList = async () =>{
+                  const context = useProductContext();
+                  console.log("1 inside fetchIssueList: ",context);
+                  console.log("2 inside fetchIssueList: ",JSON.stringify(context));
+                  const params = `project = ${projectKey}`;
+                  const res =  await requestJira(`/rest/api/2/search?jql=${params}`);
+                  console.log("3 inside fetchIssueList: ",res);
+                  console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
+                  const data =  await res.json();
+                  console.log("4 inside fetchIssueList: ",JSON.stringify(data));
+                  return data;
+              }
 
-    let a=0;
     let issues1 = [];
-    let idCount = 1;
-    let headCount = -1;
-    let x = await fetchIssueList();
-    console.log("1 inside componentDidMount: ",x);
+    let x = fetchIssueList();
+    console.log("x: ",JSON.stringify(x));
     let y = x.issues.map((element) => {
-      console.log("1.5 inside componentDidMount: ",element);
-      debugger;
+        console.log("element: ",element);
           let item = {
                 ID: element.id,
                 Head_ID: getHeadId(element),
@@ -49,51 +58,83 @@ class App extends React.Component {
                 Reporter: element.fields.reporter.displayName,
                 Priority: element.fields.priority.name,
             }
-          console.log("2 inside componentDidMount: ",JSON.stringify(item));
-          //issues1.push(item);
-          idCount = idCount +1;
-          if(headCount === -1)
-          {
-            headCount = headCount +2;
-          }
-        console.log("3 inside componentDidMount: ",JSON.stringify(issues1));
+        console.log("item: ",JSON.stringify(item));
+        issues1.push(item);
+        console.log("issue1: ",JSON.stringify(issues1));
         return item;
       });
-      console.log("4 inside componentDidMount new test: ",y);
-        this.setState({
+    console.log("y: ",JSON.stringify(y));
+    this.setState({
           issues:y,
-        })
-      const getHeadId = async (element) => {
-          console.log("1 inside getId: ",element)
-                  if(element.fields.issuelinks.length === 0)
-                    {
-                      console.log("1.1 inside getId: ");
-                      return -1;
-                    }
-                  else
-                    {
-                     if (element.fields.issuelinks[0].outwardIssue)
-                          {
-                            console.log("1.1 inside getId inside else inside if: ");
-                            return element.fields.issuelinks[0].outwardIssue.id
-                          }
-                        else {
-                          console.log("1.1 inside getId inside else inside else: ");
-                            return -1;
-                        }
-                    
-                    }
-                }
-        }        
- }
+    });
+
+const getHeadId = (element) => 
+                  {
+                        console.log("1 inside getId: ",element);
+                                if(element.fields.issuelinks.length != 0)
+                                  {
+                                    console.log("1.1 inside getId: ",element.fields.issuelinks.length);
+                                    debugger;
+                                      if (element.fields.issuelinks[0].hasOwnProperty("outwardIssue"))
+                                        {
+                                          console.log("1.2 inside getId inside else inside if: ");
+                                          return element.fields.issuelinks[0].outwardIssue.id
+                                        }
+                                      else
+                                        {
+                                          console.log("1.4 inside getId inside else inside else: ");
+                                        return -1
+                                        }
+                                      return -1;
+                                  }
+                                else
+                                  {
+                                    console.log("1.5 inside getId: ");
+                                    return -1;
+                                  }
+                  }
+}
+
+  // async componentDidMount()
+  // {
+  //   let a=0;
+  //   let issues1 = [];
+  //   let idCount = 1;
+  //   let headCount = -1;
+  //   let x = await fetchIssueList();
+  //   console.log("1 inside componentDidMount: ",x);
+  //   let y = x.issues.map((element) => {
+  //     console.log("1.5 inside componentDidMount: ",element);
+  //     debugger;
+  //         let item = {
+  //               ID: element.id,
+  //               Head_ID:  (element.fields.issuelinks.length != 0 ? element.fields.issuelinks[0].outwardIssue.id : -1 ), 
+  //               Issue_Key: element.key,
+  //               Issue_Type: element.fields.issuetype.name,
+  //               Summary: element.fields.summary,
+  //               Assignee: (element.fields.assignee === null? "Unassigned":element.fields.assignee.displayName),
+  //               Reporter: element.fields.reporter.displayName,
+  //               Priority: element.fields.priority.name,
+  //           }
+  //         console.log("2 inside componentDidMount: ",JSON.stringify(item));
+  //         //issues1.push(item);
+  //         idCount = idCount +1;
+  //         if(headCount === -1)
+  //         {
+  //           headCount = headCount +2;
+  //         }
+  //       console.log("3 inside componentDidMount: ",JSON.stringify(issues1));
+  //       return item;
+  //     });
+  //     console.log("4 inside componentDidMount new test: ",y);
+  //       this.setState({
+  //         issues:y,
+  //       });
+  // }
 
   render() {
     const { mode, allowSearch } = this.state;
     
-    const saveConfig = (e) => {
-      console.log("save",e);
-    }
-
     return (
       <div>
         <TreeList
