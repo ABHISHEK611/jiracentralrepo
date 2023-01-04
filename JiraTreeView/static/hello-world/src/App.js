@@ -6,7 +6,7 @@ import { SelectBox } from 'devextreme-react/select-box';
 import api, { fetch, route } from '@forge/api';
 import ForgeUI, { useProductContext } from '@forge/ui';
 import { requestJira } from '@forge/bridge';
-//import {issues as issueList} from './data';
+import {issues as issueList} from './data';
 
 const expandedRowKeys = [1];
 
@@ -21,79 +21,14 @@ class App extends React.Component {
 
     this.state = {
       //issues:[],
-      //issues: issueList,
+      issues: issueList,
       allowDropInsideItem: true,
       allowReordering: true,
       showDragIcons: false,
       mode: 'select',
       allowSearch: true,
     };
-    const projectKey = `OEM`;
-
-    const fetchIssueList = async () =>{
-                  const context = useProductContext();
-                  console.log("1 inside fetchIssueList: ",context);
-                  console.log("2 inside fetchIssueList: ",JSON.stringify(context));
-                  const params = `project = ${projectKey}`;
-                  const res =  await requestJira(`/rest/api/2/search?jql=${params}`);
-                  console.log("3 inside fetchIssueList: ",res);
-                  console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
-                  const data =  await res.json();
-                  console.log("4 inside fetchIssueList: ",JSON.stringify(data));
-                  return data;
-              }
-
-    let issues1 = [];
-    let x = fetchIssueList();
-    console.log("x: ",JSON.stringify(x));
-    let y = x.issues.map((element) => {
-        console.log("element: ",element);
-          let item = {
-                ID: element.id,
-                Head_ID: getHeadId(element),
-                Issue_Key: element.key,
-                Issue_Type: element.fields.issuetype.name,
-                Summary: element.fields.summary,
-                Assignee: (element.fields.assignee === null? "Unassigned":element.fields.assignee.displayName),
-                Reporter: element.fields.reporter.displayName,
-                Priority: element.fields.priority.name,
-            }
-        console.log("item: ",JSON.stringify(item));
-        issues1.push(item);
-        console.log("issue1: ",JSON.stringify(issues1));
-        return item;
-      });
-    console.log("y: ",JSON.stringify(y));
-    this.setState({
-          issues:y,
-    });
-
-const getHeadId = (element) => 
-                  {
-                        console.log("1 inside getId: ",element);
-                                if(element.fields.issuelinks.length != 0)
-                                  {
-                                    console.log("1.1 inside getId: ",element.fields.issuelinks.length);
-                                    debugger;
-                                      if (element.fields.issuelinks[0].hasOwnProperty("outwardIssue"))
-                                        {
-                                          console.log("1.2 inside getId inside else inside if: ");
-                                          return element.fields.issuelinks[0].outwardIssue.id
-                                        }
-                                      else
-                                        {
-                                          console.log("1.4 inside getId inside else inside else: ");
-                                        return -1
-                                        }
-                                      return -1;
-                                  }
-                                else
-                                  {
-                                    console.log("1.5 inside getId: ");
-                                    return -1;
-                                  }
-                  }
-}
+  }
 
   // async componentDidMount()
   // {
@@ -130,7 +65,7 @@ const getHeadId = (element) =>
   //       this.setState({
   //         issues:y,
   //       });
-  // }
+  //}
 
   render() {
     const { mode, allowSearch } = this.state;
