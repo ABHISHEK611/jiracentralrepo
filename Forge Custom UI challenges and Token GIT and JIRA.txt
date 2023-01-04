@@ -1,0 +1,20 @@
+Learning from Custom UI:
+
+1.) Need to run command npm install on both the static content and the root directory. This is run to install package of node js.
+2.) We need to make sure that the component called from root/index shall be available at the static component.
+
+abhi.librian2911@gmail.com
+abhi.scorpio61195@gmail.com
+
+
+
+Atlassian Api token:
+V3xY2TivEU9K03HoR5uc05D9	(deprecated)
+8TvZmXzykTwlfn6IbiiR0DDE	(deprecated)
+0bvndnvXF7jc60eWWrMR0D67	(deprecated)
+1GL2rmPkdTVWFHYQa9iU3CE2	(using)
+
+GIT token: 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 (delete)
+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
+
+Git Ouath client secret id : 50faa8621429acf2e19ad9267c912fe7c7ec9454
