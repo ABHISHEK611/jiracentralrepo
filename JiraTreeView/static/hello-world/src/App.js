@@ -88,30 +88,32 @@ class App extends React.Component {
           onEditorPreparing={this.onEditorPreparing}
           onInitNewRow={this.onInitNewRow}
         >
-          <RowDragging
+        <RowDragging
             onDragChange={this.onDragChange}
             onReorder={this.onReorder}
             allowDropInsideItem={this.state.allowDropInsideItem}
             allowReordering={this.state.allowReordering}
             showDragIcons={this.state.showDragIcons}
-          />
+        />
 
-          <Editing
+        <Editing
             allowUpdating={true}
             allowDeleting={true}
             allowAdding={true}
-            mode="row" />
+            mode="row" 
+        />
 
-          <Column allowHiding={false} dataField="Issue_Key"> <RequiredRule /> </Column>
-          <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> </Column>
-          <Column dataField="Summary"> <RequiredRule />  </Column>
-          <Column dataField="Assignee"> <RequiredRule />  </Column>
-          <Column dataField="Priority"> <RequiredRule /> </Column>
-          <Column type="buttons" caption="Actions">
-            <Button name="edit" />
-            <Button name="delete" />
-          </Column>
-          <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
+        <Column allowHiding={false} dataField="Issue_Key"> <RequiredRule /> </Column>
+        <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> </Column>
+        <Column dataField="Summary"> <RequiredRule />  </Column>
+        <Column dataField="Assignee"> <RequiredRule />  </Column>
+        <Column dataField="Priority"> <RequiredRule /> </Column>
+        <Column type="buttons" caption="Actions">
+          <Button name="add" />
+          <Button name="edit" />
+          <Button name="delete" />
+        </Column>
+        <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
         {/* <div className="options">
@@ -145,13 +147,15 @@ class App extends React.Component {
   }
 
   onEditorPreparing(e) {
+    console.log("1 onEditorPreparing: ",e);
     if (e.dataField === 'Head_ID' && e.row.data.ID === 1) {
       e.cancel = true;
     }
   }
 
   onInitNewRow(e) {
-    e.data.Head_ID = 1;
+    console.log("1 onInitNewRow: ",e);
+    e.data.Head_ID = -1;
   }
   onDragChange(e) {
     console.log("1 onDragChange: ",e);
