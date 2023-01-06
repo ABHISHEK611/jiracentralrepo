@@ -11,6 +11,19 @@ import { fetchIssueList } from './data';
 
 const expandedRowKeys = [1];
 
+const issuestype = [
+  'Story',
+  'Bug',
+  'Task',
+  'SubTask',
+  'Bug Fix Steps',
+];
+
+const addRow = (e) => {
+  console.log("inside addRow",e);
+};
+let i=0;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -35,8 +48,6 @@ class App extends React.Component {
   {
     let a=0;
     let issues1 = [];
-    let idCount = 1;
-    let headCount = -1;
     let x = await fetchIssueList();
     console.log("1 inside componentDidMount: ",x);
     let y = x.issues.map((element) => {
@@ -45,8 +56,8 @@ class App extends React.Component {
           let item = {
                 ID: element.id,
                 Head_ID: (element.fields.issuelinks.length != 0
-                  ? element.fields.issuelinks[0].hasOwnProperty("outwardIssue")
-                  ? element.fields.issuelinks[0].outwardIssue.id : -1 : -1),
+                ? element.fields.issuelinks[0].hasOwnProperty("outwardIssue")
+                ? element.fields.issuelinks[0].outwardIssue.id : -1 : -1),
                 Issue_Key: element.key,
                 Issue_Type: element.fields.issuetype.name,
                 Summary: element.fields.summary,
@@ -85,7 +96,6 @@ class App extends React.Component {
           columnAutoWidth={true}
           keyExpr="ID"
           parentIdExpr="Head_ID"
-          onEditorPreparing={this.onEditorPreparing}
           onInitNewRow={this.onInitNewRow}
         >
         <RowDragging
@@ -104,14 +114,17 @@ class App extends React.Component {
         />
 
         <Column allowHiding={false} dataField="Issue_Key"> <RequiredRule /> </Column>
-        <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> </Column>
-        <Column dataField="Summary"> <RequiredRule />  </Column>
-        <Column dataField="Assignee"> <RequiredRule />  </Column>
+        <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
+        <Column dataField="Summary"> <RequiredRule /> </Column>
+        <Column dataField="Assignee"> <RequiredRule /> </Column>
         <Column dataField="Priority"> <RequiredRule /> </Column>
-        <Column type="buttons" caption="Actions">
-          <Button name="add" />
-          <Button name="edit" />
-          <Button name="delete" />
+        <Column allowHiding={false} type="buttons" caption="Actions">
+            <Button name="edit" />
+            <Button name="delete" />
+            <Button
+               text="AddRow"
+               onClick={addRow}
+            />
         </Column>
         <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
@@ -146,17 +159,20 @@ class App extends React.Component {
     );
   }
 
-  onEditorPreparing(e) {
-    console.log("1 onEditorPreparing: ",e);
-    if (e.dataField === 'Head_ID' && e.row.data.ID === 1) {
-      e.cancel = true;
-    }
-  }
+  // onEditorPreparing(e) {
+  //   console.log("1 onEditorPreparing: ",e);
+  //   if (e.dataField === 'Head_ID' && e.row.data.ID === 1) {
+  //     e.cancel = true;
+  //   }
+  // }
 
   onInitNewRow(e) {
     console.log("1 onInitNewRow: ",e);
+    e.data.ID=i;
     e.data.Head_ID = -1;
+    i++;
   }
+
   onDragChange(e) {
     console.log("1 onDragChange: ",e);
     const visibleRows = e.component.getVisibleRows();
