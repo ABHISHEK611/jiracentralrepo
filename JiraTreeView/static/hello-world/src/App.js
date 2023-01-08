@@ -97,6 +97,7 @@ class App extends React.Component {
           keyExpr="ID"
           parentIdExpr="Head_ID"
           onInitNewRow={this.onInitNewRow}
+          onRowInserted={this.addRow}
         >
         <RowDragging
             onDragChange={this.onDragChange}
@@ -165,6 +166,40 @@ class App extends React.Component {
   //     e.cancel = true;
   //   }
   // }
+
+  addRow = async (e) =>
+  {
+    console.log("1 inside addRow: ",e.data.Summary);
+    console.log("1.5 inside addRow: ",e.data.Issue_Type);
+    let body = {
+      fields: {
+        summary: e.data.Summary,
+        project: {
+          key: "OEM",
+        },
+        issuetype: {
+          name: e.data.Issue_Type,
+        },
+        assignee: {
+          name: "Abhishek Srivastava",
+        },
+        "customfield_10042": "https://google.com",
+        "customfield_10034": 8
+      }
+    };
+
+    let body1 = JSON.stringify(body);
+    console.log("2 inside addRow: ",JSON.stringify(body));
+    const response = await requestJira('/rest/api/3/issue', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: body1
+    })
+  console.log(`Response: ${response.status} ${response.statusText}`);
+  }
 
   onInitNewRow(e) {
     console.log("1 onInitNewRow: ",e);
