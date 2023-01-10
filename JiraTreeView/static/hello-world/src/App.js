@@ -124,7 +124,7 @@ class App extends React.Component {
             <Button name="delete" />
             <Button
                text="AddRow"
-               onClick={addRow}
+               onClick={addNode}
             />
         </Column>
         <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
@@ -167,6 +167,11 @@ class App extends React.Component {
   //   }
   // }
 
+  addNode = async (e) =>
+  {
+    console.log("addNode: ",e);
+  }
+  
   addRow = async (e) =>
   {
     console.log("1 inside addRow: ",e.data.Summary);
