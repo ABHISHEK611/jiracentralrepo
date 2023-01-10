@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState }  from 'react';
 import { TreeList, Column, RowDragging, ColumnChooser, Editing, RequiredRule, Lookup, Button, } 
 from 'devextreme-react/tree-list';
-import CheckBox from 'devextreme-react/check-box';
-import { SelectBox } from 'devextreme-react/select-box';
 import api, { fetch, route } from '@forge/api';
 import ForgeUI, { useProductContext } from '@forge/ui';
 import { requestJira } from '@forge/bridge';
@@ -110,8 +108,8 @@ class App extends React.Component {
         <Editing
             allowUpdating={true}
             allowDeleting={true}
-            allowAdding={true}
-            mode="cell" 
+            allowAdding={this.addNode}
+            mode="row" 
         />
 
         <Column allowHiding={false} dataField="Issue_Key"> </Column>
@@ -119,14 +117,14 @@ class App extends React.Component {
         <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
         <Column dataField="Assignee"> <RequiredRule /> </Column>
         <Column dataField="Priority"> <RequiredRule /> </Column>
-        <Column allowHiding={false} type="buttons" caption="Actions">
+        {/* <Column allowHiding={false} type="buttons" caption="Actions">
             <Button name="edit" />
             <Button name="delete" />
-            <Button
+             <Button
                text="AddRow"
                onClick={this.addNode}
             />
-        </Column>
+        </Column> */}
         <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
@@ -167,13 +165,11 @@ class App extends React.Component {
   //   }
   // }
 
-  addNode = async (e) =>
-  {
-    console.log("addNode: ",e);
+  addNode = async (e) => {
+    console.log("1 inside addNode", e);
+    return true;
   }
-  
-  addRow = async (e) =>
-  {
+  addRow = async (e) => {
     console.log("1 inside addRow: ",e.data.Summary);
     console.log("1.5 inside addRow: ",e.data.Issue_Type);
     let body = {
