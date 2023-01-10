@@ -12,7 +12,7 @@ resources:
   - key: main
     path: static/hello-world/build
 permissions:
-  scopes: [read:jira-work,write:jira-work]
+  scopes: [ read:jira-work, write:jira-work ]
   content:
     styles:
       - unsafe-inline
@@ -25,4 +25,4 @@ permissions:
   #     - 'https://cdn3.devexpress.com/jslib/22.1.6/css/dx.common.css'
   #     - 'https://cdn3.devexpress.com/jslib/22.1.6/css/dx.light.css'
 app:
-  id: ari:cloud:ecosystem::app/6126b7b3-653b-4816-a46c-8f55bfc01cf6
+  id: ari:cloud:ecosystem::app/0af13db1-4465-4acc-b5a6-46330be5ff85

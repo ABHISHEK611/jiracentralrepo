@@ -111,12 +111,12 @@ class App extends React.Component {
             allowUpdating={true}
             allowDeleting={true}
             allowAdding={true}
-            mode="row" 
+            mode="cell" 
         />
 
-        <Column allowHiding={false} dataField="Issue_Key"> <RequiredRule /> </Column>
+        <Column allowHiding={false} dataField="Issue_Key"> </Column>
         <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
-        <Column dataField="Summary"> <RequiredRule /> </Column>
+        <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
         <Column dataField="Assignee"> <RequiredRule /> </Column>
         <Column dataField="Priority"> <RequiredRule /> </Column>
         <Column allowHiding={false} type="buttons" caption="Actions">
@@ -124,7 +124,7 @@ class App extends React.Component {
             <Button name="delete" />
             <Button
                text="AddRow"
-               onClick={addNode}
+               onClick={this.addNode}
             />
         </Column>
         <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
