@@ -1,0 +1,28 @@
+modules:
+  jira:projectPage:
+    - key: devexpress-hello-world-project-page
+      resource: main
+      resolver:
+        function: resolver
+      title: Devexpress
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+permissions:
+  scopes: [read:jira-work,write:jira-work]
+  content:
+    styles:
+      - unsafe-inline
+    scripts:
+      - unsafe-inline
+      - unsafe-hashes
+      - unsafe-eval
+  # external:
+  #   styles:
+  #     - 'https://cdn3.devexpress.com/jslib/22.1.6/css/dx.common.css'
+  #     - 'https://cdn3.devexpress.com/jslib/22.1.6/css/dx.light.css'
+app:
+  id: ari:cloud:ecosystem::app/6126b7b3-653b-4816-a46c-8f55bfc01cf6
