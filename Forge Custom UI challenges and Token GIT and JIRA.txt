@@ -19,9 +19,9 @@ L5XIaxjKuZXzWeZiRxb6550E	(deprecated)
 JjT4GnFyxnE3wThg32Ze97AF	(deprecated)
 Eu7UD1Hn7TBNjhiledrzF8F5	(deprecated)
 nyaQFj1Lr2j2phjwUQk62DA6	(deprecated)
+1Wfay02TtV5YiscLrnuJB7A5	(deprecated)
 0XWxwoTedO4agmLEKhOjC3E8	(using plugin2)
-1Wfay02TtV5YiscLrnuJB7A5	(using plugin3)
-
+zMQuXKjYhIvEdla2Hbs70F8C	(using plugin4)
 
 GIT abhi.scorpio611@gmail:
 GIT token: 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 (delete)
