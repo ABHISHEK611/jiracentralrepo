@@ -105,26 +105,23 @@ class App extends React.Component {
             showDragIcons={this.state.showDragIcons}
         />
 
-        <Editing
+        {/* <Editing
             allowUpdating={true}
             allowDeleting={true}
             allowAdding={this.addNode}
             mode="row" 
-        />
+        /> */}
 
         <Column allowHiding={false} dataField="Issue_Key"> </Column>
         <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
         <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
         <Column dataField="Assignee"> <RequiredRule /> </Column>
         <Column dataField="Priority"> <RequiredRule /> </Column>
-        {/* <Column allowHiding={false} type="buttons" caption="Actions">
-            <Button name="edit" />
-            <Button name="delete" />
-             <Button
-               text="AddRow"
-               onClick={this.addNode}
-            />
-        </Column> */}
+        <Column allowHiding={false} type="buttons" caption="Actions">
+                <Button name="add" />
+                <Button name="edit" />
+                <Button name="delete" />
+            </Column>
         <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
 
