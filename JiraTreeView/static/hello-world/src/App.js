@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TreeList, Column, RowDragging, ColumnChooser, Editing, RequiredRule, Lookup, Button, } 
 from 'devextreme-react/tree-list';
-import { Button } from 'devextreme-react/button';
+//import { Button } from 'devextreme-react/button';
 import { LoadIndicator } from 'devextreme-react/load-indicator';
 import { getIssueData } from "./data/ManageData";
 
