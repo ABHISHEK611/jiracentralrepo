@@ -64,12 +64,6 @@ class App extends React.Component {
                 Priority: element.fields.priority.name,
             }
           console.log("2 inside componentDidMount: ",JSON.stringify(item));
-          //issues1.push(item);
-          // idCount = idCount +1;
-          // if(headCount === -1)
-          // {
-          //   headCount = headCount +2;
-          // }
         console.log("3 inside componentDidMount: ",JSON.stringify(issues1));
         return item;
       });
@@ -97,6 +91,7 @@ class App extends React.Component {
           onInitNewRow={this.onInitNewRow}
           onRowInserted={this.addRow}
         >
+
         <RowDragging
             onDragChange={this.onDragChange}
             onReorder={this.onReorder}
@@ -105,12 +100,12 @@ class App extends React.Component {
             showDragIcons={this.state.showDragIcons}
         />
 
-        {/* <Editing
+        <Editing
             allowUpdating={true}
             allowDeleting={true}
-            allowAdding={this.addNode}
+            allowAdding={true}
             mode="row" 
-        /> */}
+        />
 
         <Column allowHiding={false} dataField="Issue_Key"> </Column>
         <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
@@ -121,51 +116,18 @@ class App extends React.Component {
                 <Button name="add" />
                 <Button name="edit" />
                 <Button name="delete" />
+                <Button name="save" onClick={this.addNode} />
             </Column>
         <ColumnChooser enabled={true} allowSearch={allowSearch} mode={mode} />
         </TreeList>
-
-        {/* <div className="options">
-          <div className="caption">Options</div>
-          <div className="options-container">
-            <div className="option">
-              <CheckBox
-                value={this.state.allowDropInsideItem}
-                text="Allow Drop Inside Item"
-                onValueChanged={this.onAllowDropInsideItemChanged}
-              />
-            </div>
-            <div className="option">
-              <CheckBox
-                value={this.state.allowReordering}
-                text="Allow Reordering"
-                onValueChanged={this.onAllowReorderingChanged}
-              />
-            </div>
-            <div className="option">
-              <CheckBox
-                value={this.state.showDragIcons}
-                text="Show Drag Icons"
-                onValueChanged={this.onShowDragIconsChanged}
-              />
-            </div>
-          </div>
-        </div> */}
       </div>
     );
   }
 
-  // onEditorPreparing(e) {
-  //   console.log("1 onEditorPreparing: ",e);
-  //   if (e.dataField === 'Head_ID' && e.row.data.ID === 1) {
-  //     e.cancel = true;
-  //   }
-  // }
-
   addNode = async (e) => {
-    console.log("1 inside addNode", e);
-    return true;
+    addRow(e);
   }
+  
   addRow = async (e) => {
     console.log("1 inside addRow: ",e.data.Summary);
     console.log("1.5 inside addRow: ",e.data.Issue_Type);
