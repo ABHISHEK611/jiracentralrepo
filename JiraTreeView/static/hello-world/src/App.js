@@ -16,17 +16,6 @@ import {
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
 
-const expandedRowKeys = [1];
-
-const issuestype = [
-  'Story',
-  'Bug',
-  'Task',
-  'SubTask',
-  'Bug Fix Steps',
-];
-
-
 function App() {
 
   console.log("1 inside app");
@@ -35,6 +24,15 @@ function App() {
   const [currentIssues, setCurrentIssues] = useState(response.result);
   //setCurrentIssues(response.result);
   console.log("2 inside app");
+  const expandedRowKeys = [1];
+
+  const issuestype = [
+  'Story',
+  'Bug',
+  'Task',
+  'SubTask',
+  'Bug Fix Steps',
+  ];
 
   const onDragChange = (e) => {
     let visibleRows = e.component.getVisibleRows(),
@@ -92,7 +90,7 @@ function App() {
             columnAutoWidth={true}>
 
             <Column allowHiding={false} dataField="Issue_Key"> </Column>
-            <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
+            <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> </Column>
             <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
