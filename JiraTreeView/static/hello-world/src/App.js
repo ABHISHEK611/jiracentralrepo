@@ -111,11 +111,11 @@ function App() {
             showRowLines={true}
             showBorders={true}
             allowColumnReordering={true}
-            //allowColumnResizing={true}
+            allowColumnResizing={false}
             columnAutoWidth={true}>
 
             <Column allowHiding={false} dataField="Issue_Key"> </Column>
-            <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> </Column>
+            <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
             <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
