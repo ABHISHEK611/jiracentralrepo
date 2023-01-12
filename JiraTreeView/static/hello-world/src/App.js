@@ -25,11 +25,12 @@ const issuestype = [
   'SubTask',
   'Bug Fix Steps',
 ];
-let response = await issues();
+
 
 function App() {
 
   console.log("1 inside app");
+  let response = await issues();
   const [currentIssues, setCurrentIssues] = useState(response.result);
   //setCurrentIssues(response.result);
   console.log("2 inside app");
