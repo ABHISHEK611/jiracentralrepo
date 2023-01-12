@@ -255,26 +255,26 @@ const issuestype = [
 ];
 
 function App() {
-  const [currentIssues, setCurrentIssues] = useState(null);
+  const [currentIssues, setCurrentIssues] = useState(await issue());
 
-  const [searchButton, setsearchButton] = useState({
-    loadIndicatorVisible: false,
-    buttonText: 'Search',
-  });
+  // const [searchButton, setsearchButton] = useState({
+  //   loadIndicatorVisible: false,
+  //   buttonText: 'Search',
+  // });
 
 
-  const handleClickSearch = async () => {
-      setsearchButton({
-          loadIndicatorVisible: true,
-          buttonText: 'Searching',
-      });
-      let response = await issues();
-      setsearchButton({
-          loadIndicatorVisible: false,
-          buttonText: 'Search',
-      });
-      setCurrentIssues(response.result);
-  };
+  // const handleClickSearch = async () => {
+  //     setsearchButton({
+  //         loadIndicatorVisible: true,
+  //         buttonText: 'Searching',
+  //     });
+  //     let response = await issues();
+  //     setsearchButton({
+  //         loadIndicatorVisible: false,
+  //         buttonText: 'Search',
+  //     });
+  //     setCurrentIssues(response.result);
+  // };
 
   const onDragChange = (e) => {
     let visibleRows = e.component.getVisibleRows(),
@@ -316,13 +316,13 @@ function App() {
   }
 
   return (
-    <div>
-        <div>
+    
+        {/* <div>
           <Button type="success" onClick={handleClickSearch} >
                 <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
                 <span className="dx-button-text">{searchButton.buttonText}</span>
             </Button>
-        </div>
+        </div> */}
         <div>
           <TreeList
             id="issueList"
@@ -371,7 +371,6 @@ function App() {
 
           </TreeList>
         </div>
-  </div>
   );
 }
 

@@ -9,28 +9,8 @@ abhi.scorpio61195@gmail.com
 
 
 Atlassian Api token:
-V3xY2TivEU9K03HoR5uc05D9	(deprecated)
-8TvZmXzykTwlfn6IbiiR0DDE	(deprecated)
-0bvndnvXF7jc60eWWrMR0D67	(deprecated)
-1GL2rmPkdTVWFHYQa9iU3CE2	(deprecated)
-4MURq3JKNfn5i9Q8kvvZ3EBD	(deprecated)
-RSt8Avb8WO9zGBdkv0Q521A4	(deprecated)
-L5XIaxjKuZXzWeZiRxb6550E	(deprecated)
-JjT4GnFyxnE3wThg32Ze97AF	(deprecated)
-Eu7UD1Hn7TBNjhiledrzF8F5	(deprecated)
-nyaQFj1Lr2j2phjwUQk62DA6	(deprecated)
-1Wfay02TtV5YiscLrnuJB7A5	(deprecated)
-zMQuXKjYhIvEdla2Hbs70F8C	(deprecated)
-0XWxwoTedO4agmLEKhOjC3E8	(deprecated)
-SBQjTlcyIRn1pjjojDLo5D64	(deprecated)
-55z5iUTQKdsOEft7fk2c443C	(deprecated)
-jUwcBGA3nDM7SSzlka2nD5B8	(deprecated)
-iZhXpchHZ81jxzAhxNIoC524	(deprecated)
-tFnu4FDt12pGn4ex7QTo0B4E	(deprecated)
-iUejkBo0GOtQIsSLCRjbFA8C	deprecated)
-mNcJ4TxbemnnthgckXwrB403	(using plugin11)
 
-
+E7mXGarew1mKEVnYNxfD4FE9	(using plugin12)
 
 
 GIT abhi.scorpio611@gmail:
