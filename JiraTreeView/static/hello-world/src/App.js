@@ -25,13 +25,13 @@ const issuestype = [
   'SubTask',
   'Bug Fix Steps',
 ];
+let response = await issues();
 
 function App() {
 
   console.log("1 inside app");
-  const [currentIssues, setCurrentIssues] = useState(null);
-  let response = await issues();
-  setCurrentIssues(response.result);
+  const [currentIssues, setCurrentIssues] = useState(response.result);
+  //setCurrentIssues(response.result);
   console.log("2 inside app");
 
   const onDragChange = (e) => {
