@@ -44,7 +44,7 @@ function App() {
   };
 
   const expandedRowKeys = [1];
-
+  const mode = 'select';
   const issuestype = [
   'Story',
   'Bug',
@@ -111,7 +111,7 @@ function App() {
             showRowLines={true}
             showBorders={true}
             allowColumnReordering={true}
-            allowColumnResizing={true}
+            //allowColumnResizing={true}
             columnAutoWidth={true}>
 
             <Column allowHiding={false} dataField="Issue_Key"> </Column>
@@ -122,7 +122,7 @@ function App() {
 
             {/*<ColumnFixing enabled={true} />*/}
 
-            <ColumnChooser enabled={true} />
+            <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
             <FilterRow visible={true} />
             <SearchPanel visible={true} />
             <Editing
