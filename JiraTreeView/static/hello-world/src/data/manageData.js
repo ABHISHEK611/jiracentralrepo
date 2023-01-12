@@ -3,7 +3,6 @@ import ForgeUI, { useProductContext } from '@forge/ui';
 import { requestJira } from '@forge/bridge';
 
 const projectKey = `OEM`;
-let issues1 = [];
 
 const fetchIssueList = async () =>{
               const context = useProductContext();
@@ -13,15 +12,25 @@ const fetchIssueList = async () =>{
               const res =  await requestJira(`/rest/api/2/search?jql=${params}`);
               console.log("3 inside fetchIssueList: ",res);
               console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
-              const data =  await res.json();
-              console.log("4 inside fetchIssueList: ",JSON.stringify(data));
-              return data;
+              //const data =  await res.json();
+              return await res.json();
+              //console.log("4 inside fetchIssueList: ",JSON.stringify(data));
+              //return data;
           }
 
-export const issues =  fetchIssueList().then(result => 
-            {
-              console.log("5 inside issues.",result);
-              result.issues.forEach((element) => {
+
+export const issues =  async () =>
+{
+console.log("1 inside issues");
+const result = await fetchIssueList();
+console.log("2 inside issues",result);
+if (result.errorMessages) {
+  return {
+      error: result.errorMessages
+  };
+}
+let issues1 = [];
+await Promise.all(result.issues.map(async (element) => {
                 let item = 
                 {
                     ID: element.id,
@@ -36,10 +45,13 @@ export const issues =  fetchIssueList().then(result =>
                     Priority: element.fields.priority.name,
                 }
               issues1.push(item);
-              console.log("6 inside issues: ",JSON.stringify(item));
-              });
-              console.log("7 inside issues: ",JSON.stringify(issues1));
-              return issues1;
-          });
+              console.log("3 inside issues: ",JSON.stringify(item));
+              }))
+              issues1.sort((a, b) => b.id - a.id);
+              console.log("4 inside issues: ",JSON.stringify(issues1));
+              return {
+                result: issues1
+            };
+}
 
 export default issues;

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState }  from 'react';
 // import api, { fetch, route } from '@forge/api';
 // import ForgeUI, { useProductContext } from '@forge/ui';
 // import { requestJira } from '@forge/bridge';
-import {issues} from './data';
+import {issues} from "./data/ManageData";
 //import {issues as issueList} from './data';
 import {
   TreeList,
