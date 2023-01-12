@@ -19,10 +19,30 @@ import {issues} from "./data/manageData";
 function App() {
 
   console.log("1 inside app");
-  let response = issues();
-  const [currentIssues, setCurrentIssues] = useState(response.result);
-  console.log("2 inside app",currentIssues);
+  const [currentIssues, setCurrentIssues] = useState(null);
+  console.log("2 inside app");
   
+  const [searchButton, setsearchButton] = useState({
+    loadIndicatorVisible: false,
+    buttonText: 'Search',
+  });
+
+  const handleClickSearch = async () => {
+    console.log("1 inside handleClickSearch");
+
+    setsearchButton({
+        loadIndicatorVisible: true,
+        buttonText: 'Searching',
+    });
+    let response = await issues();
+    setsearchButton({
+        loadIndicatorVisible: false,
+        buttonText: 'Search',
+    });
+    setCurrentIssues(response.result);
+    await console.log("2 inside handleClickSearch",currentIssues);
+  };
+
   const expandedRowKeys = [1];
 
   const issuestype = [
@@ -73,7 +93,13 @@ function App() {
   }
 
   return (
-    
+    <div>
+        <div>
+                <Button type="success" onClick={handleClickSearch} >
+                    <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
+                    <span className="dx-button-text">{searchButton.buttonText}</span>
+                </Button>
+        </div>
         <div>
           <TreeList
             id="issueList"
@@ -122,6 +148,7 @@ function App() {
 
           </TreeList>
         </div>
+    </div>
   );
 }
 
