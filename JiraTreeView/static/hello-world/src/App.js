@@ -123,8 +123,8 @@ function App() {
             {/*<ColumnFixing enabled={true} />*/}
 
             <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
-            <FilterRow visible={true} />
-            {/* <SearchPanel visible={true} /> */}
+            {/* <FilterRow visible={true} /> */}
+            <SearchPanel visible={true} />
             <Editing
               mode="popup"
               allowUpdating={true}
