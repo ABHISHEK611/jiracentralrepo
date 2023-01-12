@@ -253,8 +253,27 @@ const issuestype = [
 ];
 
 function App() {
-  const [currentIssues, setCurrentIssues] = useState(issues);
+  const [currentIssues, setCurrentIssues] = useState(null);
   
+  const [searchButton, setsearchButton] = useState({
+    loadIndicatorVisible: false,
+    buttonText: 'Search',
+  });
+
+
+  const handleClickSearch = async () => {
+      setsearchButton({
+          loadIndicatorVisible: true,
+          buttonText: 'Searching',
+      });
+      let response = await issues();
+      setsearchButton({
+          loadIndicatorVisible: false,
+          buttonText: 'Search',
+      });
+      setCurrentIssues(response.result);
+  };
+
   const onDragChange = (e) => {
     let visibleRows = e.component.getVisibleRows(),
       sourceNode = e.component.getNodeByKey(e.itemData.ID),
@@ -295,55 +314,62 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <TreeList
-        id="issueList"
-        dataSource={currentIssues}
-        rootValue={-1}
-        keyExpr="ID"
-        parentIdExpr="HeadID"
-        autoExpandAll={false} //changed from OG
-        showRowLines={true}
-        showBorders={true}
-        allowColumnReordering={true}
-        allowColumnResizing={true}
-        columnAutoWidth={true}>
+    <div>
+        <div>
+          <Button type="success" onClick={handleClickSearch} >
+                <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
+                <span className="dx-button-text">{searchButton.buttonText}</span>
+            </Button>
+        </div>
+        <div className="App">
+          <TreeList
+            id="issueList"
+            dataSource={currentIssues}
+            rootValue={-1}
+            keyExpr="ID"
+            parentIdExpr="HeadID"
+            autoExpandAll={false} //changed from OG
+            showRowLines={true}
+            showBorders={true}
+            allowColumnReordering={true}
+            allowColumnResizing={true}
+            columnAutoWidth={true}>
 
-        <Column allowHiding={false} dataField="Issue_Key"> </Column>
-        <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
-        <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
-        <Column dataField="Assignee"> <RequiredRule /> </Column>
-        <Column dataField="Priority"> <RequiredRule /> </Column>
+            <Column allowHiding={false} dataField="Issue_Key"> </Column>
+            <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} /> </Column>
+            <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
+            <Column dataField="Assignee"> <RequiredRule /> </Column>
+            <Column dataField="Priority"> <RequiredRule /> </Column>
 
-        {/*<ColumnFixing enabled={true} />*/}
+            {/*<ColumnFixing enabled={true} />*/}
 
-        <ColumnChooser enabled={true} />
-        <FilterRow visible={true} />
-        <SearchPanel visible={true} />
-        <Editing
-          mode="popup"
-          allowUpdating={true}
-          allowDeleting={true}
-          allowAdding={true}
-        />
-        {/*<Selection mode="single" />*/}
+            <ColumnChooser enabled={true} />
+            <FilterRow visible={true} />
+            <SearchPanel visible={true} />
+            <Editing
+              mode="popup"
+              allowUpdating={true}
+              allowDeleting={true}
+              allowAdding={true}
+            />
+            {/*<Selection mode="single" />*/}
 
-        <RowDragging
-          onDragChange={onDragChange}
-          onReorder={onReorder}
-          allowDropInsideItem={true}
-          allowReordering={true}
-          showDragIcons={false}
-        />
+            <RowDragging
+              onDragChange={onDragChange}
+              onReorder={onReorder}
+              allowDropInsideItem={true}
+              allowReordering={true}
+              showDragIcons={false}
+            />
 
-        <Paging
-          enabled={true}
-          defaultPageSize={10} 
-        />
+            <Paging
+              enabled={true}
+              defaultPageSize={10} 
+            />
 
-      </TreeList>
-      
-    </div>
+          </TreeList>
+        </div>
+  </div>
   );
 }
 
