@@ -12,7 +12,7 @@ import {
   Selection,
   Editing,
   RowDragging, 
-  Paging
+  Paging, Lookup
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
 
