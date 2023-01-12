@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState }  from 'react';
 // import ForgeUI, { useProductContext } from '@forge/ui';
 // import { requestJira } from '@forge/bridge';
 import {issues} from "./data/manageData";
+import { Button } from 'devextreme-react/button';
+import { LoadIndicator } from 'devextreme-react/load-indicator';
 //import {issues as issueList} from './data';
 import {
   TreeList,
@@ -254,7 +256,7 @@ const issuestype = [
 
 function App() {
   const [currentIssues, setCurrentIssues] = useState(null);
-  
+
   const [searchButton, setsearchButton] = useState({
     loadIndicatorVisible: false,
     buttonText: 'Search',
@@ -321,7 +323,7 @@ function App() {
                 <span className="dx-button-text">{searchButton.buttonText}</span>
             </Button>
         </div>
-        <div className="App">
+        <div>
           <TreeList
             id="issueList"
             dataSource={currentIssues}
