@@ -30,9 +30,10 @@ const issuestype = [
 function App() {
 
   console.log("1 inside app");
-  const [currentIssues, setCurrentIssues] = useState(null);
+  //const [currentIssues, setCurrentIssues] = useState(null);
   let response = issues();
-  setCurrentIssues(response.result);
+  const [currentIssues, setCurrentIssues] = useState(response.result);
+  //setCurrentIssues(response.result);
   console.log("2 inside app");
 
   const onDragChange = (e) => {
