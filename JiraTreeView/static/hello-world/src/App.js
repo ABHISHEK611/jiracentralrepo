@@ -124,7 +124,7 @@ function App() {
 
             <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
             <FilterRow visible={true} />
-            <SearchPanel visible={true} />
+            {/* <SearchPanel visible={true} /> */}
             <Editing
               mode="popup"
               allowUpdating={true}
