@@ -106,7 +106,7 @@ function App() {
             dataSource={currentIssues}
             rootValue={-1}
             keyExpr="ID"
-            parentIdExpr="HeadID"
+            parentIdExpr="Head_ID"
             autoExpandAll={false} //changed from OG
             showRowLines={true}
             showBorders={true}
