@@ -155,6 +155,13 @@ function App() {
             allowColumnResizing={false}
             columnAutoWidth={true}>
 
+            <Editing
+              allowUpdating={true}
+              allowDeleting={true}
+              allowAdding={true}
+              mode="row"
+            />
+            
             <Column allowHiding={false} dataField="Issue_Key"> </Column>
             <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
             <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
@@ -171,12 +178,6 @@ function App() {
             <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
             {/* <FilterRow visible={true} /> */}
             <SearchPanel visible={true} />
-            <Editing
-              mode="row"
-              allowUpdating={true}
-              allowDeleting={true}
-              allowAdding={true}
-            />
             {/*<Selection mode="single" />*/}
 
             <RowDragging
