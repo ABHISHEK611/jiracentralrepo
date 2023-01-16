@@ -94,16 +94,16 @@ function App() {
     setCurrentIssues(issuesReordered);
   }
 
-  // const deleteRow = (e) =>
-  // {
-  //   console.log("0 inside deleteRow: ",e);
-  // }
+  const deleteRow = (e) =>
+  {
+    console.log("0 inside deleteRow: ",e);
+  }
 
-  // const saveNewRow = (e) =>
-  // {
-  //   console.log("0 inside saveNewRow: ",e);
-  //   console.log("1 inside saveNewRow: ",e.data.Summary);
-  //   console.log("1.5 inside saveNewRow: ",e.data.Issue_Type);
+  const saveNewRow = (e) =>
+  {
+    console.log("0 inside saveNewRow: ",e);
+    console.log("1 inside saveNewRow: ",e.data.Summary);
+    console.log("1.5 inside saveNewRow: ",e.data.Issue_Type); }
   //   let body = {
   //     fields: {
   //       summary: e.data.Summary,
@@ -132,7 +132,7 @@ function App() {
   //     body: body1
   //   })
   // console.log(`Response: ${response.status} ${response.statusText}`);
-  // }
+  //}
 
   return (
     <div>
@@ -161,12 +161,12 @@ function App() {
             <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
-            {/* <Column type="buttons" caption="Actions">
+            <Column type="buttons" caption="Actions">
               <Button name="add" />
               <Button name="edit" />
               <Button name="delete" onClick={deleteRow} />
               <Button name="save" onClick={saveNewRow} />
-            </Column> */}
+            </Column>
             {/*<ColumnFixing enabled={true} />*/}
 
             <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
