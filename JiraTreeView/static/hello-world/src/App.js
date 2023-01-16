@@ -93,6 +93,7 @@ function App() {
   }
 
   const onDragChange = (e) => {
+    console.log("0 inside onDragChange",e);
     let visibleRows = e.component.getVisibleRows(),
       sourceNode = e.component.getNodeByKey(e.itemData.ID),
       targetNode = visibleRows[e.toIndex].node;
@@ -107,6 +108,7 @@ function App() {
   }
 
   const onReorder = (e) => {
+    console.log("0 inside onReorder",e);
     let visibleRows = e.component.getVisibleRows(),
       sourceData = e.itemData,
       targetData = visibleRows[e.toIndex].data,
@@ -158,7 +160,7 @@ function App() {
             <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
-            <Column type="buttons">
+            <Column type="buttons" caption="Actions">
               <Button name="add" />
               <Button name="edit" />
               <Button name="delete" onClick={deleteRow} />
