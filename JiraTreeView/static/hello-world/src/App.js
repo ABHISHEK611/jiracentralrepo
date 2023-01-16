@@ -170,7 +170,7 @@ function App() {
             {/* <FilterRow visible={true} /> */}
             <SearchPanel visible={true} />
             <Editing
-              mode="popup"
+              mode="row"
               allowUpdating={true}
               allowDeleting={true}
               allowAdding={true}
