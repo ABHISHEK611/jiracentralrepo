@@ -53,46 +53,7 @@ function App() {
   'Bug Fix Steps',
   ];
 
-  const deleteRow = (e) =>
-  {
-    console.log("0 inside deleteRow: ",e);
-  }
-  const saveNewRow = (e) =>
-  {
-    console.log("0 inside saveNewRow: ",e);
-    console.log("1 inside saveNewRow: ",e.data.Summary);
-    console.log("1.5 inside saveNewRow: ",e.data.Issue_Type);
-  //   let body = {
-  //     fields: {
-  //       summary: e.data.Summary,
-  //       project: {
-  //         key: "OEM",
-  //       },
-  //       issuetype: {
-  //         name: e.data.Issue_Type,
-  //       },
-  //       assignee: {
-  //         name: "Abhishek Srivastava",
-  //       },
-  //       "customfield_10042": "https://google.com",
-  //       "customfield_10034": 8
-  //     }
-  //   };
-
-  //   let body1 = JSON.stringify(body);
-  //   console.log("2 inside addRow: ",JSON.stringify(body));
-  //   const response = await requestJira('/rest/api/3/issue', {
-  //     method: 'POST',
-  //     headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: body1
-  //   })
-  // console.log(`Response: ${response.status} ${response.statusText}`);
-  }
-
-  const onDragChange = (e) => {
+  const onDragChange = async (e) => {
     console.log("0 inside onDragChange",e);
     let visibleRows = e.component.getVisibleRows(),
       sourceNode = e.component.getNodeByKey(e.itemData.ID),
@@ -107,7 +68,7 @@ function App() {
     }
   }
 
-  const onReorder = (e) => {
+  const onReorder = async (e) => {
     console.log("0 inside onReorder",e);
     let visibleRows = e.component.getVisibleRows(),
       sourceData = e.itemData,
@@ -133,13 +94,53 @@ function App() {
     setCurrentIssues(issuesReordered);
   }
 
+  const deleteRow = async (e) =>
+  {
+    console.log("0 inside deleteRow: ",e);
+  }
+
+  const saveNewRow = async (e) =>
+  {
+    console.log("0 inside saveNewRow: ",e);
+    console.log("1 inside saveNewRow: ",e.data.Summary);
+    console.log("1.5 inside saveNewRow: ",e.data.Issue_Type);
+    let body = {
+      fields: {
+        summary: e.data.Summary,
+        project: {
+          key: "OEM",
+        },
+        issuetype: {
+          name: e.data.Issue_Type,
+        },
+        assignee: {
+          name: "Abhishek Srivastava",
+        },
+        "customfield_10042": "https://google.com",
+        "customfield_10034": 8
+      }
+    };
+
+    let body1 = JSON.stringify(body);
+    console.log("2 inside addRow: ",JSON.stringify(body));
+    const response = await requestJira('/rest/api/3/issue', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: body1
+    })
+  console.log(`Response: ${response.status} ${response.statusText}`);
+  }
+
   return (
     <div>
         <div>
-                <Button type="success" onClick={handleClickSearch} >
-                    <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
-                    <span className="dx-button-text">{searchButton.buttonText}</span>
-                </Button>
+          <Button type="success" onClick={handleClickSearch} >
+              <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
+              <span className="dx-button-text">{searchButton.buttonText}</span>
+          </Button>
         </div>
         <div>
           <TreeList
