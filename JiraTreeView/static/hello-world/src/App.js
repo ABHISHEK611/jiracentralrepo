@@ -155,14 +155,7 @@ function App() {
             allowColumnResizing={false}
             columnAutoWidth={true}>
 
-            <Editing
-              allowUpdating={true}
-              allowDeleting={true}
-              allowAdding={true}
-              mode="row"
-            />
-            
-            <Column allowHiding={false} dataField="Issue_Key"> </Column>
+            <Column allowHiding={false} dataField="Issue_Key" allowEditing={false}> </Column>
             <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
             <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
             <Column dataField="Assignee"> <RequiredRule /> </Column>
@@ -186,6 +179,13 @@ function App() {
               allowDropInsideItem={true}
               allowReordering={true}
               showDragIcons={false}
+            />
+
+            <Editing
+              mode="row"
+              allowUpdating={true}
+              allowDeleting={true}
+              allowAdding={true}
             />
 
             <Paging
