@@ -94,12 +94,13 @@ function App() {
     setCurrentIssues(issuesReordered);
   }
 
-  const deleteRow = (e) =>
+  const deleteRow = async (e) =>
   {
     console.log("0 inside deleteRow: ",e);
+    //let afterDeleteRow = currentIssues.filter(y => y.id != deleteId);
   }
 
-  const saveNewRow = (e) =>
+  const saveNewRow = async (e) =>
   {
     console.log("0 inside saveNewRow: ",e);
     console.log("1 inside saveNewRow: ",e.data.Summary);

@@ -11,13 +11,12 @@ abhi.scorpio61195@gmail.com
 Atlassian Api token:
 
 l6mKeMfenjqPqTPvNUxxA7DD	1
-YXbPO4CAJ9CRKGuOC5OvC3A9	2
+CTiUCxJEK4E1TWotvWu78427	pluginvm
 
 
 
 GIT abhi.scorpio611@gmail:
-GIT token: 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 (delete)
-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
+GIT token: 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
 
 Git Ouath client secret id : 50faa8621429acf2e19ad9267c912fe7c7ec9454
 
