@@ -110,7 +110,8 @@ function App() {
           "name": "Blocks"
       }
   }
-  const response = await requestJira(`/rest/api/3/issueLink`, {
+  console.log("4 inside savingDragandDrop",JSON.stringify(body));
+  const response = await requestJira(`/rest/api/2/issueLink`, {
       method: 'POST',
       headers: {
           'Accept': 'application/json',
