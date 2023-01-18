@@ -95,6 +95,7 @@ function App() {
   //}
 
   const savingDragandDrop = async (source, target) => {
+    console.log("inside savingDragandDrop",currentIssues);
     console.log("0 inside savingDragandDrop",source);
     console.log("1 inside savingDragandDrop",target);
     console.log("2 inside savingDragandDrop",source.Issue_Key);
@@ -121,6 +122,7 @@ function App() {
   })
   console.log(`Response: ${response.status} ${response.statusText}`);
   console.log(await response.text());
+  
   }
 
   const onDragChange = async (e) => {
