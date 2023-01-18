@@ -112,18 +112,23 @@ function App() {
       }
   }
   console.log("4 inside savingDragandDrop",JSON.stringify(body));
-  const response = await requestJira(`/rest/api/2/issueLink`, {
+  try{
+    const response = await requestJira(`/rest/api/2/issueLink`, {
       method: 'POST',
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
-  })
-  console.log(`Response: ${response.status} ${response.statusText}`);
-  console.log(await response.text());
-  
+     })
+    console.log(`Response: ${response.status} ${response.statusText}`);
+    console.log(await response.text());
   }
+  catch(Exception e)
+  {
+    console.log("Error",e);
+  }
+}
 
   const onDragChange = async (e) => {
     console.log("0 inside onDragChange",e);
