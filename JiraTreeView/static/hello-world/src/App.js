@@ -96,7 +96,7 @@ function App() {
 
   const onDragChange = async (e) => {
     console.log("0 inside onDragChange",e);
-    console.log("1 inside onDragChange",currentIssues);
+    console.log("0.5 inside onDragChange",currentIssues);
     let visibleRows = e.component.getVisibleRows(),
       sourceNode = e.component.getNodeByKey(e.itemData.ID),
       targetNode = visibleRows[e.toIndex].node;
@@ -115,7 +115,7 @@ function App() {
 
   const onReorder = async (e) => {
     console.log("0 inside onReorder",e);
-    console.log("1 inside onReorder",currentIssues);
+    console.log("0.5 inside onReorder",currentIssues);
     let visibleRows = e.component.getVisibleRows(),
       sourceData = e.itemData,
       targetData = visibleRows[e.toIndex].data,
@@ -130,11 +130,11 @@ function App() {
     console.log("5 inside onReorder: ",sourceIndex);
     console.log("6 inside onReorder: ",targetIndex);
     if (e.dropInsideItem) {
-      sourceData = { ...sourceData, HeadID: targetData.ID };
+      sourceData = { ...sourceData, Head_ID: targetData.ID };
       issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
     } else {
-      if (sourceData.HeadID !== targetData.HeadID) {
-        sourceData = { ...sourceData, HeadID: targetData.HeadID };
+      if (sourceData.Head_ID !== targetData.Head_ID) {
+        sourceData = { ...sourceData, Head_ID: targetData.Head_ID };
         if (e.toIndex > e.fromIndex) {
           targetIndex++;
         }
