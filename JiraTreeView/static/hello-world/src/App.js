@@ -168,12 +168,12 @@ function App() {
               <Button name="delete" onClick={deleteRow} />
               <Button name="save" onClick={saveNewRow} />
             </Column>
-            {/*<ColumnFixing enabled={true} />*/}
+            <ColumnFixing enabled={true} />
 
             <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
-            {/* <FilterRow visible={true} /> */}
+            <FilterRow visible={true} />
             <SearchPanel visible={true} />
-            {/*<Selection mode="single" />*/}
+           
 
             <RowDragging
               onDragChange={onDragChange}
