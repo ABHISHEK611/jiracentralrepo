@@ -15,6 +15,7 @@ import {
   Paging, Lookup
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
+import { requestJira } from "@forge/bridge";
 
 function App() {
 
@@ -113,7 +114,7 @@ function App() {
   }
   console.log("4 inside savingDragandDrop",JSON.stringify(body));
   try{
-    const response = await requestJira(`/rest/api/2/issueLink`, {
+    const response = await requestJira(`/rest/api/3/issueLink`, {
       method: 'POST',
       headers: {
           'Accept': 'application/json',
