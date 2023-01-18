@@ -121,8 +121,9 @@ function App() {
       },
       body: JSON.stringify(body)
      })
-    console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());
+    //console.log(`Response: ${response.status} ${response.statusText}`);
+    //console.log(await response.text());
+    console.log(JSON.stringify(response));
   }
   catch(Exception e)
   {
