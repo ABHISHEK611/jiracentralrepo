@@ -53,47 +53,6 @@ function App() {
   'Bug Fix Steps',
   ];
 
-  const onDragChange = async (e) => {
-    console.log("0 inside onDragChange",e);
-    let visibleRows = e.component.getVisibleRows(),
-      sourceNode = e.component.getNodeByKey(e.itemData.ID),
-      targetNode = visibleRows[e.toIndex].node;
-
-    while (targetNode && targetNode.data) {
-      if (targetNode.data.ID === sourceNode.data.ID) {
-        e.cancel = true;
-        break;
-      }
-      targetNode = targetNode.parent;
-    }
-  }
-
-  const onReorder = async (e) => {
-    console.log("0 inside onReorder",e);
-    let visibleRows = e.component.getVisibleRows(),
-      sourceData = e.itemData,
-      targetData = visibleRows[e.toIndex].data,
-      issuesReordered = currentIssues,
-      sourceIndex = issuesReordered.indexOf(sourceData),
-      targetIndex = issuesReordered.indexOf(targetData);
-
-    if (e.dropInsideItem) {
-      sourceData = { ...sourceData, HeadID: targetData.ID };
-      issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
-    } else {
-      if (sourceData.HeadID !== targetData.HeadID) {
-        sourceData = { ...sourceData, HeadID: targetData.HeadID };
-        if (e.toIndex > e.fromIndex) {
-          targetIndex++;
-        }
-      }
-      issuesReordered = [...issuesReordered.slice(0, sourceIndex), ...issuesReordered.slice(sourceIndex + 1)];
-      issuesReordered = [...issuesReordered.slice(0, targetIndex), sourceData, ...issuesReordered.slice(targetIndex)];
-    }
-
-    setCurrentIssues(issuesReordered);
-  }
-
   const deleteRow = async (e) =>
   {
     console.log("0 inside deleteRow: ",e);
@@ -135,6 +94,58 @@ function App() {
   // console.log(`Response: ${response.status} ${response.statusText}`);
   //}
 
+  const onDragChange = async (e) => {
+    console.log("0 inside onDragChange",e);
+    console.log("1 inside onDragChange",currentIssues);
+    let visibleRows = e.component.getVisibleRows(),
+      sourceNode = e.component.getNodeByKey(e.itemData.ID),
+      targetNode = visibleRows[e.toIndex].node;
+
+    console.log("1 inside onDragChange: ",visibleRows);
+    console.log("2 inside onDragChange: ",sourceNode);
+    console.log("3 inside onDragChange: ",targetNode);
+    while (targetNode && targetNode.data) {
+      if (targetNode.data.ID === sourceNode.data.ID) {
+        e.cancel = true;
+        break;
+      }
+      targetNode = targetNode.parent;
+    }
+  }
+
+  const onReorder = async (e) => {
+    console.log("0 inside onReorder",e);
+    console.log("1 inside onReorder",currentIssues);
+    let visibleRows = e.component.getVisibleRows(),
+      sourceData = e.itemData,
+      targetData = visibleRows[e.toIndex].data,
+      issuesReordered = currentIssues,
+      sourceIndex = issuesReordered.indexOf(sourceData),
+      targetIndex = issuesReordered.indexOf(targetData);
+
+    console.log("1 inside onReorder: ",visibleRows);
+    console.log("2 inside onReorder: ",sourceData);
+    console.log("3 inside onReorder: ",targetData);
+    console.log("4 inside onReorder: ",issuesReordered);
+    console.log("5 inside onReorder: ",sourceIndex);
+    console.log("6 inside onReorder: ",targetIndex);
+    if (e.dropInsideItem) {
+      sourceData = { ...sourceData, HeadID: targetData.ID };
+      issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
+    } else {
+      if (sourceData.HeadID !== targetData.HeadID) {
+        sourceData = { ...sourceData, HeadID: targetData.HeadID };
+        if (e.toIndex > e.fromIndex) {
+          targetIndex++;
+        }
+      }
+      issuesReordered = [...issuesReordered.slice(0, sourceIndex), ...issuesReordered.slice(sourceIndex + 1)];
+      issuesReordered = [...issuesReordered.slice(0, targetIndex), sourceData, ...issuesReordered.slice(targetIndex)];
+    }
+
+    setCurrentIssues(issuesReordered);
+  }
+
   return (
     <div>
         <div>
@@ -168,10 +179,10 @@ function App() {
               <Button name="delete" onClick={deleteRow} />
               <Button name="save" onClick={saveNewRow} />
             </Column>
-            <ColumnFixing enabled={true} />
+            {/* <ColumnFixing enabled={true} /> */}
 
             <ColumnChooser enabled={true} allowSearch={true} mode={mode}/>
-            <FilterRow visible={true} />
+            {/* <FilterRow visible={true} /> */}
             <SearchPanel visible={true} />
            
 
