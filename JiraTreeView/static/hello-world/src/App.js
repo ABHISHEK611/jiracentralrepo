@@ -37,7 +37,7 @@ function App() {
     let response = await issues();
     setsearchButton({
         loadIndicatorVisible: false,
-        buttonText: 'Search',
+        buttonText: 'Refresh',
     });
     setCurrentIssues(response.result);
     await console.log("2 inside handleClickSearch",currentIssues);
@@ -94,6 +94,34 @@ function App() {
   // console.log(`Response: ${response.status} ${response.statusText}`);
   //}
 
+  const savingDragandDrop = async (source, target) => {
+    console.log("0 inside savingDragandDrop",source);
+    console.log("1 inside savingDragandDrop",target);
+    console.log("2 inside savingDragandDrop",source.Issue_Key);
+    console.log("3 inside savingDragandDrop",target.Issue_Key);
+    let body = {
+      "outwardIssue": {
+          "key": target.Issue_Key
+      },
+      "inwardIssue": {
+          "key": source.Issue_Key
+      },
+      "type": {
+          "name": "Blocks"
+      }
+  }
+  const response = await requestJira(`/rest/api/3/issueLink`, {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+  })
+  console.log(`Response: ${response.status} ${response.statusText}`);
+  console.log(await response.text());
+  }
+
   const onDragChange = async (e) => {
     console.log("0 inside onDragChange",e);
     console.log("0.5 inside onDragChange",currentIssues);
@@ -132,6 +160,7 @@ function App() {
     if (e.dropInsideItem) {
       sourceData = { ...sourceData, Head_ID: targetData.ID };
       issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
+      savingDragandDrop(sourceData, targetData);
     } else {
       if (sourceData.Head_ID !== targetData.Head_ID) {
         sourceData = { ...sourceData, Head_ID: targetData.Head_ID };

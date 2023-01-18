@@ -12,7 +12,7 @@ Atlassian Api token:
 
 l6mKeMfenjqPqTPvNUxxA7DD	1
 CTiUCxJEK4E1TWotvWu78427	pluginvm
-
+MJMzVQGJYlF9LKPy3PlG66AA	testforAPI
 
 
 GIT abhi.scorpio611@gmail:
