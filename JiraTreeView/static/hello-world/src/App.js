@@ -124,11 +124,9 @@ function App() {
     //console.log(`Response: ${response.status} ${response.statusText}`);
     //console.log(await response.text());
     console.log(JSON.stringify(response));
-  }
-  catch(Exception e)
+  }catch(err)
   {
-    console.log("Error",e);
-  }
+    console.log("Error ",JSON.stringify(err));}
 }
 
   const onDragChange = async (e) => {
