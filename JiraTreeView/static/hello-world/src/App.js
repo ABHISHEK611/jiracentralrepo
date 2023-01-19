@@ -64,36 +64,36 @@ function App() {
   {
     console.log("0 inside saveNewRow: ",e);
     console.log("1 inside saveNewRow: ",e.data.Summary);
-    console.log("1.5 inside saveNewRow: ",e.data.Issue_Type); }
-  //   let body = {
-  //     fields: {
-  //       summary: e.data.Summary,
-  //       project: {
-  //         key: "OEM",
-  //       },
-  //       issuetype: {
-  //         name: e.data.Issue_Type,
-  //       },
-  //       assignee: {
-  //         name: "Abhishek Srivastava",
-  //       },
-  //       "customfield_10042": "https://google.com",
-  //       "customfield_10034": 8
-  //     }
-  //   };
+    console.log("1.5 inside saveNewRow: ",e.data.Issue_Type);
+    let body = {
+      fields: {
+        summary: e.data.Summary,
+        project: {
+          key: "OEM",
+        },
+        issuetype: {
+          name: e.data.Issue_Type,
+        },
+        assignee: {
+          name: "Abhishek Srivastava",
+        },
+        "customfield_10042": "https://google.com",
+        "customfield_10034": 8
+      }
+    };
 
-  //   let body1 = JSON.stringify(body);
-  //   console.log("2 inside addRow: ",JSON.stringify(body));
-  //   const response = await requestJira('/rest/api/3/issue', {
-  //     method: 'POST',
-  //     headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: body1
-  //   })
-  // console.log(`Response: ${response.status} ${response.statusText}`);
-  //}
+    let body1 = JSON.stringify(body);
+    console.log("2 inside addRow: ",JSON.stringify(body));
+    const response = await requestJira('/rest/api/2/issue', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: body1
+    })
+  console.log(`Response: ${response.status} ${response.statusText}`);
+  }
 
   const savingDragandDrop = async (source, target) => {
     console.log("inside savingDragandDrop",currentIssues);
@@ -114,7 +114,7 @@ function App() {
   }
   console.log("4 inside savingDragandDrop",JSON.stringify(body));
   try{
-    const response = await requestJira(`/rest/api/3/issueLink`, {
+    const response = await requestJira(`/rest/api/2/issueLink`, {
       method: 'POST',
       headers: {
           'Accept': 'application/json',
@@ -211,16 +211,16 @@ function App() {
             allowColumnResizing={false}
             columnAutoWidth={true}>
 
-            <Column allowHiding={false} dataField="Issue_Key" allowEditing={false}> </Column>
-            <Column allowHiding={false} dataField="Issue_Type"> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
-            <Column allowHiding={false} dataField="Summary"> <RequiredRule /> </Column>
+            <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
+            <Column dataField="Issue_Type" allowHiding={false}> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
+            <Column dataField="Summary" allowHiding={false}> <RequiredRule /> </Column>
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
-            <Column type="buttons" caption="Actions">
-              <Button name="add" />
-              <Button name="edit" />
-              <Button name="delete" onClick={deleteRow} />
-              <Button name="save" onClick={saveNewRow} />
+            <Column type="buttons" caption="Actions" allowHiding={false}>
+                  <Button name="add" />
+                  <Button name="edit" />
+                  <Button name="delete" onClick={deleteRow} />
+                  <Button name="save" onClick={saveNewRow} />
             </Column>
             {/* <ColumnFixing enabled={true} /> */}
 
