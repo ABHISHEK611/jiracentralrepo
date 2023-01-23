@@ -96,10 +96,12 @@ function App() {
           },
           body: body1
         })
-      
-      console.log("3 Response:",JSON.stringify(response));
-      console.log(`4 Response: ${response.status} ${response.statusText}`);
-      console.log("5 Response:",response.text());
+      const data  = await response.json();
+      console.log("3 Response:",JSON.stringify(data));
+      console.log("3.1 Response:",data);
+      //console.log("3.2 Response:",JSON.stringify(response));
+      //console.log(`4 Response: ${response.status} ${response.statusText}`);
+      //console.log("5 Response:",response.text());
       //console.log("3 Response:",response.id);
       //console.log("4 Response:",response.key);
       let responseNew = await issues();
