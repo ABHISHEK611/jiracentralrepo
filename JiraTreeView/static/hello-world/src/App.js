@@ -64,38 +64,45 @@ function App() {
 
   const saveNewRow = async (e) =>
   {
-    console.log("0 inside saveNewRow: ",e);
-    console.log("1 inside saveNewRow: ",e.data.Summary);
-    console.log("1.5 inside saveNewRow: ",e.data.Issue_Type); }
-  //   let body = {
-  //     fields: {
-  //       summary: e.data.Summary,
-  //       project: {
-  //         key: "OEM",
-  //       },
-  //       issuetype: {
-  //         name: e.data.Issue_Type,
-  //       },
-  //       assignee: {
-  //         name: "Abhishek Srivastava",
-  //       },
-  //       "customfield_10042": "https://google.com",
-  //       "customfield_10034": 8
-  //     }
-  //   };
+    if(!e.row.oldData)
+    {
+        console.log("0 inside saveNewRow add: ",e);
+        console.log("1 inside saveNewRow add: ",e.row.data.Summary);
+        console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
+        let body = {
+          fields: {
+            summary: e.row.data.Summary,
+            project: {
+              key: "OEM",
+            },
+            issuetype: {
+              name: e.row.data.Issue_Type,
+            },
+            assignee: {
+              name: "Abhishek Srivastava",
+            },
+            "customfield_10042": "https://google.com",
+            "customfield_10034": 8
+          }
+        };
 
-  //   let body1 = JSON.stringify(body);
-  //   console.log("2 inside addRow: ",JSON.stringify(body));
-  //   const response = await requestJira('/rest/api/3/issue', {
-  //     method: 'POST',
-  //     headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: body1
-  //   })
-  // console.log(`Response: ${response.status} ${response.statusText}`);
-  //}
+        let body1 = JSON.stringify(body);
+        console.log("2 inside addRow: ",JSON.stringify(body));
+        const response = await requestJira('/rest/api/3/issue', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: body1
+        })
+      console.log(`Response: ${response.status} ${response.statusText}`);
+      }
+    else
+    {
+      console.log("0 inside saveNewRow edit: ",e);
+    }
+}
 
   const savingDragandDrop = async (source, target) => {
     console.log("inside savingDragandDrop",currentIssues);
