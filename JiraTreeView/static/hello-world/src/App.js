@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState }  from 'react';
-import { Button } from 'devextreme-react/button';
+import { Button  as ActualButton } from 'devextreme-react/button';
 import { LoadIndicator } from 'devextreme-react/load-indicator';
 import {
   TreeList,
@@ -14,7 +14,7 @@ import {
   RowDragging, 
   Paging,
   Lookup,
-  Button as TreeListButton 
+  Button
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
 import { requestJira } from "@forge/bridge";
@@ -40,7 +40,7 @@ function App() {
     let response = await issues();
     setsearchButton({
         loadIndicatorVisible: false,
-        buttonText: 'Search',
+        buttonText: 'Refresh',
     });
     setCurrentIssues(response.result);
     await console.log("2 inside handleClickSearch",currentIssues);
@@ -195,10 +195,10 @@ function App() {
   return (
     <div>
         <div>
-          <Button type="success" onClick={handleClickSearch} >
+          <ActualButton type="success" onClick={handleClickSearch} >
               <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
               <span className="dx-button-text">{searchButton.buttonText}</span>
-          </Button>
+          </ActualButton>
         </div>
         <div>
           <TreeList
@@ -220,10 +220,10 @@ function App() {
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
-                  <TreeListButton name="add" />
-                  <TreeListButton name="edit" />
-                  <TreeListButton name="delete" onClick={deleteRow} />
-                  <TreeListButton name="save" onClick={saveNewRow} />
+                  <Button name="add" />
+                  <Button name="edit" />
+                  <Button name="delete" onClick={deleteRow} />
+                  <Button name="save" onClick={saveNewRow} />
             </Column>
             {/* <ColumnFixing enabled={true} /> */}
 
