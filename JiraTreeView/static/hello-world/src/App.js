@@ -97,9 +97,9 @@ function App() {
           body: body1
         })
       
-      console.log("1 Response:",JSON.stringify(response));
-      console.log(`2 Response: ${response.status} ${response.statusText}`);
-      console.log("1 Response:",JSON.parse(response));
+      await console.log("3 Response:",JSON.stringify(response));
+      console.log(`4 Response: ${response.status} ${response.statusText}`);
+      await console.log("5 Response:",JSON.parse(response));
       //console.log("3 Response:",response.id);
       //console.log("4 Response:",response.key);
       let responseNew = await issues();
