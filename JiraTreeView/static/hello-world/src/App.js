@@ -40,7 +40,7 @@ function App() {
     let response = await issues();
     setsearchButton({
         loadIndicatorVisible: false,
-        buttonText: 'Refresh',
+        buttonText: 'Search',
     });
     setCurrentIssues(response.result);
     await console.log("2 inside handleClickSearch",currentIssues);
