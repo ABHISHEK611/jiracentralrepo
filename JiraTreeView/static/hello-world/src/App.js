@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState }  from 'react';
 import { Button  as ActualButton } from 'devextreme-react/button';
+import api, { route } from "@forge/api";
 import { LoadIndicator } from 'devextreme-react/load-indicator';
 import {
   TreeList,
@@ -102,13 +103,14 @@ function App() {
       if(e.row.data.Head_ID != -1)
       {
         console.log("4.5 inside dataLink: ");
-        const responseLink = await requestJira(`/rest/api/2/issue/${data.id}`, {
+        const responseLink = await api.asUser().requestJira(route`/rest/api/2/issue/${data.id}`, {
           headers: {
             'Accept': 'application/json'
           }
         });
+        console.log("5 responseLink: ",JSON.stringify(responseLink));
         const dataLink = await responseLink.json;
-        console.log("5 dataLink:",dataLink);
+        console.log("5.5 dataLink in json:",dataLink);
         savingDragandDrop(data.key,dataLink.key);
       }
       let finalResponse = await issues();
