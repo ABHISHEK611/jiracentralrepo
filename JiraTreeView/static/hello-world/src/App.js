@@ -96,8 +96,13 @@ function App() {
           },
           body: body1
         })
-      console.log(`Response: ${response.status} ${response.statusText}`);
-      console.log("Response:",JSON.stringify(response));
+      
+      console.log("1 Response:",response);
+      console.log(`2 Response: ${response.status} ${response.statusText}`);
+      console.log("3 Response:",response.id);
+      console.log("4 Response:",response.key);
+      let responseNew = await issues();
+      setCurrentIssues(responseNew.result);
       //savingDragandDrop()
       }
     else
