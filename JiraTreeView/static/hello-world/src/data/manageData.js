@@ -6,12 +6,12 @@ const projectKey = `OEM`;
 
 const fetchIssueList = async () =>{
               const context = useProductContext();
-              console.log("1 inside fetchIssueList: ",context);
-              console.log("2 inside fetchIssueList: ",JSON.stringify(context));
+              //console.log("1 inside fetchIssueList: ",context);
+              //console.log("2 inside fetchIssueList: ",JSON.stringify(context));
               const params = `project = ${projectKey}`;
               const res =  await requestJira(`/rest/api/2/search?jql=${params}`);
-              console.log("3 inside fetchIssueList: ",res);
-              console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
+              //console.log("3 inside fetchIssueList: ",res);
+              //console.log("3.5 inside fetchIssueList: ",JSON.stringify(res));
               //const data =  await res.json();
               return await res.json();
               //console.log("4 inside fetchIssueList: ",JSON.stringify(data));
@@ -21,9 +21,9 @@ const fetchIssueList = async () =>{
 
 export const issues =  async () =>
 {
-console.log("1 inside issues");
+//console.log("1 inside issues");
 const result = await fetchIssueList();
-console.log("2 inside issues",result);
+//console.log("2 inside issues",result);
 if (result.errorMessages) {
   return {
       error: result.errorMessages
@@ -45,10 +45,10 @@ await Promise.all(result.issues.map(async (element) => {
                     Priority: element.fields.priority.name,
                 }
               issues1.push(item);
-              console.log("3 inside issues: ",JSON.stringify(item));
+              //console.log("3 inside issues: ",JSON.stringify(item));
               }))
               issues1.sort((a, b) => b.id - a.id);
-              console.log("4 inside issues: ",JSON.stringify(issues1));
+              //console.log("4 inside issues: ",JSON.stringify(issues1));
               return {
                 result: issues1
             };

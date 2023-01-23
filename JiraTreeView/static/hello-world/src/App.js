@@ -67,8 +67,8 @@ function App() {
     if(!e.row.oldData)
     {
         console.log("0 inside saveNewRow add: ",e);
-        console.log("1 inside saveNewRow add: ",e.row.data.Summary);
-        console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
+        //console.log("1 inside saveNewRow add: ",e.row.data.Summary);
+        //console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
         let body = {
           fields: {
             summary: e.row.data.Summary,
@@ -97,17 +97,23 @@ function App() {
           body: body1
         })
       const data  = await response.json();
-      console.log("3 Response:",JSON.stringify(data));
-      console.log("3.1 Response:",data);
-      //console.log("3.2 Response:",JSON.stringify(response));
-      //console.log(`4 Response: ${response.status} ${response.statusText}`);
-      //console.log("5 Response:",response.text());
-      //console.log("3 Response:",response.id);
-      //console.log("4 Response:",response.key);
-      let responseNew = await issues();
-      setCurrentIssues(responseNew.result);
-      //savingDragandDrop()
+      console.log("3 data in json:",JSON.stringify(data));
+      console.log("4 data:",data);
+      if(e.row.data.Head_ID != -1)
+      {
+        console.log("4.5 inside dataLink: ");
+        const responseLink = await api.asUser().requestJira(route`/rest/api/2/issue/${data.id}`, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        const dataLink = await responseLink.json;
+        console.log("5 dataLink:",dataLink);
+        savingDragandDrop(data.key,dataLink.key);
       }
+      let finalResponse = await issues();
+      setCurrentIssues(finalResponse.result);
+    }
     else
     {
       console.log("0 inside saveNewRow edit: ",e);
