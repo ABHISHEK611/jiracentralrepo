@@ -102,7 +102,7 @@ function App() {
       if(e.row.data.Head_ID != -1)
       {
         console.log("4.5 inside dataLink: ");
-        const responseLink = await requestJira(route`/rest/api/2/issue/${data.id}`, {
+        const responseLink = await requestJira(`/rest/api/2/issue/${data.id}`, {
           headers: {
             'Accept': 'application/json'
           }
