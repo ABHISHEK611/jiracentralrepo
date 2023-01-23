@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState }  from 'react';
-import { Button as ActualButton } from 'devextreme-react/button';
+import { Button } from 'devextreme-react/button';
 import { LoadIndicator } from 'devextreme-react/load-indicator';
 import {
   TreeList,
@@ -14,7 +14,7 @@ import {
   RowDragging, 
   Paging,
   Lookup,
-  Button
+  Button as TreeListButton 
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
 import { requestJira } from "@forge/bridge";
@@ -195,10 +195,10 @@ function App() {
   return (
     <div>
         <div>
-          <ActualButton type="success" onClick={handleClickSearch} >
+          <Button type="success" onClick={handleClickSearch} >
               <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
               <span className="dx-button-text">{searchButton.buttonText}</span>
-          </ActualButton>
+          </Button>
         </div>
         <div>
           <TreeList
@@ -220,10 +220,10 @@ function App() {
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
-                  <Button name="add" />
-                  <Button name="edit" />
-                  <Button name="delete" onClick={deleteRow} />
-                  <Button name="save" onClick={saveNewRow} />
+                  <TreeListButton name="add" />
+                  <TreeListButton name="edit" />
+                  <TreeListButton name="delete" onClick={deleteRow} />
+                  <TreeListButton name="save" onClick={saveNewRow} />
             </Column>
             {/* <ColumnFixing enabled={true} /> */}
 
