@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState }  from 'react';
-//import { Button } from 'devextreme-react/button';
+import { Button as ActualButton } from 'devextreme-react/button';
 import { LoadIndicator } from 'devextreme-react/load-indicator';
 import {
   TreeList,
@@ -195,10 +195,10 @@ function App() {
   return (
     <div>
         <div>
-          <Button type="success" onClick={handleClickSearch} >
+          <ActualButton type="success" onClick={handleClickSearch} >
               <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
               <span className="dx-button-text">{searchButton.buttonText}</span>
-          </Button>
+          </ActualButton>
         </div>
         <div>
           <TreeList
