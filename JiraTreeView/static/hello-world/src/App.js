@@ -97,6 +97,8 @@ function App() {
           body: body1
         })
       console.log(`Response: ${response.status} ${response.statusText}`);
+      console.log("Response:",JSON.stringify(response));
+      //savingDragandDrop()
       }
     else
     {
@@ -108,14 +110,14 @@ function App() {
     console.log("inside savingDragandDrop",currentIssues);
     console.log("0 inside savingDragandDrop",source);
     console.log("1 inside savingDragandDrop",target);
-    console.log("2 inside savingDragandDrop",source.Issue_Key);
-    console.log("3 inside savingDragandDrop",target.Issue_Key);
+    //console.log("2 inside savingDragandDrop",source.Issue_Key);
+    //console.log("3 inside savingDragandDrop",target.Issue_Key);
     let body = {
       "outwardIssue": {
-          "key": target.Issue_Key
+          "key": target
       },
       "inwardIssue": {
-          "key": source.Issue_Key
+          "key": source
       },
       "type": {
           "name": "Blocks"
@@ -178,7 +180,7 @@ function App() {
       console.log("7 inside onReorder inside if:");
       sourceData = { ...sourceData, Head_ID: targetData.ID };
       issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
-      savingDragandDrop(sourceData, targetData);
+      savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
     }
     else {
       console.log("8 inside onReorder inside else:");
