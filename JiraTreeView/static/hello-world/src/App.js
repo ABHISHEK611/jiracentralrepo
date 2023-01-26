@@ -53,13 +53,13 @@ function App() {
   'Story',
   'Bug',
   'Task',
-  'SubTask',
   'Bug Fix Steps',
   ];
 
   const deleteRow = async (e) =>
   {
     console.log("0 inside deleteRow: ",e);
+    notify("The selected issue is deleted successfully");
     //let afterDeleteRow = currentIssues.filter(y => y.id != deleteId);
   }
 
@@ -109,12 +109,43 @@ function App() {
         console.log("5.5 dataLink in json:",dataLink);
         savingDragandDrop(data.key,dataLink.key);
       }
+      notify("The selected issue is added successfully");
       let finalResponse = await issues();
       setCurrentIssues(finalResponse.result);
     }
     else
     {
       console.log("0 inside saveNewRow edit: ",e);
+      let body = {
+        fields: {
+          summary: e.row.data.Summary,
+          project: {
+            key: "OEM",
+          },
+          issuetype: {
+            name: e.row.data.Issue_Type,
+          },
+          assignee: {
+            name: "Abhishek Srivastava",
+          },
+          "customfield_10042": "https://google.com",
+          "customfield_10034": 8
+        }
+      };
+
+      let body1 = JSON.stringify(body);
+        console.log("1 inside saveNewRow edit: ",JSON.stringify(body));
+        const response = await requestJira('/rest/api/3/issue', {
+          method: 'PUT',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: body1
+        })
+        let finalResponse = await issues();
+        setCurrentIssues(finalResponse.result);
+        notify("The selected issue is edited successfully");
     }
 }
 
@@ -241,9 +272,9 @@ function App() {
             <Column dataField="Assignee"> <RequiredRule /> </Column>
             <Column dataField="Priority"> <RequiredRule /> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
-                  <Button name="add" />
-                  <Button name="edit" />
-                  <Button name="delete" onClick={deleteRow} />
+                  <Button name="add"  type="success" stylingMode="contained" />
+                  <Button name="edit" type="default" stylingMode="contained" />
+                  <Button name="delete" type="danger" stylingMode="contained" onClick={deleteRow} />
                   <Button name="save" onClick={saveNewRow} />
             </Column>
             {/* <ColumnFixing enabled={true} /> */}
