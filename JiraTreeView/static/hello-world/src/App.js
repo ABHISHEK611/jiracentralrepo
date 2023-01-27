@@ -18,6 +18,7 @@ import {
   Button
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
+import notify from 'devextreme/ui/notify';
 import { requestJira } from "@forge/bridge";
 
 function App() {
