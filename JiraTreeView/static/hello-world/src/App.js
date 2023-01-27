@@ -136,7 +136,7 @@ function App() {
 
       let body1 = JSON.stringify(body);
         console.log("1 inside saveNewRow edit: ",JSON.stringify(body));
-        const response = await requestJira('/rest/api/3/issue', {
+        const response = await requestJira(`/rest/api/2/issue/${e.row.data.ID}`, {
           method: 'PUT',
           headers: {
               'Accept': 'application/json',
@@ -144,6 +144,8 @@ function App() {
           },
           body: body1
         })
+        console.log(`Response: ${response.status} ${response.statusText}`);
+        console.log(await response.json());
         let finalResponse = await issues();
         setCurrentIssues(finalResponse.result);
         notify("The selected issue is edited successfully");
