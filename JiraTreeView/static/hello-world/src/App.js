@@ -18,7 +18,7 @@ import {
   Button
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
-import {saveNewRow, savingDragandDrop} from "./service/saveDate";
+import {saveNewRow, savingDragandDrop} from "./service/saveData";
 import {onDragChange, onReorder} from "./service/saveDnD";
 import notify from 'devextreme/ui/notify';
 import { requestJira } from "@forge/bridge";
