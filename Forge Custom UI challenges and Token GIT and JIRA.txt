@@ -12,7 +12,8 @@ Atlassian Api token:
 
 l6mKeMfenjqPqTPvNUxxA7DD	1
 CTiUCxJEK4E1TWotvWu78427	pluginvm
-NjDnTPVg72JO9tsx9Fz97C92	testapi
+NjDnTPVg72JO9tsx9Fz97C92	testapi 
+ATATT3xFfGF03QBpaCUfJpUR0F7OHvBxMDInQTadkXBl5Lxpgq5fB4t82vupgmVX8eBZi91pdQFH8DP8DeODanr_Xpmha7-56Xc-EEWiq5ucVWz4LmQG7n0LSPf6NgIskJYu_AzCOJFDMw738iV_hzprpxNJpuqo3E0Yty-lHC7PyooKn2PHmC0=B5CF882F (testpostman)
 
 GIT abhi.scorpio611@gmail:
 GIT token: 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
@@ -22,3 +23,8 @@ Git Ouath client secret id : 50faa8621429acf2e19ad9267c912fe7c7ec9454
 
 Git Bosch: BVF1KOR
 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
+
+
+Atlassian Bosch Key Prod
+G3NUaqgvoKvWn1mflJWjA09B	(ForgeDevelopmentKey) - Raj
+2a1WOltiAgYZ9VE22cW3ED9C	(TestAPI) - Abhishek

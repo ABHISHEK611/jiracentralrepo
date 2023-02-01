@@ -18,6 +18,8 @@ import {
   Button
 } from 'devextreme-react/tree-list';
 import {issues} from "./data/manageData";
+import {saveNewRow, savingDragandDrop} from "./service/saveDate";
+import {onDragChange, onReorder} from "./service/saveDnD";
 import notify from 'devextreme/ui/notify';
 import { requestJira } from "@forge/bridge";
 
@@ -57,6 +59,7 @@ function App() {
   'Bug Fix Steps',
   ];
 
+
   const deleteRow = async (e) =>
   {
     console.log("0 inside deleteRow: ",e);
@@ -64,188 +67,7 @@ function App() {
     //let afterDeleteRow = currentIssues.filter(y => y.id != deleteId);
   }
 
-  const saveNewRow = async (e) =>
-  {
-    if(!e.row.oldData)
-    {
-        console.log("0 inside saveNewRow add: ",e);
-        //console.log("1 inside saveNewRow add: ",e.row.data.Summary);
-        //console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
-        let body = {
-          fields: {
-            summary: e.row.data.Summary,
-            project: {
-              key: "OEM",
-            },
-            issuetype: {
-              name: e.row.data.Issue_Type,
-            },
-            assignee: {
-              name: "Abhishek Srivastava",
-            },
-            "customfield_10042": "https://google.com",
-            "customfield_10034": 8
-          }
-        };
-
-        let body1 = JSON.stringify(body);
-        console.log("2 inside addRow: ",JSON.stringify(body));
-        const response = await requestJira('/rest/api/3/issue', {
-          method: 'POST',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body: body1
-        })
-      const data  = await response.json();
-      console.log("3 data in json:",JSON.stringify(data));
-      console.log("4 data:",data);
-      if(e.row.data.Head_ID != -1)
-      {
-        console.log("4.5 inside dataLink: ",e.row.data.Head_ID);
-        const responseLink = await requestJira(`/rest/api/2/issue/${e.row.data.Head_ID}`);
-        console.log("5 responseLink: ",JSON.stringify(responseLink));
-        const dataLink = await responseLink.json();
-        console.log("5.5 dataLink in json:",dataLink);
-        savingDragandDrop(data.key,dataLink.key);
-      }
-      notify("The selected issue is added successfully");
-      let finalResponse = await issues();
-      setCurrentIssues(finalResponse.result);
-    }
-    else
-    {
-      console.log("0 inside saveNewRow edit: ",e);
-      let body = {
-        fields: {
-          summary: e.row.data.Summary,
-          project: {
-            key: "OEM",
-          },
-          issuetype: {
-            name: e.row.data.Issue_Type,
-          },
-          assignee: {
-            name: "Abhishek Srivastava",
-          },
-          "customfield_10042": "https://google.com",
-          "customfield_10034": 8
-        }
-      };
-
-      let body1 = JSON.stringify(body);
-        console.log("1 inside saveNewRow edit: ",JSON.stringify(body));
-        const response = await requestJira(`/rest/api/2/issue/${e.row.data.ID}`, {
-          method: 'PUT',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          body: body1
-        })
-        console.log(`Response: ${response.status} ${response.statusText}`);
-        console.log(await response.json());
-        let finalResponse = await issues();
-        setCurrentIssues(finalResponse.result);
-        notify("The selected issue is edited successfully");
-    }
-}
-
-  const savingDragandDrop = async (source, target) => {
-    console.log("inside savingDragandDrop",currentIssues);
-    console.log("0 inside savingDragandDrop",source);
-    console.log("1 inside savingDragandDrop",target);
-    //console.log("2 inside savingDragandDrop",source.Issue_Key);
-    //console.log("3 inside savingDragandDrop",target.Issue_Key);
-    let body = {
-      "outwardIssue": {
-          "key": target
-      },
-      "inwardIssue": {
-          "key": source
-      },
-      "type": {
-          "name": "Blocks"
-      }
-  }
-  console.log("4 inside savingDragandDrop",JSON.stringify(body));
-  try{
-    const response = await requestJira(`/rest/api/3/issueLink`, {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-     })
-    //console.log(`Response: ${response.status} ${response.statusText}`);
-    //console.log(await response.text());
-    console.log(JSON.stringify(response));
-  }catch(err)
-  {
-    console.log("Error ",JSON.stringify(err));}
-}
-
-  const onDragChange = async (e) => {
-    console.log("0 inside onDragChange",e);
-    console.log("0.5 inside onDragChange",currentIssues);
-    let visibleRows = e.component.getVisibleRows(),
-      sourceNode = e.component.getNodeByKey(e.itemData.ID),
-      targetNode = visibleRows[e.toIndex].node;
-
-    console.log("1 inside onDragChange: ",visibleRows);
-    console.log("2 inside onDragChange: ",sourceNode);
-    console.log("3 inside onDragChange: ",targetNode);
-    while (targetNode && targetNode.data) {
-      if (targetNode.data.ID === sourceNode.data.ID) {
-        e.cancel = true;
-        break;
-      }
-      targetNode = targetNode.parent;
-    }
-  }
-
-  const onReorder = async (e) => {
-    console.log("0 inside onReorder",e);
-    console.log("0.5 inside onReorder",currentIssues);
-    let visibleRows = e.component.getVisibleRows(),
-      sourceData = e.itemData,
-      targetData = visibleRows[e.toIndex].data,
-      issuesReordered = currentIssues,
-      sourceIndex = issuesReordered.indexOf(sourceData),
-      targetIndex = issuesReordered.indexOf(targetData);
-
-    console.log("1 inside onReorder visible rows: ",visibleRows);
-    console.log("2 inside onReorder source: ",sourceData);
-    console.log("3 inside onReorder target: ",targetData);
-    //console.log("4 inside onReorder: ",issuesReordered);
-    console.log("5 inside onReorder sourceIndex: ",sourceIndex);
-    console.log("6 inside onReorder targetIndex: ",targetIndex);
-    if (e.dropInsideItem) {
-      console.log("7 inside onReorder inside if:");
-      sourceData = { ...sourceData, Head_ID: targetData.ID };
-      issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
-      savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
-    }
-    else {
-      console.log("8 inside onReorder inside else:");
-      if (sourceData.Head_ID !== targetData.Head_ID) 
-      {
-        console.log("9 inside onReorder inside else 1stif:");
-        sourceData = { ...sourceData, Head_ID: targetData.Head_ID };
-        if (e.toIndex > e.fromIndex) {
-          console.log("10 inside onReorder inside else 2ndif:");
-          targetIndex++;
-        }
-      }
-      issuesReordered = [...issuesReordered.slice(0, sourceIndex), ...issuesReordered.slice(sourceIndex + 1)];
-      console.log("11 inside onReorder inside else:",issuesReordered);
-      issuesReordered = [...issuesReordered.slice(0, targetIndex), sourceData, ...issuesReordered.slice(targetIndex)];
-      console.log("12 inside onReorder inside else:",issuesReordered);
-    }
-    setCurrentIssues(issuesReordered);
-  }
+ 
 
   return (
     <div>
