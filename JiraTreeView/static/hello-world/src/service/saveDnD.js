@@ -5,6 +5,7 @@ import notify from 'devextreme/ui/notify';
 import { requestJira } from "@forge/bridge";
 
 export const onDragChange = async (e) => {
+  console.log("inside service inside saveDnD inside onDragChange");
     console.log("0 inside onDragChange",e);
     console.log("0.5 inside onDragChange",currentIssues);
     let visibleRows = e.component.getVisibleRows(),
@@ -24,6 +25,7 @@ export const onDragChange = async (e) => {
   }
 
 export const onReorder = async (e) => {
+  console.log("inside service inside saveDnD inside onReorder");
     console.log("0 inside onReorder",e);
     console.log("0.5 inside onReorder",currentIssues);
     let visibleRows = e.component.getVisibleRows(),

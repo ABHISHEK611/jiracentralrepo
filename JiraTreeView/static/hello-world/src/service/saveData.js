@@ -6,6 +6,7 @@ import { requestJira } from "@forge/bridge";
 
 export const saveNewRow = async (e) =>
 {
+    console.log("inside service inside saveData inside saveNewRow");
   if(!e.row.oldData)
   {
       console.log("0 inside saveNewRow add: ",e);
@@ -93,6 +94,7 @@ export const saveNewRow = async (e) =>
 }
 
 export const savingDragandDrop = async (source, target) => {
+    console.log("inside service inside saveData inside savingDragandDrop");
   console.log("inside savingDragandDrop",currentIssues);
   console.log("0 inside savingDragandDrop",source);
   console.log("1 inside savingDragandDrop",target);
