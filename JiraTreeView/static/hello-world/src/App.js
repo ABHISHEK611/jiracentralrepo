@@ -27,6 +27,15 @@ function App() {
   const [currentIssues, setCurrentIssues] = useState(null);
   console.log("2 inside app");
   
+  const expandedRowKeys = [1];
+  const mode = 'select';
+  const issuestype = [
+  'Story',
+  'Bug',
+  'Task',
+  'Bug Fix Steps',
+  ];
+
   const [searchButton, setsearchButton] = useState({
     loadIndicatorVisible: false,
     buttonText: 'Search',
@@ -45,17 +54,8 @@ function App() {
         buttonText: 'Refresh',
     });
     setCurrentIssues(response.result);
-    await console.log("2 inside handleClickSearch",currentIssues);
+    console.log("2 inside handleClickSearch",response.result);
   };
-
-  const expandedRowKeys = [1];
-  const mode = 'select';
-  const issuestype = [
-  'Story',
-  'Bug',
-  'Task',
-  'Bug Fix Steps',
-  ];
 
   const deleteRow = async (e) =>
   {
@@ -63,6 +63,45 @@ function App() {
     notify("The selected issue is deleted successfully");
     //let afterDeleteRow = currentIssues.filter(y => y.id != deleteId);
   }
+
+  const deleteIssueLink = async (issueLinkID) => {
+    console.log("1 inside deleteIssueLink",issueLinkID);
+    const response = await requestJira(`/rest/api/3/issueLink/${issueLinkID}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
+    console.log(`Response: ${response.status} ${response.statusText}`);
+    console.log(await response.text());
+
+}
+  const updateIssueLink = async (sourceData, targetData) => {
+
+    console.log("1 inside updateIssueLink",sourceData);
+    console.log("2 inside updateIssueLink",targetData);
+    const response = await requestJira(`/rest/api/2/issue/${sourceData.ID}?fields=issuelinks`);
+    console.log("3 inside updateIssueLink",JSON.stringify(response));
+    const data = await response.json()
+    console.log("4 inside updateIssueLink",data);
+    const oldIssueLinksChild = await data.fields.issuelinks
+    console.log("5 inside updateIssueLink",oldIssueLinksChild);
+    const oldIssueLink = await oldIssueLinksChild.find(
+            element =>
+            (element.outwardIssue.id === targetData.ID));
+        //delete old issue link
+    console.log("6 inside updateIssueLink",oldIssueLink);
+    deleteIssueLink(oldIssueLink.id)
+    
+    //add new link issue
+    const responseLink = await requestJira(`/rest/api/2/issue/${targetData.Head_ID}`);
+    console.log("7 inside updateIssueLink",responseLink);
+    const dataLink = await responseLink.json();
+    console.log("8 inside updateIssueLink",dataLink);
+    
+    savingDragandDrop(sourceData.Issue_Key, dataLink.key);
+}
 
   const saveNewRow = async (e) =>
   {
@@ -101,7 +140,7 @@ function App() {
       const data  = await response.json();
       console.log("3 data in json:",JSON.stringify(data));
       console.log("4 data:",data);
-      if(e.row.data.Head_ID != -1)
+      if(e.row.data.Head_ID !== -1)
       {
         console.log("4.5 inside dataLink: ",e.row.data.Head_ID);
         const responseLink = await requestJira(`/rest/api/2/issue/${e.row.data.Head_ID}`);
@@ -112,6 +151,7 @@ function App() {
       }
       notify("The selected issue is added successfully");
       let finalResponse = await issues();
+      console.log("finalresponse",JSON.stringify(finalResponse));
       setCurrentIssues(finalResponse.result);
     }
     else
@@ -212,7 +252,7 @@ function App() {
     let visibleRows = e.component.getVisibleRows(),
       sourceData = e.itemData,
       targetData = visibleRows[e.toIndex].data,
-      issuesReordered = currentIssues,
+    //  issuesReordered = currentIssues,
       sourceIndex = issuesReordered.indexOf(sourceData),
       targetIndex = issuesReordered.indexOf(targetData);
 
@@ -225,7 +265,7 @@ function App() {
     if (e.dropInsideItem) {
       console.log("7 inside onReorder inside if:");
       sourceData = { ...sourceData, Head_ID: targetData.ID };
-      issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
+      //issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
       savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
     }
     else {
@@ -234,17 +274,37 @@ function App() {
       {
         console.log("9 inside onReorder inside else 1stif:");
         sourceData = { ...sourceData, Head_ID: targetData.Head_ID };
-        if (e.toIndex > e.fromIndex) {
-          console.log("10 inside onReorder inside else 2ndif:");
-          targetIndex++;
+        console.log("9.1 inside onReorder inside else 1stif:",sourceData);
+        if(targetData.Head_ID !== -1)
+        {
+          console.log("10 inside onReorder inside else 2ndtif:");
+          updateIssueLink(sourceData, targetData);
         }
+        else
+        {
+          console.log("11 inside onReorder inside else 2ndelse:");
+          const response = await requestJira(`/rest/api/2/issue/${sourceData.ID}?fields=issuelinks`);
+          const data = await response.json()
+          const oldIssueLinksChild = await data.fields.issuelinks
+          const oldIssueLink = await oldIssueLinksChild.find(
+                  element =>
+                  (element.outwardIssue.id === targetData.ID));
+          deleteIssueLink(oldIssueLink.id)
+        }
+        // if (e.toIndex > e.fromIndex) {
+        //   console.log("10 inside onReorder inside else 2ndif:");
+        //   targetIndex++;
+        // }
       }
-      issuesReordered = [...issuesReordered.slice(0, sourceIndex), ...issuesReordered.slice(sourceIndex + 1)];
-      console.log("11 inside onReorder inside else:",issuesReordered);
-      issuesReordered = [...issuesReordered.slice(0, targetIndex), sourceData, ...issuesReordered.slice(targetIndex)];
-      console.log("12 inside onReorder inside else:",issuesReordered);
+      // issuesReordered = [...issuesReordered.slice(0, sourceIndex), ...issuesReordered.slice(sourceIndex + 1)];
+      // console.log("11 inside onReorder inside else:",issuesReordered);
+      // issuesReordered = [...issuesReordered.slice(0, targetIndex), sourceData, ...issuesReordered.slice(targetIndex)];
+      // console.log("12 inside onReorder inside else:",issuesReordered);
     }
-    setCurrentIssues(issuesReordered);
+    let finalResponse = await issues();  
+    console.log("finalresponse",JSON.stringify(finalResponse));
+    setCurrentIssues(finalResponse.result);
+    //setCurrentIssues(issuesReordered);
   }
 
   return (
@@ -255,6 +315,7 @@ function App() {
               <span className="dx-button-text">{searchButton.buttonText}</span>
           </ActualButton>
         </div>
+      {currentIssues.length !== 0 && (
         <div>
           <TreeList
             id="issueList"
@@ -308,7 +369,7 @@ function App() {
             />
 
           </TreeList>
-        </div>
+        </div>)}
     </div>
   );
 }
