@@ -315,7 +315,6 @@ function App() {
               <span className="dx-button-text">{searchButton.buttonText}</span>
           </ActualButton>
         </div>
-      {currentIssues.length !== 0 && (
         <div>
           <TreeList
             id="issueList"
@@ -369,7 +368,7 @@ function App() {
             />
 
           </TreeList>
-        </div>)}
+        </div>
     </div>
   );
 }
