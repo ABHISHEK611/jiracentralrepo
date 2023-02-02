@@ -268,16 +268,18 @@ function App() {
       //issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
       if(sourceData.Head_ID !== -1)
       {
+        console.log("7.1 inside onReorder inside if inside if:");
         const response = await requestJira(`/rest/api/2/issue/${sourceData.ID}?fields=issuelinks`);
         const data = await response.json()
         const oldIssueLinksChild = await data.fields.issuelinks
         const oldIssueLink = await oldIssueLinksChild.find(
                   element =>
-                  (element.outwardIssue.id === source.Head_ID));
+                  (element.outwardIssue.id === sourceData.Head_ID));
         deleteIssueLink(oldIssueLink.id)
         savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
       }
       else{
+        console.log("7.2 inside onReorder inside if inside else:");
         savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
       }
     }
