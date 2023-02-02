@@ -347,8 +347,10 @@ function App() {
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
             <Column dataField="Issue_Type" allowHiding={false}> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
             <Column dataField="Summary" allowHiding={false}> <RequiredRule /> </Column>
-            <Column dataField="Assignee"> <RequiredRule /> </Column>
-            <Column dataField="Priority"> <RequiredRule /> </Column>
+            {/* <Column dataField="Assignee"> <RequiredRule /> </Column> */}
+            <Column dataField="Reporter"> </Column>
+            <Column dataField="StoryPoint"> </Column>
+            <Column dataField="Priority"> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
                   <Button name="add"  type="success" stylingMode="contained" />
                   <Button name="edit" type="default" stylingMode="contained" />
