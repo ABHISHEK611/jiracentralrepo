@@ -253,8 +253,8 @@ function App() {
       sourceData = e.itemData,
       targetData = visibleRows[e.toIndex].data,
     //  issuesReordered = currentIssues,
-      sourceIndex = issuesReordered.indexOf(sourceData),
-      targetIndex = issuesReordered.indexOf(targetData);
+      sourceIndex = currentIssues.indexOf(sourceData),
+      targetIndex = currentIssues.indexOf(targetData);
 
     console.log("1 inside onReorder visible rows: ",visibleRows);
     console.log("2 inside onReorder source: ",sourceData);
