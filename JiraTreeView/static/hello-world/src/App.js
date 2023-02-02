@@ -303,7 +303,7 @@ function App() {
           const oldIssueLinksChild = await data.fields.issuelinks
           const oldIssueLink = await oldIssueLinksChild.find(
                   element =>
-                  (element.outwardIssue.id === targetData.ID));
+                  (element.outwardIssue.id === sourceData.Head_ID));
           deleteIssueLink(oldIssueLink.id)
         }
         // if (e.toIndex > e.fromIndex) {
