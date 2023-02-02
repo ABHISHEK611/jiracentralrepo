@@ -288,7 +288,7 @@ function App() {
       if (sourceData.Head_ID !== targetData.Head_ID) 
       {
         console.log("9 inside onReorder inside else 1stif:");
-        sourceData = { ...sourceData, Head_ID: targetData.Head_ID };
+        //sourceData = { ...sourceData, Head_ID: targetData.Head_ID };
         console.log("9.1 inside onReorder inside else 1stif:",sourceData);
         if(targetData.Head_ID !== -1)
         {
