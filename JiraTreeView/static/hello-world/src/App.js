@@ -157,6 +157,7 @@ function App() {
     else
     {
       console.log("0 inside saveNewRow edit: ",e);
+      if(e.row.data.Issue_Type === "Story"){
       let body = {
         fields: {
           summary: e.row.data.Summary,
@@ -166,13 +167,28 @@ function App() {
           issuetype: {
             name: e.row.data.Issue_Type,
           },
-          assignee: {
-            name: "ABHISHEK SRIVASTAVA",
+          "customfield_10042": "https://google.com",
+          "customfield_10034": 8,
+          "customfield_10028": e.row.data.StoryPoint
+        }
+      };
+    }
+    else
+    {
+      let body = {
+        fields: {
+          summary: e.row.data.Summary,
+          project: {
+            key: "OEM",
+          },
+          issuetype: {
+            name: e.row.data.Issue_Type,
           },
           "customfield_10042": "https://google.com",
           "customfield_10034": 8
         }
       };
+    }
 
       let body1 = JSON.stringify(body);
         console.log("1 inside saveNewRow edit: ",JSON.stringify(body));
