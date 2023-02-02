@@ -264,9 +264,22 @@ function App() {
     console.log("6 inside onReorder targetIndex: ",targetIndex);
     if (e.dropInsideItem) {
       console.log("7 inside onReorder inside if:");
-      sourceData = { ...sourceData, Head_ID: targetData.ID };
+      //sourceData = { ...sourceData, Head_ID: targetData.ID };
       //issuesReordered = [...issuesReordered.slice(0, sourceIndex), sourceData, ...issuesReordered.slice(sourceIndex + 1)];
-      savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
+      if(sourceData.Head_ID !== -1)
+      {
+        const response = await requestJira(`/rest/api/2/issue/${sourceData.ID}?fields=issuelinks`);
+        const data = await response.json()
+        const oldIssueLinksChild = await data.fields.issuelinks
+        const oldIssueLink = await oldIssueLinksChild.find(
+                  element =>
+                  (element.outwardIssue.id === source.Head_ID));
+        deleteIssueLink(oldIssueLink.id)
+        savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
+      }
+      else{
+        savingDragandDrop(sourceData.Issue_Key, targetData.Issue_Key);
+      }
     }
     else {
       console.log("8 inside onReorder inside else:");
