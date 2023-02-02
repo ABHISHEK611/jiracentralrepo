@@ -42,7 +42,7 @@ await Promise.all(result.issues.map(async (element) => {
                     Summary: element.fields.summary,
                     //Assignee: (element.fields.assignee === null? "Unassigned":element.fields.assignee.displayName),
                     Reporter: element.fields.reporter.displayName,
-                    StoryPoint: (element.fields.customfield_10028 === null ? "":element.fields.customfield_10028),
+                    StoryPoint: element.fields.customfield_10028,
                     Priority: element.fields.priority.name,
                 }
               issues1.push(item);
