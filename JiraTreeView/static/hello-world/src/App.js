@@ -105,13 +105,14 @@ function App() {
 
   const saveNewRow = async (e) =>
   {
+    let body;
     if(!e.row.oldData)
     {
         console.log("0 inside saveNewRow add: ",e);
         //console.log("1 inside saveNewRow add: ",e.row.data.Summary);
         //console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
         if(e.row.data.Issue_Type === "Story"){
-          let body = {
+          body = {
             fields: {
               summary: e.row.data.Summary,
               project: {
@@ -128,7 +129,7 @@ function App() {
         }
         else
         {
-          let body = {
+          body = {
             fields: {
               summary: e.row.data.Summary,
               project: {
@@ -174,7 +175,7 @@ function App() {
     {
       console.log("0 inside saveNewRow edit: ",e);
       if(e.row.data.Issue_Type === "Story"){
-      let body = {
+      body = {
         fields: {
           summary: e.row.data.Summary,
           project: {
@@ -191,7 +192,7 @@ function App() {
     }
     else
     {
-      let body = {
+      body = {
         fields: {
           summary: e.row.data.Summary,
           project: {
