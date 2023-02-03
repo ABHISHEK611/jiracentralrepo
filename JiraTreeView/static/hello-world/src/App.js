@@ -105,6 +105,7 @@ function App() {
 
   const saveNewRow = async (e) =>
   {
+    console.log("saveNewRow",e.$refs);
     let body;
     if(!e.row.oldData)
     {
@@ -355,29 +356,12 @@ function App() {
     //setCurrentIssues(issuesReordered);
   }
 
-  const refreshTreeList = async () => {
-
-    console.log("inside refreshTreeList");
-    issueList.refresh()
-        .then(function() {
-          let finalResponse = issues();  
-          setCurrentIssues(finalResponse.result);
-        })
-        .catch(function(error) {
-          console.log("Error:",error);
-        });
-  }
-
   return (
     <div>
         <div>
           <ActualButton type="success" onClick={handleClickSearch} >
               <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
               <span className="dx-button-text">{searchButton.buttonText}</span>
-          </ActualButton>
-        </div>
-        <div>
-          <ActualButton type="success" onClick={refreshTreeList} >
           </ActualButton>
         </div>
         <div>
@@ -393,6 +377,7 @@ function App() {
             allowColumnReordering={true}
             allowColumnResizing={false}
             columnAutoWidth={true}
+            refs="issList"
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
