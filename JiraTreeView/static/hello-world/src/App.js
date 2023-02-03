@@ -360,7 +360,7 @@ function App() {
     console.log("inside refreshTreeList");
     issueList.refresh()
         .then(function() {
-          let finalResponse = await issues();  
+          let finalResponse = issues();  
           setCurrentIssues(finalResponse.result);
         })
         .catch(function(error) {
