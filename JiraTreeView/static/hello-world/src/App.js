@@ -27,6 +27,7 @@ function App() {
   const [currentIssues, setCurrentIssues] = useState(null);
   console.log("2 inside app");
   
+  const myref = useRef(null);
   const expandedRowKeys = [1];
   const mode = 'select';
   const issuestype = [
@@ -106,7 +107,7 @@ function App() {
   const saveNewRow = async (e) =>
   {
     console.log("saveNewRow",myref);
-    
+
     let body;
     if(!e.row.oldData)
     {
@@ -358,9 +359,6 @@ function App() {
   }
 
   return (
-
-    const myref = useRef(null);
-
     <div>
         <div>
           <ActualButton type="success" onClick={handleClickSearch} >
