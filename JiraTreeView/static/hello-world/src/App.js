@@ -28,6 +28,8 @@ function App() {
   console.log("2 inside app");
   
   const myref = useRef(null);
+  console.log("3 inside app myref:", myref);
+  
   const expandedRowKeys = [1];
   const mode = 'select';
   const issuestype = [
