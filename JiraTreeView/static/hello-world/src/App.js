@@ -105,7 +105,6 @@ function App() {
 
   const saveNewRow = async (e) =>
   {
-    console.log("saveNewRow",myref);
 
     let body;
     if(!e.row.oldData)
@@ -220,12 +219,14 @@ function App() {
           body: body1
         })
         console.log(`Response: ${response.status} ${response.statusText}`);
-        console.log(await response.json());
+        const data  = await response.json();
+        console.log("3 data in json:",JSON.stringify(data));
+        console.log("4 data:",data);
         let finalResponse = await issues();
         setCurrentIssues(finalResponse.result);
         notify("The selected issue is edited successfully");
     }
-}
+  }
 
   const savingDragandDrop = async (source, target) => {
     console.log("inside savingDragandDrop",currentIssues);
@@ -383,7 +384,7 @@ function App() {
             allowColumnReordering={true}
             allowColumnResizing={false}
             columnAutoWidth={true}
-            onEditorPreparing={onEditorPreparing} 
+            onEditorPreparing={this.onEditorPreparing} 
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
