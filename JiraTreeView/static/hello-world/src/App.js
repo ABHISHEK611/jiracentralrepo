@@ -105,7 +105,8 @@ function App() {
 
   const saveNewRow = async (e) =>
   {
-    console.log("saveNewRow",e.$refs);
+    console.log("saveNewRow",myref);
+    
     let body;
     if(!e.row.oldData)
     {
@@ -357,6 +358,9 @@ function App() {
   }
 
   return (
+
+    const myref = useRef(null);
+
     <div>
         <div>
           <ActualButton type="success" onClick={handleClickSearch} >
@@ -377,7 +381,7 @@ function App() {
             allowColumnReordering={true}
             allowColumnResizing={false}
             columnAutoWidth={true}
-            refs="issList"
+            ref={myref}
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
