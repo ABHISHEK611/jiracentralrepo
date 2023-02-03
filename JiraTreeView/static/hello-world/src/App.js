@@ -355,7 +355,7 @@ function App() {
     //setCurrentIssues(issuesReordered);
   }
 
-  refreshTreeList = async () => {
+  const refreshTreeList = async () => {
 
     console.log("inside refreshTreeList");
     issueList.refresh()
