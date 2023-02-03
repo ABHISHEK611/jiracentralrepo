@@ -26,10 +26,7 @@ function App() {
   console.log("1 inside app");
   const [currentIssues, setCurrentIssues] = useState(null);
   console.log("2 inside app");
-  
-  const myref = useRef(null);
-  console.log("3 inside app myref:", myref);
-  
+
   const expandedRowKeys = [1];
   const mode = 'select';
   const issuestype = [
@@ -360,6 +357,11 @@ function App() {
     //setCurrentIssues(issuesReordered);
   }
 
+  const onEditorPreparing = (e) => {
+      console.log("inside onEditorPreparing",e);
+      //e.cancel = true;
+  }
+
   return (
     <div>
         <div>
@@ -381,7 +383,7 @@ function App() {
             allowColumnReordering={true}
             allowColumnResizing={false}
             columnAutoWidth={true}
-            ref={myref}
+            onEditorPreparing={onEditorPreparing} 
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
