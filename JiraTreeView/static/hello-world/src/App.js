@@ -223,6 +223,7 @@ function App() {
         setCurrentIssues(finalResponse.result);
         notify("The selected issue is edited successfully");
     }
+    refreshTreeList();
 }
 
   const savingDragandDrop = async (source, target) => {
@@ -354,6 +355,17 @@ function App() {
     setCurrentIssues(finalResponse.result);
     //setCurrentIssues(issuesReordered);
   }
+  refreshTreeList() {
+    console.log("inside refreshTreeList",this.);
+    issueList.refresh()
+        .then(function() {
+          let finalResponse = await issues();  
+          setCurrentIssues(finalResponse.result);
+        })
+        .catch(function(error) {
+          console.log("Error:",error);
+        });
+}
 
   return (
     <div>
@@ -361,6 +373,10 @@ function App() {
           <ActualButton type="success" onClick={handleClickSearch} >
               <LoadIndicator className="button-indicator" height={20} width={20} visible={searchButton.loadIndicatorVisible} />
               <span className="dx-button-text">{searchButton.buttonText}</span>
+          </ActualButton>
+        </div>
+        <div>
+          <ActualButton type="success" onClick={refreshTreeList} >
           </ActualButton>
         </div>
         <div>
@@ -375,13 +391,14 @@ function App() {
             showBorders={true}
             allowColumnReordering={true}
             allowColumnResizing={false}
-            columnAutoWidth={true}>
+            columnAutoWidth={true}
+            >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
             <Column dataField="Issue_Type" allowHiding={false}> <RequiredRule /> <Lookup dataSource={issuestype} />  </Column>
             <Column dataField="Summary" allowHiding={false}> <RequiredRule /> </Column>
             {/* <Column dataField="Assignee"> <RequiredRule /> </Column> */}
-            <Column dataField="Reporter"> </Column>
+            <Column dataField="Reporter" allowEditing={false}> </Column>
             <Column dataField="StoryPoint"> </Column>
             <Column dataField="Priority"> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
