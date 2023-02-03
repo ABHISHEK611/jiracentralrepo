@@ -223,7 +223,6 @@ function App() {
         setCurrentIssues(finalResponse.result);
         notify("The selected issue is edited successfully");
     }
-    refreshTreeList();
 }
 
   const savingDragandDrop = async (source, target) => {
@@ -355,8 +354,10 @@ function App() {
     setCurrentIssues(finalResponse.result);
     //setCurrentIssues(issuesReordered);
   }
-  refreshTreeList() {
-    console.log("inside refreshTreeList",this.);
+
+  refreshTreeList() 
+  {
+    console.log("inside refreshTreeList");
     issueList.refresh()
         .then(function() {
           let finalResponse = await issues();  
@@ -365,7 +366,7 @@ function App() {
         .catch(function(error) {
           console.log("Error:",error);
         });
-}
+  }
 
   return (
     <div>
