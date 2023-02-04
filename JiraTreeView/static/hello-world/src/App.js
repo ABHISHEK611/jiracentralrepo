@@ -358,11 +358,6 @@ function App() {
     //setCurrentIssues(issuesReordered);
   }
 
-  const onEditorPreparing = (e) => {
-      console.log("inside onEditorPreparing",e);
-      //e.cancel = true;
-  }
-
   return (
     <div>
         <div>
@@ -384,7 +379,6 @@ function App() {
             allowColumnReordering={true}
             allowColumnResizing={false}
             columnAutoWidth={true}
-            onEditorPreparing={this.onEditorPreparing} 
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
