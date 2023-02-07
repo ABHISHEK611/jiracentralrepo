@@ -171,13 +171,13 @@ function App() {
       let finalResponse = await issues();
       console.log("finalresponse",JSON.stringify(finalResponse));
       setCurrentIssues(finalResponse.result);
-      treeIssueList.current.instance.refresh()
-      .then(issue() {
-          console.log("inside refresh")
-      })
-      .catch(function(err) {
-        console.log("Error ",JSON.stringify(err))
-      });
+      // treeIssueList.current.instance.refresh()
+      // .then( {
+      //     console.log("inside refresh")
+      // })
+      // .catch(function(err) {
+      //   console.log("Error ",JSON.stringify(err))
+      // });
     }
     else
     {
