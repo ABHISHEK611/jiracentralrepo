@@ -171,6 +171,13 @@ function App() {
       let finalResponse = await issues();
       console.log("finalresponse",JSON.stringify(finalResponse));
       setCurrentIssues(finalResponse.result);
+      treeIssueList.current.instance.refresh()
+      .then(issue() {
+          console.log("inside refresh")
+      })
+      .catch(function(err) {
+        console.log("Error ",JSON.stringify(err))
+      });
     }
     else
     {
@@ -379,6 +386,7 @@ function App() {
             allowColumnReordering={true}
             allowColumnResizing={false}
             columnAutoWidth={true}
+            ref={treeIssueList}
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
@@ -389,10 +397,11 @@ function App() {
             <Column dataField="StoryPoint"> </Column>
             <Column dataField="Priority"> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
-                  <Button name="add"  type="success" stylingMode="contained" />
-                  <Button name="edit" type="default" stylingMode="contained" />
-                  <Button name="delete" type="danger" stylingMode="contained" onClick={deleteRow} />
+                  <Button name="add" />
+                  <Button name="edit" />
+                  <Button name="delete" onClick={deleteRow} />
                   <Button name="save" onClick={saveNewRow} />
+                  <Button name="cancel" />
             </Column>
             {/* <ColumnFixing enabled={true} /> */}
 
