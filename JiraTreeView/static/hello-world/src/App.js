@@ -27,6 +27,8 @@ function App() {
   const [currentIssues, setCurrentIssues] = useState(null);
   console.log("2 inside app");
 
+  const treeIssueList = useRef(null);
+
   const expandedRowKeys = [1];
   const mode = 'select';
   const issuestype = [
@@ -171,13 +173,13 @@ function App() {
       let finalResponse = await issues();
       console.log("finalresponse",JSON.stringify(finalResponse));
       setCurrentIssues(finalResponse.result);
-      // treeIssueList.current.instance.refresh()
-      // .then( {
-      //     console.log("inside refresh")
-      // })
-      // .catch(function(err) {
-      //   console.log("Error ",JSON.stringify(err))
-      // });
+      treeIssueList.current.instance.refresh()
+      .then(function(e) {
+          console.log("inside refresh",e)
+      })
+      .catch(function(err) {
+        console.log("Error ",JSON.stringify(err))
+      });
     }
     else
     {
