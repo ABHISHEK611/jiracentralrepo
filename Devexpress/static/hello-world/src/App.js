@@ -91,6 +91,8 @@ function App() {
               issuetype: {
                 name: e.data.issueType,
               },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8,
               "customfield_10028": e.data.storyPoint
             }
           };
@@ -105,7 +107,9 @@ function App() {
               },
               issuetype: {
                 name: e.data.issueType,
-              }
+              },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8
             }
           };
         }
@@ -151,6 +155,8 @@ function App() {
               issuetype: {
                 name: item.issueType,
               },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8,
               "customfield_10028": item.storyPoint
             }
           };
@@ -165,7 +171,9 @@ function App() {
               },
               issuetype: {
                 name: item.issueType,
-              }
+              },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8
             }
           };
         }
