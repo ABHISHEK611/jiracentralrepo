@@ -107,81 +107,73 @@ function App() {
 
   const saveNewRow = async (e) =>
   {
-
     console.log("inside saveNewRow:",e);
-    // let body;
+    let body;
     // if(!e.row.oldData)
     // {
-    //     console.log("0 inside saveNewRow add: ",e);
-    //     //console.log("1 inside saveNewRow add: ",e.row.data.Summary);
-    //     //console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
-    //     if(e.row.data.Issue_Type === "Story"){
-    //       body = {
-    //         fields: {
-    //           summary: e.row.data.Summary,
-    //           project: {
-    //             key: "OEM",
-    //           },
-    //           issuetype: {
-    //             name: e.row.data.Issue_Type,
-    //           },
-    //           "customfield_10042": "https://google.com",
-    //           "customfield_10034": 8,
-    //           "customfield_10028": e.row.data.StoryPoint
-    //         }
-    //       };
-    //     }
-    //     else
-    //     {
-    //       body = {
-    //         fields: {
-    //           summary: e.row.data.Summary,
-    //           project: {
-    //             key: "OEM",
-    //           },
-    //           issuetype: {
-    //             name: e.row.data.Issue_Type,
-    //           },
-    //           "customfield_10042": "https://google.com",
-    //           "customfield_10034": 8
-    //         }
-    //       };
-    //     }
+        console.log("0 inside saveNewRow add: ",e);
+        //console.log("1 inside saveNewRow add: ",e.row.data.Summary);
+        //console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
+        if(e.data.Issue_Type === "Story"){
+          body = {
+            fields: {
+              summary: e.data.Summary,
+              project: {
+                key: "OEM",
+              },
+              issuetype: {
+                name: e.data.Issue_Type,
+              },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8,
+              "customfield_10028": e.data.StoryPoint
+            }
+          };
+        }
+        else
+        {
+          body = {
+            fields: {
+              summary: e.data.Summary,
+              project: {
+                key: "OEM",
+              },
+              issuetype: {
+                name: e.data.Issue_Type,
+              },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8
+            }
+          };
+        }
 
-    //     let body1 = JSON.stringify(body);
-    //     console.log("2 inside addRow: ",JSON.stringify(body));
-    //     const response = await requestJira('/rest/api/3/issue', {
-    //       method: 'POST',
-    //       headers: {
-    //           'Accept': 'application/json',
-    //           'Content-Type': 'application/json'
-    //       },
-    //       body: body1
-    //     })
-    //   const data  = await response.json();
-    //   console.log("3 data in json:",JSON.stringify(data));
-    //   console.log("4 data:",data);
-    //   if(e.row.data.Head_ID !== -1)
-    //   {
-    //     console.log("4.5 inside dataLink: ",e.row.data.Head_ID);
-    //     const responseLink = await requestJira(`/rest/api/2/issue/${e.row.data.Head_ID}`);
-    //     console.log("5 responseLink: ",JSON.stringify(responseLink));
-    //     const dataLink = await responseLink.json();
-    //     console.log("5.5 dataLink in json:",dataLink);
-    //     savingDragandDrop(data.key,dataLink.key);
-    //   }
-    //   notify("The selected issue is added successfully");
-    //   let finalResponse = await issues();
-    //   console.log("finalresponse",JSON.stringify(finalResponse));
-    //   setCurrentIssues(finalResponse.result);
-    //   treeIssueList.current.instance.refresh()
-    //   .then(function(e) {
-    //       console.log("inside refresh",e)
-    //   })
-    //   .catch(function(err) {
-    //     console.log("Error ",JSON.stringify(err))
-    //   });
-    // }
+        let body1 = JSON.stringify(body);
+        console.log("2 inside addRow: ",JSON.stringify(body));
+        const response = await requestJira('/rest/api/3/issue', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: body1
+        })
+      const data  = await response.json();
+      console.log("3 data in json:",JSON.stringify(data));
+      console.log("4 data:",data);
+      if(e.data.Head_ID !== -1)
+      {
+        console.log("4.5 inside dataLink: ",e.data.Head_ID);
+        const responseLink = await requestJira(`/rest/api/2/issue/${e.data.Head_ID}`);
+        console.log("5 responseLink: ",JSON.stringify(responseLink));
+        const dataLink = await responseLink.json();
+        console.log("5.5 dataLink in json:",dataLink);
+        savingDragandDrop(data.key,dataLink.key);
+      }
+      notify("The selected issue is added successfully");
+      let finalResponse = await issues();
+      console.log("finalresponse",JSON.stringify(finalResponse));
+      setCurrentIssues(finalResponse.result);
+    //}
     // else
     // {
     //   console.log("0 inside saveNewRow edit: ",e);
@@ -236,8 +228,7 @@ function App() {
     //     setCurrentIssues(finalResponse.result);
     //     notify("The selected issue is edited successfully");
     // }
-  }
-
+    }
   const savingDragandDrop = async (source, target) => {
     console.log("inside savingDragandDrop",currentIssues);
     console.log("0 inside savingDragandDrop",source);
