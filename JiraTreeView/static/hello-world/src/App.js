@@ -105,15 +105,68 @@ function App() {
     savingDragandDrop(sourceData.Issue_Key, dataLink.key);
 }
 
+const saveOldRow = async (e) =>
+  {
+    console.log("0 inside saveOldRow: ",e);
+    if(e.data.Issue_Type === "Story")
+      {
+      body = {
+        fields: {
+          summary: e.data.Summary,
+          project: {
+            key: "OEM",
+          },
+          issuetype: {
+            name: e.data.Issue_Type,
+          },
+          "customfield_10042": "https://google.com",
+          "customfield_10034": 8,
+          "customfield_10028": e.data.StoryPoint
+        }
+      };
+    }
+    else
+    {
+      body = {
+        fields: {
+          summary: e.data.Summary,
+          project: {
+            key: "OEM",
+          },
+          issuetype: {
+            name: e.data.Issue_Type,
+          },
+          "customfield_10042": "https://google.com",
+          "customfield_10034": 8
+        }
+      };
+    }
+
+    let body1 = JSON.stringify(body);
+    console.log("1 inside saveOldRow: ",JSON.stringify(body));
+    const response = await requestJira(`/rest/api/2/issue/${e.data.ID}`, {
+        method: 'PUT',
+        headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: body1
+        })
+    console.log(`Response: ${response.status} ${response.statusText}`);
+    const data  = await response.json();
+    console.log("2 inside saveOldRow: ",JSON.stringify(data));
+    console.log("3 inside saveOldRow: ",data);
+    notify("The selected issue is edited successfully");
+    let finalResponse = await issues();
+    setCurrentIssues(finalResponse.result);
+  }
+
   const saveNewRow = async (e) =>
   {
     console.log("inside saveNewRow:",e);
     let body;
-    // if(!e.row.oldData)
-    // {
+    
         console.log("0 inside saveNewRow add: ",e);
-        //console.log("1 inside saveNewRow add: ",e.row.data.Summary);
-        //console.log("1.5 inside saveNewRow add: ",e.row.data.Issue_Type);
         if(e.data.Issue_Type === "Story"){
           body = {
             fields: {
@@ -173,62 +226,8 @@ function App() {
       let finalResponse = await issues();
       console.log("finalresponse",JSON.stringify(finalResponse));
       setCurrentIssues(finalResponse.result);
-    //}
-    // else
-    // {
-    //   console.log("0 inside saveNewRow edit: ",e);
-    //   if(e.row.data.Issue_Type === "Story"){
-    //   body = {
-    //     fields: {
-    //       summary: e.row.data.Summary,
-    //       project: {
-    //         key: "OEM",
-    //       },
-    //       issuetype: {
-    //         name: e.row.data.Issue_Type,
-    //       },
-    //       "customfield_10042": "https://google.com",
-    //       "customfield_10034": 8,
-    //       "customfield_10028": e.row.data.StoryPoint
-    //     }
-    //   };
-    // }
-    // else
-    // {
-    //   body = {
-    //     fields: {
-    //       summary: e.row.data.Summary,
-    //       project: {
-    //         key: "OEM",
-    //       },
-    //       issuetype: {
-    //         name: e.row.data.Issue_Type,
-    //       },
-    //       "customfield_10042": "https://google.com",
-    //       "customfield_10034": 8
-    //     }
-    //   };
-    // }
-
-    //   let body1 = JSON.stringify(body);
-    //     console.log("1 inside saveNewRow edit: ",JSON.stringify(body));
-    //     const response = await requestJira(`/rest/api/2/issue/${e.row.data.ID}`, {
-    //       method: 'PUT',
-    //       headers: {
-    //           'Accept': 'application/json',
-    //           'Content-Type': 'application/json'
-    //       },
-    //       body: body1
-    //     })
-    //     console.log(`Response: ${response.status} ${response.statusText}`);
-    //     const data  = await response.json();
-    //     console.log("3 data in json:",JSON.stringify(data));
-    //     console.log("4 data:",data);
-    //     let finalResponse = await issues();
-    //     setCurrentIssues(finalResponse.result);
-    //     notify("The selected issue is edited successfully");
-    // }
     }
+
   const savingDragandDrop = async (source, target) => {
     console.log("inside savingDragandDrop",currentIssues);
     console.log("0 inside savingDragandDrop",source);
@@ -261,7 +260,10 @@ function App() {
     console.log(JSON.stringify(response));
   }catch(err)
   {
-    console.log("Error ",JSON.stringify(err));}
+    console.log("Error ",JSON.stringify(err));
+  }
+  let finalResponse = await issues();
+  setCurrentIssues(finalResponse.result);
 }
 
   const onDragChange = async (e) => {
@@ -382,6 +384,7 @@ function App() {
             columnAutoWidth={true}
             ref={treeIssueList}
             onRowInserting={saveNewRow}
+            onRowUpdating={saveOldRow}
             >
 
             <Column dataField="Issue_Key" allowHiding={false} allowEditing={false}> </Column>
@@ -393,8 +396,7 @@ function App() {
             <Column dataField="Priority"> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
                   <Button name="add" />
-                  <Button name="edit" />
-                  <Button name="delete" />
+                  <Button name="edit" /> 
                   <Button name="save" />
                   <Button name="cancel" />
             </Column>
@@ -416,7 +418,6 @@ function App() {
             <Editing
               mode="row"
               allowUpdating={true}
-              allowDeleting={true}
               allowAdding={true}
             />
 
