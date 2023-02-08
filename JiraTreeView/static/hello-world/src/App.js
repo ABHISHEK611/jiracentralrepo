@@ -108,20 +108,28 @@ function App() {
 const saveOldRow = async (e) =>
   {
     console.log("0 inside saveOldRow: ",e);
-    if(e.data.Issue_Type === "Story")
+    let item = 
+       {
+        Issue_Type: e.newData.hasOwnProperty("Issue_Type") ? e.newData.Issue_Type : e.oldData.Issue_Type,
+        Summary: e.newData.hasOwnProperty("Summary") ? e.newData.Summary : e.oldData.Summary,
+        StoryPoint: e.newData.hasOwnProperty("StoryPoint") ? e.newData.StoryPoint : e.oldData.StoryPoint,
+        Priority: e.newData.hasOwnProperty("Priority") ? e.newData.Priority : e.oldData.Priority
+      }
+    console.log("0.5 inside saveOldRow: ",item);
+    if(item.Issue_Type === "Story")
       {
       body = {
         fields: {
-          summary: e.data.Summary,
+          summary: item.Summary,
           project: {
             key: "OEM",
           },
           issuetype: {
-            name: e.data.Issue_Type,
+            name: item.Issue_Type,
           },
           "customfield_10042": "https://google.com",
           "customfield_10034": 8,
-          "customfield_10028": e.data.StoryPoint
+          "customfield_10028": item.StoryPoint
         }
       };
     }
@@ -129,22 +137,22 @@ const saveOldRow = async (e) =>
     {
       body = {
         fields: {
-          summary: e.data.Summary,
+          summary: item.Summary,
           project: {
             key: "OEM",
           },
           issuetype: {
-            name: e.data.Issue_Type,
+            name: item.Issue_Type,
           },
           "customfield_10042": "https://google.com",
-          "customfield_10034": 8
+          "customfield_10034": 8,
         }
       };
     }
 
     let body1 = JSON.stringify(body);
     console.log("1 inside saveOldRow: ",JSON.stringify(body));
-    const response = await requestJira(`/rest/api/2/issue/${e.data.ID}`, {
+    const response = await requestJira(`/rest/api/2/issue/${e.oldData.ID}`, {
         method: 'PUT',
         headers: {
               'Accept': 'application/json',
