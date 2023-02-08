@@ -81,17 +81,17 @@ function App() {
         
         console.log("0 inside onRowInserting: ",e);
         let body;
-        if(e.row.data.issueType === "Story"){
+        if(e.data.issueType === "Story"){
           body = {
             fields: {
-              summary: e.row.data.summary,
+              summary: e.data.summary,
               project: {
                 key: projectSelected.name,
               },
               issuetype: {
-                name: e.row.data.issueType,
+                name: e.data.issueType,
               },
-              "customfield_10028": e.row.data.storyPoint
+              "customfield_10028": e.data.storyPoint
             }
           };
         }
@@ -99,12 +99,12 @@ function App() {
         {
           body = {
             fields: {
-              summary: e.row.data.summary,
+              summary: e.data.summary,
               project: {
                 key: projectSelected.name,
               },
               issuetype: {
-                name: e.row.data.issueType,
+                name: e.data.issueType,
               }
             }
           };
