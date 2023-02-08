@@ -108,6 +108,7 @@ function App() {
 const saveOldRow = async (e) =>
   {
     console.log("0 inside saveOldRow: ",e);
+    let body;
     let item = 
        {
         Issue_Type: e.newData.hasOwnProperty("Issue_Type") ? e.newData.Issue_Type : e.oldData.Issue_Type,
