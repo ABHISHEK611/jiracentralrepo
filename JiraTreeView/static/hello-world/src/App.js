@@ -401,10 +401,10 @@ function App() {
             <Column dataField="Priority"> </Column>
             <Column type="buttons" caption="Actions" allowHiding={false}>
                   <Button name="add" />
-                  {/* <Button name="edit" />
-                  <Button name="delete" onClick={deleteRow} /> */}
-                  {/* <Button name="save" onClick={saveNewRow} />
-                  <Button name="cancel" /> */}
+                  <Button name="edit" />
+                  <Button name="delete" />
+                  <Button name="save" />
+                  <Button name="cancel" />
             </Column>
             {/* <ColumnFixing enabled={true} /> */}
 
@@ -423,8 +423,8 @@ function App() {
 
             <Editing
               mode="row"
-              // allowUpdating={true}
-              // allowDeleting={true}
+              allowUpdating={true}
+              allowDeleting={true}
               allowAdding={true}
             />
 
