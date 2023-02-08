@@ -145,7 +145,7 @@ const saveOldRow = async (e) =>
             name: item.Issue_Type,
           },
           "customfield_10042": "https://google.com",
-          "customfield_10034": 8,
+          "customfield_10034": 8
         }
       };
     }
