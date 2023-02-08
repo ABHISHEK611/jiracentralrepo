@@ -77,7 +77,7 @@ function App() {
         setIssueKey(e.value);
     }
 
-    const onRowInserting = (e) => { // we have option to cancel insert when cannot create new issue via API
+    const onRowInserting = async (e) => { // we have option to cancel insert when cannot create new issue via API
         
         console.log("0 inside onRowInserting: ",e);
         let body;
