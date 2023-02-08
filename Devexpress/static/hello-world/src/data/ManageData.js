@@ -3,8 +3,11 @@ import { requestJira } from "@forge/bridge"
 const data = async (projects, linkType, issueKey) => {
     // let listProject = projects.map(element => JSON.stringify(element.key))
     // const params = issueKey === "" ? `project in (${listProject}) AND (filter != ${linkType.id})` : `project in (${listProject}) AND (filter != ${linkType.id}) AND issue =${issueKey}`;
+    console.log("inside data: ",projects, linkType, issueKey);
     const params = issueKey === "" ? `project = ${projects} AND (filter != "${linkType.id}")` : `project = ${projects} AND (filter != "${linkType.id}") AND issue =${issueKey}`;
+    console.log("0 inside data: ", params);
     const response = await requestJira(`/rest/api/2/search?jql=${params}`);
+    console.log("1 inside data: ", JSON.stringify(response));
     return await response.json();
 };
 

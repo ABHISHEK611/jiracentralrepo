@@ -7,6 +7,9 @@ import SelectBox from 'devextreme-react/select-box';
 import { getIssueData, getAllProject, getIssueLinkType } from "./data/ManageData";
 import BlockerCell from "./component/BlockerCell";
 import TextBox from 'devextreme-react/text-box';
+import api, { route } from "@forge/api";
+import { requestJira } from "@forge/bridge";
+import notify from 'devextreme/ui/notify';
 
 function App() {
     let [projectsDataSource, setProjectsDataSource] = useState([]);
@@ -75,8 +78,55 @@ function App() {
     }
 
     const onRowInserting = (e) => { // we have option to cancel insert when cannot create new issue via API
-        console.log("onRowInserting")
-        console.log(e);
+        
+        console.log("0 inside onRowInserting: ",e);
+        let body;
+        if(e.row.data.issueType === "Story"){
+          body = {
+            fields: {
+              summary: e.row.data.summary,
+              project: {
+                key: projectSelected.name,
+              },
+              issuetype: {
+                name: e.row.data.issueType,
+              },
+              "customfield_10028": e.row.data.storyPoint
+            }
+          };
+        }
+        else
+        {
+          body = {
+            fields: {
+              summary: e.row.data.summary,
+              project: {
+                key: projectSelected.name,
+              },
+              issuetype: {
+                name: e.row.data.issueType,
+              }
+            }
+          };
+        }
+
+        let body1 = JSON.stringify(body);
+        console.log("1 inside onRowInserting: ",JSON.stringify(body));
+        const response = await requestJira('/rest/api/3/issue', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: body1
+        })
+      const data  = await response.json();
+      console.log("2 inside onRowInserting: ",JSON.stringify(data));
+      console.log("3 inside onRowInserting: ",data);
+      notify("The selected issue is added successfully");
+      let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      console.log("4 inside onRowInserting: ",JSON.stringify(finalResponse));
+      setDataSource(finalResponse.result);
     }
 
     const onInitNewRow = (e) => {

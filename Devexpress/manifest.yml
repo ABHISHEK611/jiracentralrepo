@@ -1,5 +1,5 @@
 modules:
-  jira:projectPage:
+  jira:globalPage:
     - key: devexpress-hello-world-project-page
       resource: main
       resolver:
