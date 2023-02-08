@@ -271,7 +271,7 @@ function App() {
                     {/* <RemoteOperations filtering={true} /> */}
                     <Editing
                         allowAdding={true}
-                        allowEditing={true}
+                        allowUpdating={true}
                         mode="row"
                     />
                     <Column dataField="id" allowHiding={false} />
