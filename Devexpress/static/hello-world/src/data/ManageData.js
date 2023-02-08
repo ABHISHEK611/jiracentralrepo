@@ -21,14 +21,16 @@ export const getIssueData = async (projects, linkType, issueKey) => {
             id: element.id,
             key: element.key,
             summary: element.fields.summary,
+            startdate: element.fields.customfield_10015, // depend on customfield was definded
+            duedate: element.fields.duedate,
             assignee: element.fields.assignee ? element.fields.assignee.displayName : null,
             status: element.fields.status.name,
             storyPoint: element.fields.customfield_10028, // depend on customfield was definded
             issueType: element.fields.issuetype.name,
-            parentId: -1 // level 1 items
+            blockers: getBlockersString(element),
+            parentId: "" // level 1 items
         }
-        // find children of an item to set property for displaying expand icon
-        let children = await findChildByJql(projects, linkType, item);
+        let children = await findChildByJql(projects, linkType, item); // find children of an item to set property for displaying expand icon
         item.hasChildren = children.length > 0;
         item.childIssues = children;
 
@@ -57,10 +59,10 @@ export const findChildByJql = async (projects, linkType, issue) => {
             status: element.fields.status.name,
             storyPoint: element.fields.customfield_10028, // depend on customfield was definded
             issueType: element.fields.issuetype.name,
+            blockers: getBlockersString(element),
             parentId: issue.id
         }
-        // find children of an item to set property for displaying expand icon
-        let children = await findChildByJql(projects, linkType, item);
+        let children = await findChildByJql(projects, linkType, item); // find children of an item to set property for displaying expand icon
         item.isParent = children.length > 0;
         // item.childIssues = children;
 
@@ -69,6 +71,44 @@ export const findChildByJql = async (projects, linkType, issue) => {
     return listChildren;
 }
 
+const getBlockersString = (issue) => {
+    const INWARD_IS_BLOCKED_BY = "is blocked by";
+    if (!issue.fields.issuelinks) return '';
+    let blockerToView = [];
+    issue.fields.issuelinks.forEach(link => {
+        if (link.type.inward === INWARD_IS_BLOCKED_BY && link.inwardIssue) {
+            if (!link.inwardIssue) return '';
+            blockerToView.push(
+                { key: link.inwardIssue.key }
+            );
+        }
+    });
+    return blockerToView;
+}
+
+export const getAllProject = async () => {
+    const response = await requestJira(`/rest/api/2/project/search`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    let result = await response.json();
+    return result.values;
+};
+
+export const getIssueLinkType = async (props) => {
+    const response = await requestJira(`/rest/api/2/issueLinkType`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    let result = await response.json();
+    return result.issueLinkTypes;
+};
 
 const deleteIssueLink = async (issueLinkID) => {
     const response = await requestJira(`/rest/api/2/issueLink/${issueLinkID}`, {
@@ -122,73 +162,4 @@ export const updateIssueLink = async (newParentKey, oldParentID, childKey, issue
     }
     //add new link issue
     linkNewIssue(childKey, newParentKey, issueLinkType)
-}
-
-export const transitionIssue = async (issueIdOrKey, transitionID) => {
-    let body = {
-        transition: {
-            id: transitionID,
-        },
-    }
-    const response = await requestJira(`/rest/api/2/issue/${issueIdOrKey}/transitions`, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    })
-    console.log(`Response: ${response.status} ${response.statusText}`);
-}
-
-export const assigneeIssue = async (issueIdOrKey, accountID) => {
-    let body = {
-        "accountId": accountID
-    }
-    const response = await requestJira(`/rest/api/2/issue/${issueIdOrKey}/assignee`, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    })
-    console.log(`Response: ${response.status} ${response.statusText}`);
-}
-
-export const updateIssue = async (body, issueIdOrKey) => {
-    const response = await requestJira(`/rest/api/2/issue/${issueIdOrKey}`, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: body
-    })
-    console.log(`Response: ${response.status} ${response.statusText}`);
-    return response.status
-}
-
-export const saveEditingIssue = async (issue) => {
-    let body = {
-        fields: {
-            summary: issue.summary,
-        },
-    };
-    body.fields = {
-        ...body.fields,
-        ...(issue.storyPoint && { customfield_10028: issue.storyPoint }),
-    };
-    if (issue["status.text"]) {
-        issue["status"].text = issue["status.text"].text;
-        await transitionIssue(issue.key, issue["status.text"].id);
-    }
-    if (issue["assignee.displayName"]) {
-        issue.assignee = {
-            displayName: issue["assignee.displayName"].text,
-            accountId: issue["assignee.displayName"].id,
-        };
-        await assigneeIssue(issue.key, issue["assignee.displayName"].id);
-    }
-    await updateIssue(JSON.stringify(body), issue.key);
 }
