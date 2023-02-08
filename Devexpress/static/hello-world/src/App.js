@@ -86,7 +86,7 @@ function App() {
             fields: {
               summary: e.data.summary,
               project: {
-                key: projectSelected.name,
+                key: "OEM",
               },
               issuetype: {
                 name: e.data.issueType,
@@ -101,7 +101,7 @@ function App() {
             fields: {
               summary: e.data.summary,
               project: {
-                key: projectSelected.name,
+                key: "OEM",
               },
               issuetype: {
                 name: e.data.issueType,
@@ -127,6 +127,66 @@ function App() {
       let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
       console.log("4 inside onRowInserting: ",JSON.stringify(finalResponse));
       setDataSource(finalResponse.result);
+    }
+
+    const onRowUpdating = async (e) => 
+    {
+        console.log("0 inside onRowUpdating: ",e);
+        let body;
+        let item = 
+        {
+            issueType: e.newData.hasOwnProperty("issueType") ? e.newData.Issue_Type : e.oldData.Issue_Type,
+            summary: e.newData.hasOwnProperty("summary") ? e.newData.Summary : e.oldData.Summary,
+            storyPoint: e.newData.hasOwnProperty("storyPoint") ? e.newData.StoryPoint : e.oldData.StoryPoint,
+        }
+        console.log("0.5 inside onRowUpdating: ",item);
+        if(item.issueType === "Story")
+        {
+          body = {
+            fields: {
+              summary: item.summary,
+              project: {
+                key: "OEM",
+              },
+              issuetype: {
+                name: item.issueType,
+              },
+              "customfield_10028": item.storyPoint
+            }
+          };
+        }
+        else
+        {
+          body = {
+            fields: {
+              summary: item.summary,
+              project: {
+                key: "OEM",
+              },
+              issuetype: {
+                name: item.issueType,
+              }
+            }
+          };
+        }
+
+        let body1 = JSON.stringify(body);
+        console.log("1 inside onRowUpdating: ",JSON.stringify(body));
+        const response = await requestJira(`/rest/api/2/issue/${e.oldData.ID}`, {
+            method: 'PUT',
+            headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              body: body1
+            })
+        console.log(`Response: ${response.status} ${response.statusText}`);
+        const data  = await response.json();
+        console.log("1.5 inside onRowUpdating: ",JSON.stringify(data));
+        console.log("2 inside onRowUpdating: ",data);
+        notify("The selected issue is edited successfully");
+        let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+        setDataSource(finalResponse.result);
     }
 
     const onInitNewRow = (e) => {
@@ -198,10 +258,12 @@ function App() {
                     // dataStructure="tree"
                     onInitNewRow={onInitNewRow}
                     onRowInserting={onRowInserting}
+                    onRowUpdating={onRowUpdating}
                 >
                     {/* <RemoteOperations filtering={true} /> */}
                     <Editing
                         allowAdding={true}
+                        allowEditing={true}
                         mode="row"
                     />
                     <Column dataField="id" allowHiding={false} />
@@ -216,6 +278,7 @@ function App() {
                     <Column dataField="blockers" visible={false} cellTemplate="blockerTemplate" /> {/* cellTemplate to custom displaying */}
                     <Column type="buttons">
                         <CellButton name="add" />
+                        <CellButton name="edit" />
                         <CellButton name="save" />
                         <CellButton name="cancel" />
                     </Column>
