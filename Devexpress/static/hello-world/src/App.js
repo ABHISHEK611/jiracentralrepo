@@ -139,9 +139,9 @@ function App() {
         let body;
         let item = 
         {
-            issueType: e.newData.hasOwnProperty("issueType") ? e.newData.Issue_Type : e.oldData.Issue_Type,
-            summary: e.newData.hasOwnProperty("summary") ? e.newData.Summary : e.oldData.Summary,
-            storyPoint: e.newData.hasOwnProperty("storyPoint") ? e.newData.StoryPoint : e.oldData.StoryPoint,
+            issueType: e.newData.hasOwnProperty("issueType") ? e.newData.issueType : e.oldData.issueType,
+            summary: e.newData.hasOwnProperty("summary") ? e.newData.summary : e.oldData.summary,
+            storyPoint: e.newData.hasOwnProperty("storyPoint") ? e.newData.storyPoint : e.oldData.storyPoint,
         }
         console.log("0.5 inside onRowUpdating: ",item);
         if(item.issueType === "Story")
