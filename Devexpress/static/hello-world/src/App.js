@@ -180,7 +180,7 @@ function App() {
 
         let body1 = JSON.stringify(body);
         console.log("1 inside onRowUpdating: ",JSON.stringify(body));
-        const response = await requestJira(`/rest/api/2/issue/${e.oldData.ID}`, {
+        const response = await requestJira(`/rest/api/2/issue/${e.oldData.id}`, {
             method: 'PUT',
             headers: {
                   'Accept': 'application/json',
