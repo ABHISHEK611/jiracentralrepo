@@ -206,12 +206,36 @@ function App() {
 
     const onDragChange = async (e) => {
       console.log("0 inside onDragChange",e);
+      let visibleRows = e.component.getVisibleRows(),
+      sourceNode = e.component.getNodeByKey(e.itemData.ID),
+      targetNode = visibleRows[e.toIndex].node;
 
+    console.log("1 inside onDragChange: ",visibleRows);
+    console.log("2 inside onDragChange: ",sourceNode);
+    console.log("3 inside onDragChange: ",targetNode);
+    while (targetNode && targetNode.data) {
+      if (targetNode.data.ID === sourceNode.data.ID) {
+        e.cancel = true;
+        break;
+      }
+      targetNode = targetNode.parent;
     }
+  }
   
     const onReorder = async (e) => {
       console.log("0 inside onReorder",e);
-      
+      console.log("0.5 inside onReorder",currentIssues);
+      let visibleRows = e.component.getVisibleRows(),
+        sourceData = e.itemData,
+        targetData = visibleRows[e.toIndex].data,
+        sourceIndex = currentIssues.indexOf(sourceData),
+        targetIndex = currentIssues.indexOf(targetData);
+  
+      console.log("1 inside onReorder visible rows: ",visibleRows);
+      console.log("2 inside onReorder source: ",sourceData);
+      console.log("3 inside onReorder target: ",targetData);
+      //console.log("4 inside onReorder sourceIndex: ",sourceIndex);
+      //console.log("5 inside onReorder targetIndex: ",targetIndex);
     }
 
     return (
@@ -292,7 +316,7 @@ function App() {
                       onReorder={onReorder}
                       allowDropInsideItem={true}
                       allowReordering={true}
-                      showDragIcons={true}
+                      showDragIcons={false}
                     />
 
                     <Column dataField="id" allowHiding={false} />
