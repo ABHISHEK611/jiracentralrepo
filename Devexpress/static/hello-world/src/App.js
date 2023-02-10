@@ -227,15 +227,15 @@ function App() {
       console.log("0.5 inside onReorder",currentIssues);
       let visibleRows = e.component.getVisibleRows(),
         sourceData = e.itemData,
-        targetData = visibleRows[e.toIndex].data,
-        sourceIndex = currentIssues.indexOf(sourceData),
-        targetIndex = currentIssues.indexOf(targetData);
+        targetData = visibleRows[e.toIndex].data;
+       sourceIndex = dataSource.indexOf(sourceData),
+       targetIndex = dataSource.indexOf(targetData);
   
       console.log("1 inside onReorder visible rows: ",visibleRows);
       console.log("2 inside onReorder source: ",sourceData);
       console.log("3 inside onReorder target: ",targetData);
-      //console.log("4 inside onReorder sourceIndex: ",sourceIndex);
-      //console.log("5 inside onReorder targetIndex: ",targetIndex);
+      console.log("4 inside onReorder sourceIndex: ",sourceIndex);
+      console.log("5 inside onReorder targetIndex: ",targetIndex);
     }
 
     return (
