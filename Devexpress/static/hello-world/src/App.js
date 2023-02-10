@@ -202,6 +202,16 @@ function App() {
         console.log(e);
     }
 
+    const onDragChange = async (e) => {
+      console.log("0 inside onDragChange",e);
+
+    }
+  
+    const onReorder = async (e) => {
+      console.log("0 inside onReorder",e);
+      
+    }
+
     return (
         <div>
             <ul class="search-criteria-list">
@@ -261,9 +271,9 @@ function App() {
                     rootValue=""
                     keyExpr="id"
                     parentIdExpr="parentId"
-                    // hasItemsExpr="hasChildren"
-                    // itemsExpr="childIssues"
-                    // dataStructure="tree"
+                    hasItemsExpr="hasChildren"
+                    itemsExpr="childIssues"
+                    dataStructure="tree"
                     onInitNewRow={onInitNewRow}
                     onRowInserting={onRowInserting}
                     onRowUpdating={onRowUpdating}
@@ -274,6 +284,14 @@ function App() {
                         allowUpdating={true}
                         mode="row"
                     />
+                    <RowDragging
+                      onDragChange={onDragChange}
+                      onReorder={onReorder}
+                      allowDropInsideItem={true}
+                      allowReordering={true}
+                      showDragIcons={false}
+                    />
+
                     <Column dataField="id" allowHiding={false} />
                     <Column dataField="key" allowHiding={false} />
                     <Column dataField="summary" />
