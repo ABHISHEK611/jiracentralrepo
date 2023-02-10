@@ -214,7 +214,7 @@ function App() {
     console.log("2 inside onDragChange: ",sourceNode);
     console.log("3 inside onDragChange: ",targetNode);
     while (targetNode && targetNode.data) {
-      if (targetNode.data.ID === sourceNode.data.ID) {
+      if (targetNode.data.id === sourceNode.data.id) {
         e.cancel = true;
         break;
       }
