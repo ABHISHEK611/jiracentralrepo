@@ -289,7 +289,7 @@ function App() {
                       onReorder={onReorder}
                       allowDropInsideItem={true}
                       allowReordering={true}
-                      showDragIcons={false}
+                      showDragIcons={true}
                     />
 
                     <Column dataField="id" allowHiding={false} />
