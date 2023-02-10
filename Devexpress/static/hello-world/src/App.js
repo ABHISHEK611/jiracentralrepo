@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TreeList, RemoteOperations, Editing, Button as CellButton, Column, ColumnChooser } from 'devextreme-react/tree-list';
+import { TreeList, RemoteOperations, Editing, Button as CellButton, Column, ColumnChooser, RowDragging } from 'devextreme-react/tree-list';
 import { Button } from 'devextreme-react/button';
 import { LoadIndicator } from 'devextreme-react/load-indicator';
 import { Template } from 'devextreme-react/core/template';
