@@ -16,7 +16,7 @@ NjDnTPVg72JO9tsx9Fz97C92	testapi
 ATATT3xFfGF03QBpaCUfJpUR0F7OHvBxMDInQTadkXBl5Lxpgq5fB4t82vupgmVX8eBZi91pdQFH8DP8DeODanr_Xpmha7-56Xc-EEWiq5ucVWz4LmQG7n0LSPf6NgIskJYu_AzCOJFDMw738iV_hzprpxNJpuqo3E0Yty-lHC7PyooKn2PHmC0=B5CF882F (testpostman)
 
 GIT abhi.scorpio611@gmail:
-GIT token: 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
+GIT token: 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
 
 Git Ouath client secret id : 50faa8621429acf2e19ad9267c912fe7c7ec9454
 
