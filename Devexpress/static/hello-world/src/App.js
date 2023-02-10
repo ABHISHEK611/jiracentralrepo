@@ -408,7 +408,7 @@ function App() {
                     showBorders={true}
                     columnAutoWidth={true}
                     allowColumnReordering={true}
-                    rootValue=""
+                    rootValue={-1}
                     keyExpr="id"
                     parentIdExpr="parentId"
                     hasItemsExpr="hasChildren"
