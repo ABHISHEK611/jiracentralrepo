@@ -229,7 +229,7 @@ function App() {
       console.log("5 inside updateIssueLink",oldIssueLinksChild);
       const oldIssueLink = await oldIssueLinksChild.find(
               element =>
-              (element.outwardIssue.id === targetData.id));
+              (element.inwardIssue.id === targetData.id));
       //delete old issue link
       console.log("6 inside updateIssueLink",oldIssueLink);
       deleteIssueLink(oldIssueLink.id)
@@ -315,7 +315,7 @@ function App() {
           const oldIssueLinksChild = await data.fields.issuelinks
           const oldIssueLink = await oldIssueLinksChild.find(
                     element =>
-                    (element.outwardIssue.id === sourceData.parentId));
+                    (element.inwardIssue.id === sourceData.parentId));
           deleteIssueLink(oldIssueLink.id)
           savingDragandDrop(sourceData.key, targetData.key);
         }
@@ -343,7 +343,7 @@ function App() {
             const oldIssueLinksChild = await data.fields.issuelinks
             const oldIssueLink = await oldIssueLinksChild.find(
                     element =>
-                    (element.outwardIssue.id === sourceData.parentId));
+                    (element.inwardIssue.id === sourceData.parentId));
             deleteIssueLink(oldIssueLink.id)
           } 
         }
