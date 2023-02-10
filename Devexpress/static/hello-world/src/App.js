@@ -207,7 +207,7 @@ function App() {
     const onDragChange = async (e) => {
       console.log("0 inside onDragChange",e);
       let visibleRows = e.component.getVisibleRows(),
-      sourceNode = e.component.getNodeByKey(e.itemData.ID),
+      sourceNode = e.component.getNodeByKey(e.itemData.id),
       targetNode = visibleRows[e.toIndex].node;
 
     console.log("1 inside onDragChange: ",visibleRows);
