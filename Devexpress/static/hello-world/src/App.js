@@ -224,7 +224,6 @@ function App() {
   
     const onReorder = async (e) => {
       console.log("0 inside onReorder",e);
-      console.log("0.5 inside onReorder",currentIssues);
       let visibleRows = e.component.getVisibleRows(),
         sourceData = e.itemData,
         targetData = visibleRows[e.toIndex].data;
