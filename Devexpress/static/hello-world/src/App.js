@@ -226,7 +226,7 @@ function App() {
       console.log("0 inside onReorder",e);
       let visibleRows = e.component.getVisibleRows(),
         sourceData = e.itemData,
-        targetData = visibleRows[e.toIndex].data;
+        targetData = visibleRows[e.toIndex].data,
        sourceIndex = dataSource.indexOf(sourceData),
        targetIndex = dataSource.indexOf(targetData);
   
