@@ -284,6 +284,7 @@ function App() {
                         allowUpdating={true}
                         mode="row"
                     />
+                    
                     <RowDragging
                       onDragChange={onDragChange}
                       onReorder={onReorder}
