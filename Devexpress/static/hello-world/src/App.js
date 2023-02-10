@@ -79,6 +79,7 @@ function App() {
 
     const onRowInserting = async (e) => { // we have option to cancel insert when cannot create new issue via API
         
+        console.log("Inside Adding");
         console.log("0 inside onRowInserting: ",e);
         let body;
         if(e.data.issueType === "Story"){
@@ -135,6 +136,7 @@ function App() {
 
     const onRowUpdating = async (e) => 
     {
+        console.log("Inside Editing");
         console.log("0 inside onRowUpdating: ",e);
         let body;
         let item = 
