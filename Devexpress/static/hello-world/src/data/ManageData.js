@@ -31,7 +31,7 @@ export const getIssueData = async (projects, linkType, issueKey) => {
             storyPoint: element.fields.customfield_10028, // depend on customfield was definded
             issueType: element.fields.issuetype.name,
             blockers: getBlockersString(element),
-            parentId: "" // level 1 items
+            parentId: -1 // level 1 items
         }
         let children = await findChildByJql(projects, linkType, item); // find children of an item to set property for displaying expand icon
         item.hasChildren = children.length > 0;

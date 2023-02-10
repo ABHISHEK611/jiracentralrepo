@@ -204,6 +204,79 @@ function App() {
         console.log(e);
     }
 
+    const deleteIssueLink = async (issueLinkID) => {
+      console.log("1 inside deleteIssueLink",issueLinkID);
+      const response = await requestJira(`/rest/api/3/issueLink/${issueLinkID}`, {
+          method: 'DELETE',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+      });
+      console.log(`Response: ${response.status} ${response.statusText}`);
+      console.log(await response.text());
+  }
+
+    const updateIssueLink = async (sourceData, targetData) => {
+  
+      console.log("1 inside updateIssueLink",sourceData);
+      console.log("2 inside updateIssueLink",targetData);
+      const response = await requestJira(`/rest/api/2/issue/${sourceData.id}?fields=issuelinks`);
+      console.log("3 inside updateIssueLink",JSON.stringify(response));
+      const data = await response.json()
+      console.log("4 inside updateIssueLink",data);
+      const oldIssueLinksChild = await data.fields.issuelinks
+      console.log("5 inside updateIssueLink",oldIssueLinksChild);
+      const oldIssueLink = await oldIssueLinksChild.find(
+              element =>
+              (element.outwardIssue.id === targetData.id));
+      //delete old issue link
+      console.log("6 inside updateIssueLink",oldIssueLink);
+      deleteIssueLink(oldIssueLink.id)
+      
+      //add new link issue
+      const responseLink = await requestJira(`/rest/api/2/issue/${targetData.parentId}`);
+      console.log("7 inside updateIssueLink",responseLink);
+      const dataLink = await responseLink.json();
+      console.log("8 inside updateIssueLink",dataLink);
+      savingDragandDrop(sourceData.key, dataLink.key);
+  }
+
+  const savingDragandDrop = async (source, target) => {
+   
+    console.log("0 inside savingDragandDrop",source);
+    console.log("1 inside savingDragandDrop",target);
+  
+    let body = {
+      "outwardIssue": {
+          "key": target
+      },
+      "inwardIssue": {
+          "key": source
+      },
+      "type": {
+          "name": issueLinkSelected.name
+      }
+  }
+  console.log("4 inside savingDragandDrop",JSON.stringify(body));
+  try{
+    const response = await requestJira(`/rest/api/3/issueLink`, {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+     })
+    console.log(JSON.stringify(response));
+  }catch(err)
+  {
+    console.log("Error ",JSON.stringify(err));
+  }
+  let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+  setDataSource(finalResponse.result);
+}
+  
     const onDragChange = async (e) => {
       console.log("0 inside onDragChange",e);
       let visibleRows = e.component.getVisibleRows(),
@@ -226,15 +299,57 @@ function App() {
       console.log("0 inside onReorder",e);
       let visibleRows = e.component.getVisibleRows(),
         sourceData = e.itemData,
-        targetData = visibleRows[e.toIndex].data,
-       sourceIndex = dataSource.indexOf(sourceData),
-       targetIndex = dataSource.indexOf(targetData);
+        targetData = visibleRows[e.toIndex].data;
   
       console.log("1 inside onReorder visible rows: ",visibleRows);
       console.log("2 inside onReorder source: ",sourceData);
       console.log("3 inside onReorder target: ",targetData);
-      console.log("4 inside onReorder sourceIndex: ",sourceIndex);
-      console.log("5 inside onReorder targetIndex: ",targetIndex);
+
+      if (e.dropInsideItem) {
+        console.log("7 inside onReorder inside if:");
+        if(sourceData.parentId !== -1)
+        {
+          console.log("7.1 inside onReorder inside if inside if:");
+          const response = await requestJira(`/rest/api/2/issue/${sourceData.id}?fields=issuelinks`);
+          const data = await response.json()
+          const oldIssueLinksChild = await data.fields.issuelinks
+          const oldIssueLink = await oldIssueLinksChild.find(
+                    element =>
+                    (element.outwardIssue.id === sourceData.parentId));
+          deleteIssueLink(oldIssueLink.id)
+          savingDragandDrop(sourceData.key, targetData.key);
+        }
+        else{
+          console.log("7.2 inside onReorder inside if inside else:");
+          savingDragandDrop(sourceData.key, targetData.key);
+        }
+      }
+      else {
+        console.log("8 inside onReorder inside else:");
+        if (sourceData.parentId !== targetData.parentId) 
+        {
+          console.log("9 inside onReorder inside else 1stif:");
+          console.log("9.1 inside onReorder inside else 1stif:",sourceData);
+          if(targetData.parentId !== -1)
+          {
+            console.log("10 inside onReorder inside else 2ndtif:");
+            updateIssueLink(sourceData, targetData);
+          }
+          else
+          {
+            console.log("11 inside onReorder inside else 2ndelse:");
+            const response = await requestJira(`/rest/api/2/issue/${sourceData.id}?fields=issuelinks`);
+            const data = await response.json()
+            const oldIssueLinksChild = await data.fields.issuelinks
+            const oldIssueLink = await oldIssueLinksChild.find(
+                    element =>
+                    (element.outwardIssue.id === sourceData.parentId));
+            deleteIssueLink(oldIssueLink.id)
+          } 
+        }
+      }
+      let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      setDataSource(finalResponse.result);
     }
 
     return (
