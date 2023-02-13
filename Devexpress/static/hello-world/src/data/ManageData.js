@@ -113,8 +113,50 @@ export const getIssueLinkType = async (props) => {
     return result.issueLinkTypes;
 };
 
+// const linkNewIssue = async (outwardKey, inwardKey, issueLinkType) => {
+//     let body = {
+//         "outwardIssue": {
+//             "key": outwardKey
+//         },
+//         "inwardIssue": {
+//             "key": inwardKey
+//         },
+//         "type": {
+//             "name": issueLinkType.name
+//         }
+//     }
+//     const response = await requestJira(`/rest/api/2/issueLink`, {
+//         method: 'POST',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(body)
+//     })
+//     console.log(`Response: ${response.status} ${response.statusText}`);
+//     console.log(await response.text());
+// }
+
+// export const updateIssueLink = async (newParentKey, oldParentID, childKey, issueLinkType) => {
+//     if (oldParentID !== null) {
+//         const response = await requestJira(`/rest/api/2/issue/${childKey}?fields=issuelinks`);
+//         const data = await response.json()
+//         const oldIssueLinksChild = await data.fields.issuelinks
+//         const oldIssueLink = await oldIssueLinksChild.find(
+//             element =>
+//             (element.inwardIssue !== undefined &&
+//                 element.type.id === issueLinkType.id &&
+//                 element.inwardIssue.id === oldParentID));
+//         //delete old issue link
+//         deleteIssueLink(oldIssueLink.id)
+//     }
+//     //add new link issue
+//     linkNewIssue(childKey, newParentKey, issueLinkType)
+// }
+
 const deleteIssueLink = async (issueLinkID) => {
-    const response = await requestJira(`/rest/api/2/issueLink/${issueLinkID}`, {
+    console.log("1 inside deleteIssueLink",issueLinkID);
+    const response = await requestJira(`/rest/api/3/issueLink/${issueLinkID}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -123,46 +165,246 @@ const deleteIssueLink = async (issueLinkID) => {
     });
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.text());
-
 }
 
-const linkNewIssue = async (outwardKey, inwardKey, issueLinkType) => {
-    let body = {
-        "outwardIssue": {
-            "key": outwardKey
-        },
-        "inwardIssue": {
-            "key": inwardKey
-        },
-        "type": {
-            "name": issueLinkType.name
-        }
-    }
-    const response = await requestJira(`/rest/api/2/issueLink`, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    })
-    console.log(`Response: ${response.status} ${response.statusText}`);
-    console.log(await response.text());
-}
-
-export const updateIssueLink = async (newParentKey, oldParentID, childKey, issueLinkType) => {
-    if (oldParentID !== null) {
-        const response = await requestJira(`/rest/api/2/issue/${childKey}?fields=issuelinks`);
-        const data = await response.json()
-        const oldIssueLinksChild = await data.fields.issuelinks
-        const oldIssueLink = await oldIssueLinksChild.find(
+const updateIssueLink = async (sourceData, targetData) => {
+  
+    console.log("1 inside updateIssueLink",sourceData);
+    console.log("2 inside updateIssueLink",targetData);
+    const response = await requestJira(`/rest/api/2/issue/${sourceData.id}?fields=issuelinks`);
+    console.log("3 inside updateIssueLink",JSON.stringify(response));
+    const data = await response.json()
+    console.log("4 inside updateIssueLink",data);
+    const oldIssueLinksChild = await data.fields.issuelinks
+    console.log("5 inside updateIssueLink",oldIssueLinksChild);
+    const oldIssueLink = await oldIssueLinksChild.find(
             element =>
-            (element.inwardIssue !== undefined &&
-                element.type.id === issueLinkType.id &&
-                element.inwardIssue.id === oldParentID));
-        //delete old issue link
-        deleteIssueLink(oldIssueLink.id)
-    }
+            (element.inwardIssue.id === targetData.id));
+    //delete old issue link
+    console.log("6 inside updateIssueLink",oldIssueLink);
+    deleteIssueLink(oldIssueLink.id)
+    
     //add new link issue
-    linkNewIssue(childKey, newParentKey, issueLinkType)
+    const responseLink = await requestJira(`/rest/api/2/issue/${targetData.parentId}`);
+    console.log("7 inside updateIssueLink",responseLink);
+    const dataLink = await responseLink.json();
+    console.log("8 inside updateIssueLink",dataLink);
+    savingDragandDrop(sourceData.key, dataLink.key);
+}
+const savingDragandDrop = async (source, target) => {
+   
+    console.log("0 inside savingDragandDrop",source);
+    console.log("1 inside savingDragandDrop",target);
+  
+    let body = {
+      "outwardIssue": {
+          "key": target
+      },
+      "inwardIssue": {
+          "key": source
+      },
+      "type": {
+          "name": issueLinkSelected.name
+      }
+  }
+  console.log("4 inside savingDragandDrop",JSON.stringify(body));
+  try{
+    const response = await requestJira(`/rest/api/3/issueLink`, {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+     })
+    console.log(JSON.stringify(response));
+  }catch(err)
+  {
+    console.log("Error ",JSON.stringify(err));
+  }
+//   let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+//   setDataSource(finalResponse.result);
+}
+
+export const onAddRow = async => (e) {
+
+    console.log("Inside Adding");
+    console.log("0 inside onRowInserting: ",e);
+    let body;
+    if(e.data.issueType === "Story"){
+      body = {
+        fields: {
+          summary: e.data.summary,
+          project: {
+            key: "OEM",
+          },
+          issuetype: {
+            name: e.data.issueType,
+          },
+          "customfield_10042": "https://google.com",
+          "customfield_10034": 8,
+          "customfield_10028": e.data.storyPoint
+        }
+      };
+    }
+    else
+    {
+      body = {
+        fields: {
+          summary: e.data.summary,
+          project: {
+            key: "OEM",
+          },
+          issuetype: {
+            name: e.data.issueType,
+          },
+          "customfield_10042": "https://google.com",
+          "customfield_10034": 8
+        }
+      };
+    }
+
+    let body1 = JSON.stringify(body);
+    console.log("1 inside onRowInserting: ",JSON.stringify(body));
+    const response = await requestJira('/rest/api/3/issue', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: body1
+    })
+  const data  = await response.json();
+  console.log("2 inside onRowInserting: ",JSON.stringify(data));
+  console.log("3 inside onRowInserting: ",data);
+  notify("The selected issue is added successfully");
+  let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+  console.log("4 inside onRowInserting: ",JSON.stringify(finalResponse));
+  return finalResponse.result;
+  //setDataSource(finalResponse.result);
+}
+
+export const onUpdateRow = async (e) => {
+    console.log("Inside Editing");
+        console.log("0 inside onRowUpdating: ",e);
+        let body;
+        let item = 
+        {
+            issueType: e.newData.hasOwnProperty("issueType") ? e.newData.issueType : e.oldData.issueType,
+            summary: e.newData.hasOwnProperty("summary") ? e.newData.summary : e.oldData.summary,
+            storyPoint: e.newData.hasOwnProperty("storyPoint") ? e.newData.storyPoint : e.oldData.storyPoint,
+        }
+        console.log("0.5 inside onRowUpdating: ",item);
+        if(item.issueType === "Story")
+        {
+          body = {
+            fields: {
+              summary: item.summary,
+              project: {
+                key: "OEM",
+              },
+              issuetype: {
+                name: item.issueType,
+              },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8,
+              "customfield_10028": item.storyPoint
+            }
+          };
+        }
+        else
+        {
+          body = {
+            fields: {
+              summary: item.summary,
+              project: {
+                key: "OEM",
+              },
+              issuetype: {
+                name: item.issueType,
+              },
+              "customfield_10042": "https://google.com",
+              "customfield_10034": 8
+            }
+          };
+        }
+
+        let body1 = JSON.stringify(body);
+        console.log("1 inside onRowUpdating: ",JSON.stringify(body));
+        const response = await requestJira(`/rest/api/2/issue/${e.oldData.id}`, {
+            method: 'PUT',
+            headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              body: body1
+            })
+        console.log(`Response: ${response.status} ${response.statusText}`);
+        const data  = await response.json();
+        console.log("1.5 inside onRowUpdating: ",JSON.stringify(data));
+        console.log("2 inside onRowUpdating: ",data);
+        notify("The selected issue is edited successfully");
+        let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+        return finalResponse.result;
+        //setDataSource(finalResponse.result);
+}
+
+export const onReorderData= async (e) => {
+    console.log("0 inside onReorder",e);
+      let visibleRows = e.component.getVisibleRows(),
+        sourceData = e.itemData,
+        targetData = visibleRows[e.toIndex].data;
+  
+      console.log("1 inside onReorder visible rows: ",visibleRows);
+      console.log("2 inside onReorder source: ",sourceData);
+      console.log("3 inside onReorder target: ",targetData);
+
+      if (e.dropInsideItem) {
+        console.log("7 inside onReorder inside if:");
+        if(sourceData.parentId !== -1)
+        {
+          console.log("7.1 inside onReorder inside if inside if:");
+          const response = await requestJira(`/rest/api/2/issue/${sourceData.id}?fields=issuelinks`);
+          const data = await response.json()
+          const oldIssueLinksChild = await data.fields.issuelinks
+          const oldIssueLink = await oldIssueLinksChild.find(
+                    element =>
+                    (element.inwardIssue.id === sourceData.parentId
+                     || element.outwardIssue.id === sourceData.parentId ));
+          deleteIssueLink(oldIssueLink.id)
+          savingDragandDrop(sourceData.key, targetData.key);
+        }
+        else{
+          console.log("7.2 inside onReorder inside if inside else:");
+          savingDragandDrop(sourceData.key, targetData.key);
+        }
+      }
+      else {
+        console.log("8 inside onReorder inside else:");
+        if (sourceData.parentId !== targetData.parentId) 
+        {
+          console.log("9 inside onReorder inside else 1stif:");
+          console.log("9.1 inside onReorder inside else 1stif:",sourceData);
+          if(targetData.parentId !== -1)
+          {
+            console.log("10 inside onReorder inside else 2ndtif:");
+            updateIssueLink(sourceData, targetData);
+          }
+          else
+          {
+            console.log("11 inside onReorder inside else 2ndelse:");
+            const response = await requestJira(`/rest/api/2/issue/${sourceData.id}?fields=issuelinks`);
+            const data = await response.json()
+            const oldIssueLinksChild = await data.fields.issuelinks
+            const oldIssueLink = await oldIssueLinksChild.find(
+                    element =>
+                    (element.outwardIssue.id === sourceData.parentId
+                    || element.inwardIssue.id === sourceData.parentId));
+            deleteIssueLink(oldIssueLink.id)
+          } 
+        }
+      }
+      let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      return finalResponse.result;
+      //setDataSource(finalResponse.result);
 }
