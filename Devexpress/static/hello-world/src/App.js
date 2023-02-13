@@ -78,15 +78,31 @@ function App() {
     }
 
     const onRowInserting = async (e) => 
-    { // we have option to cancel insert when cannot create new issue via API  
+    { // we have option to cancel insert when cannot create new issue via API 
+      console.log("inside onRowInserting: ");
       let response = await onAddRow(e, projectSelected.name, issueLinkSelected, issueKey);
       setDataSource(response);
     }
 
+    const onRowInserted = async () => 
+    {
+      console.log("inside onRowInserted: ");
+      let response = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      setDataSource(response.result);
+    }
+
     const onRowUpdating = async (e) => 
     {
+      console.log("inside onRowUpdating: ");
       let response = await onUpdateRow(e, projectSelected.name, issueLinkSelected, issueKey);
       setDataSource(response);
+    }
+
+    const onRowUpdated = async (e) => 
+    {
+      console.log("inside onRowUpdated: ");
+      let response = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      setDataSource(response.result);
     }
 
     const onInitNewRow = (e) => {
@@ -182,6 +198,8 @@ function App() {
                     onInitNewRow={onInitNewRow}
                     onRowInserting={onRowInserting}
                     onRowUpdating={onRowUpdating}
+                    onRowInserted={onRowInserted}
+                    onRowUpdated={onRowUpdated}
                 >
                     {/* <RemoteOperations filtering={true} /> */}
                     <Editing

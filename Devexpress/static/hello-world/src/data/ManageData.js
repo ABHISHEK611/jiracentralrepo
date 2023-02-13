@@ -357,6 +357,7 @@ export const onUpdateRow = async (e, projectName, issueLinkSelected, issueKey) =
         console.log("2 inside onRowUpdating: ",data);
         notify("The selected issue is edited successfully");
         let finalResponse = await getIssueData(projectName, issueLinkSelected, issueKey);
+        console.log("3 inside onRowUpdating: ",JSON.stringify(finalResponse));
         return finalResponse.result;
         //setDataSource(finalResponse.result);
 }
