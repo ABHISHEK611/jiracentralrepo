@@ -224,11 +224,11 @@ const savingDragandDrop = async (source, target, issueLinkSelected) => {
   {
     console.log("Error ",JSON.stringify(err));
   }
-//   let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+//   let finalResponse = await getIssueData(projectName, issueLinkSelected, issueKey);
 //   setDataSource(finalResponse.result);
 }
 
-export const onAddRow = async (e, projectSelected.name, issueLinkSelected, issueKey) =>  {
+export const onAddRow = async (e, projectName, issueLinkSelected, issueKey) =>  {
 
     console.log("Inside Adding");
     console.log("0 inside onRowInserting: ",e);
@@ -289,13 +289,13 @@ export const onAddRow = async (e, projectSelected.name, issueLinkSelected, issue
         savingDragandDrop(data.key,dataLink.key,issueLinkSelected);
       }
   notify("The selected issue is added successfully");
-  let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+  let finalResponse = await getIssueData(projectName, issueLinkSelected, issueKey);
   console.log("4 inside onRowInserting: ",JSON.stringify(finalResponse));
   return finalResponse.result;
   //setDataSource(finalResponse.result);
 }
 
-export const onUpdateRow = async (e, projectSelected.name, issueLinkSelected, issueKey) => {
+export const onUpdateRow = async (e, projectName, issueLinkSelected, issueKey) => {
     console.log("Inside Editing");
         console.log("0 inside onRowUpdating: ",e);
         let body;
@@ -355,12 +355,12 @@ export const onUpdateRow = async (e, projectSelected.name, issueLinkSelected, is
         console.log("1.5 inside onRowUpdating: ",JSON.stringify(data));
         console.log("2 inside onRowUpdating: ",data);
         notify("The selected issue is edited successfully");
-        let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+        let finalResponse = await getIssueData(projectName, issueLinkSelected, issueKey);
         return finalResponse.result;
         //setDataSource(finalResponse.result);
 }
 
-export const onReorderData= async (e, projectSelected.name, issueLinkSelected, issueKey) => {
+export const onReorderData= async (e, projectName, issueLinkSelected, issueKey) => {
     console.log("0 inside onReorder",e);
       let visibleRows = e.component.getVisibleRows(),
         sourceData = e.itemData,
@@ -413,7 +413,7 @@ export const onReorderData= async (e, projectSelected.name, issueLinkSelected, i
           }
         }
       }
-      let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      let finalResponse = await getIssueData(projectName, issueLinkSelected, issueKey);
       return finalResponse.result;
       //setDataSource(finalResponse.result);
 }
