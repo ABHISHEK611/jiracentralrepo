@@ -226,7 +226,7 @@ const savingDragandDrop = async (source, target) => {
 //   setDataSource(finalResponse.result);
 }
 
-export const onAddRow = async => (e) {
+export const onAddRow = async (e) =>  {
 
     console.log("Inside Adding");
     console.log("0 inside onRowInserting: ",e);
