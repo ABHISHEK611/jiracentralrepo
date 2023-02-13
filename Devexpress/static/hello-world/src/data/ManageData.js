@@ -193,6 +193,7 @@ const updateIssueLink = async (sourceData, targetData, issueLinkSelected) => {
     console.log("8 inside updateIssueLink",dataLink);
     savingDragandDrop(sourceData.key, dataLink.key, issueLinkSelected);
 }
+
 const savingDragandDrop = async (source, target, issueLinkSelected) => {
    
     console.log("0 inside savingDragandDrop",source);
@@ -200,10 +201,10 @@ const savingDragandDrop = async (source, target, issueLinkSelected) => {
   
     let body = {
       "outwardIssue": {
-          "key": target
+          "key": source
       },
       "inwardIssue": {
-          "key": source
+          "key": target
       },
       "type": {
           "name": issueLinkSelected.name
