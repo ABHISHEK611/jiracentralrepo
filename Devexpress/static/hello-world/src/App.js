@@ -79,13 +79,13 @@ function App() {
 
     const onRowInserting = async (e) => 
     { // we have option to cancel insert when cannot create new issue via API  
-      let response = await onAddRow(e);
+      let response = await onAddRow(e, projectSelected.name, issueLinkSelected, issueKey);
       setDataSource(response);
     }
 
     const onRowUpdating = async (e) => 
     {
-      let response = await onUpdateRow(e);
+      let response = await onUpdateRow(e, projectSelected.name, issueLinkSelected, issueKey);
       setDataSource(response);
     }
 
@@ -113,7 +113,7 @@ function App() {
   }
   
     const onReorder = async (e) => {
-      let response = await onReorderData(e);
+      let response = await onReorderData(e, projectSelected.name, issueLinkSelected, issueKey);
       setDataSource(response);
     }
 

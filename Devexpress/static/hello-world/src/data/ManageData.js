@@ -1,4 +1,6 @@
-import { requestJira } from "@forge/bridge"
+import { requestJira } from "@forge/bridge";
+import notify from 'devextreme/ui/notify';
+import api, { route } from "@forge/api";
 
 const data = async (projects, linkType, issueKey) => {
     // let listProject = projects.map(element => JSON.stringify(element.key))
@@ -167,7 +169,7 @@ const deleteIssueLink = async (issueLinkID) => {
     console.log(await response.text());
 }
 
-const updateIssueLink = async (sourceData, targetData) => {
+const updateIssueLink = async (sourceData, targetData, issueLinkSelected) => {
   
     console.log("1 inside updateIssueLink",sourceData);
     console.log("2 inside updateIssueLink",targetData);
@@ -189,9 +191,9 @@ const updateIssueLink = async (sourceData, targetData) => {
     console.log("7 inside updateIssueLink",responseLink);
     const dataLink = await responseLink.json();
     console.log("8 inside updateIssueLink",dataLink);
-    savingDragandDrop(sourceData.key, dataLink.key);
+    savingDragandDrop(sourceData.key, dataLink.key, issueLinkSelected);
 }
-const savingDragandDrop = async (source, target) => {
+const savingDragandDrop = async (source, target, issueLinkSelected) => {
    
     console.log("0 inside savingDragandDrop",source);
     console.log("1 inside savingDragandDrop",target);
@@ -226,7 +228,7 @@ const savingDragandDrop = async (source, target) => {
 //   setDataSource(finalResponse.result);
 }
 
-export const onAddRow = async (e) =>  {
+export const onAddRow = async (e, projectSelected.name, issueLinkSelected, issueKey) =>  {
 
     console.log("Inside Adding");
     console.log("0 inside onRowInserting: ",e);
@@ -277,6 +279,15 @@ export const onAddRow = async (e) =>  {
   const data  = await response.json();
   console.log("2 inside onRowInserting: ",JSON.stringify(data));
   console.log("3 inside onRowInserting: ",data);
+  if(e.data.parentId !== -1)
+      {
+        console.log("4.5 inside dataLink: ",e.data.parentId);
+        const responseLink = await requestJira(`/rest/api/2/issue/${e.data.parentId}`);
+        console.log("5 responseLink: ",JSON.stringify(responseLink));
+        const dataLink = await responseLink.json();
+        console.log("5.5 dataLink in json:",dataLink);
+        savingDragandDrop(data.key,dataLink.key,issueLinkSelected);
+      }
   notify("The selected issue is added successfully");
   let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
   console.log("4 inside onRowInserting: ",JSON.stringify(finalResponse));
@@ -284,7 +295,7 @@ export const onAddRow = async (e) =>  {
   //setDataSource(finalResponse.result);
 }
 
-export const onUpdateRow = async (e) => {
+export const onUpdateRow = async (e, projectSelected.name, issueLinkSelected, issueKey) => {
     console.log("Inside Editing");
         console.log("0 inside onRowUpdating: ",e);
         let body;
@@ -349,7 +360,7 @@ export const onUpdateRow = async (e) => {
         //setDataSource(finalResponse.result);
 }
 
-export const onReorderData= async (e) => {
+export const onReorderData= async (e, projectSelected.name, issueLinkSelected, issueKey) => {
     console.log("0 inside onReorder",e);
       let visibleRows = e.component.getVisibleRows(),
         sourceData = e.itemData,
@@ -369,14 +380,13 @@ export const onReorderData= async (e) => {
           const oldIssueLinksChild = await data.fields.issuelinks
           const oldIssueLink = await oldIssueLinksChild.find(
                     element =>
-                    (element.inwardIssue.id === sourceData.parentId
-                     || element.outwardIssue.id === sourceData.parentId ));
+                    (element.inwardIssue.id === sourceData.parentId));
           deleteIssueLink(oldIssueLink.id)
-          savingDragandDrop(sourceData.key, targetData.key);
+          savingDragandDrop(sourceData.key, targetData.key, issueLinkSelected);
         }
         else{
           console.log("7.2 inside onReorder inside if inside else:");
-          savingDragandDrop(sourceData.key, targetData.key);
+          savingDragandDrop(sourceData.key, targetData.key, issueLinkSelected);
         }
       }
       else {
@@ -388,7 +398,7 @@ export const onReorderData= async (e) => {
           if(targetData.parentId !== -1)
           {
             console.log("10 inside onReorder inside else 2ndtif:");
-            updateIssueLink(sourceData, targetData);
+            updateIssueLink(sourceData, targetData, issueLinkSelected);
           }
           else
           {
@@ -398,10 +408,9 @@ export const onReorderData= async (e) => {
             const oldIssueLinksChild = await data.fields.issuelinks
             const oldIssueLink = await oldIssueLinksChild.find(
                     element =>
-                    (element.outwardIssue.id === sourceData.parentId
-                    || element.inwardIssue.id === sourceData.parentId));
+                    (element.outwardIssue.id === sourceData.parentId));
             deleteIssueLink(oldIssueLink.id)
-          } 
+          }
         }
       }
       let finalResponse = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
