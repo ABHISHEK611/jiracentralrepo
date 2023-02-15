@@ -131,6 +131,8 @@ function App() {
     const onReorder = async (e) => {
       let response = await onReorderData(e, projectSelected.name, issueLinkSelected, issueKey);
       setDataSource(response);
+      let response = await getIssueData(projectSelected.name, issueLinkSelected, issueKey);
+      setDataSource(response.result);
     }
 
     return (
