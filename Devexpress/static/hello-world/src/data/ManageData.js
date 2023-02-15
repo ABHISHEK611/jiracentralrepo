@@ -410,7 +410,7 @@ export const onReorderData= async (e, projectName, issueLinkSelected, issueKey) 
             const oldIssueLinksChild = await data.fields.issuelinks
             const oldIssueLink = await oldIssueLinksChild.find(
                     element =>
-                    (element.outwardIssue.id === sourceData.parentId));
+                    (element.inwardIssue.id === sourceData.parentId));
             deleteIssueLink(oldIssueLink.id)
           }
         }
